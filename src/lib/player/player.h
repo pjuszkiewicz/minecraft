@@ -108,7 +108,7 @@ public:
             VelocityY = 0;
         }
 
-        camera.Position = Position;
+        camera.Position = glm::vec3(Position.x, Position.y + 0.5f, Position.z);
         Position.y += VelocityY;
     }
 };

@@ -10,6 +10,7 @@
 #include "lib/player/player.h"
 #include "lib/buffers/vbo.h"
 #include "lib/buffers/vao.h"
+#include "lib/block/block.h"
 
 #include "lib/objects/cube.h"
 
@@ -39,10 +40,13 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+Block blocks[100];
+
+
+
 int main()
 {
     GLFWwindow *window = createWindow();
-
 
     glEnable(GL_DEPTH_TEST);
 
@@ -64,27 +68,23 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        vao.Bind();
-
-        wall.use(0);
-        shader.use();
-
         glm::mat4 projection = glm::perspective(45.0f, (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         shader.setMat4("projection", projection);
 
         glm::mat4 view = player.camera.GetViewMatrix();
         shader.setMat4("view", view);
 
-        for (unsigned int x = 0; x < 100; x++)
-        {
-            for (unsigned int z = 0; z < 100; z++)
-            {
-                glm::mat4 model = glm::mat4(1.0f);
-                model = glm::translate(model, glm::vec3(x, -2, z));
+        vao.Bind();
+        wall.use(0);
+        shader.use();
 
-                shader.setMat4("model", model);
-                glDrawArrays(GL_TRIANGLES, 0, 36);
-            }
+        for (int i = 0; i < 4; i++)
+        {
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, blocks[i].Position);
+
+            shader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
         player.Update(deltaTime);
@@ -137,7 +137,6 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
         player.HandlePlayerMove(WALK, deltaTime);
 
-
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         player.HandlePlayerMove(FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -147,7 +146,8 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         player.HandlePlayerMove(RIGHT, deltaTime);
 
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
         player.HandlePlayerMove(JUMP, deltaTime);
     }
 }
