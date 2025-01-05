@@ -1,7 +1,7 @@
 #ifndef VAO_H
 #define VAO_H
 
-#include <glad/glad.h>
+#include "../../lib/glad/glad.h"
 
 class VAO{
     public:

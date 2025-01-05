@@ -1,12 +1,12 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <glad/glad.h>
+#include "../../lib/glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-constexpr unsigned int SCR_WIDTH = 1280;
-constexpr unsigned int SCR_HEIGHT = 720;
+const int SCR_WIDTH = 1280;
+const int SCR_HEIGHT = 720;
 
 class Window {
 public:

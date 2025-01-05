@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+#include "lib/glad/glad.h"
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -19,7 +19,7 @@
 #include "lib/objects/cube.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "./lib/stb_image.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -32,7 +32,7 @@ float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 
 int main() {
-    Game game{};
+    Game game;
 
     //
     // // Load textures

@@ -1,7 +1,7 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include <glad/glad.h>
+#include "../../lib/glad/glad.h"
 
 float CubeVertices[] = {
     //back
