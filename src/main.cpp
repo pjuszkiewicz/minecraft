@@ -128,12 +128,18 @@ int main()
             {
                 Chunk chunk = chunks[i][j];
                 Chunk *backChunk = nullptr;
+                Chunk *rightChunk = nullptr;
 
                 if (i - 1 > 0)
                 {
                     backChunk = &chunks[i - 1][j];
                     std::cout << "TEst" << std::endl;
                 }
+
+                if(i < RENDER_CHUNKS) {
+                    rightChunk = &chunks[i+1][j];
+                }
+
 
                 // if (backChunk != nullptr)
                 // {
@@ -185,8 +191,20 @@ int main()
                             // right face
                             if (x == CHUNK_WIDTH - 1 || (x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].Type == AIR))
                             {
-                                rightTexture.use(0);
-                                glDrawArrays(GL_TRIANGLES, 18, 6);
+                                bool draw = true;
+
+                                if(rightChunk != nullptr && x == CHUNK_WIDTH - 1) {
+                                    Block b = rightChunk->blocks[0][y][z];
+                                    if (b.Type != BlockType::AIR) {
+                                        draw = false;
+                                    }
+                                }
+
+                                if (draw)
+                                {
+                                    rightTexture.use(0);
+                                    glDrawArrays(GL_TRIANGLES, 18, 6);
+                                }
                             }
 
                             // bottom face

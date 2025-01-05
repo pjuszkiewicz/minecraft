@@ -1,0 +1,6 @@
+# ninja log v6
+1	82	1736084643249465027	CMakeFiles/minecraft.dir/src/glad.c.o	3b4b061b2a513e0f
+1	1011	1736084643249465027	CMakeFiles/minecraft.dir/src/main.cpp.o	cd34bb9ebc4675e6
+1012	1077	1736084644260488354	minecraft	f40eda8c0514c56d
+1	891	1736084817735490833	CMakeFiles/minecraft.dir/src/main.cpp.o	cd34bb9ebc4675e6
+891	930	1736084818625511368	minecraft	f40eda8c0514c56d

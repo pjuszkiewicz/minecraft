@@ -1,0 +1,3 @@
+/home/piotr/Development/C++/Minecraft/cmake-build-debug/CMakeFiles/minecraft.dir
+/home/piotr/Development/C++/Minecraft/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/piotr/Development/C++/Minecraft/cmake-build-debug/CMakeFiles/rebuild_cache.dir
