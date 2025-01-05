@@ -20,6 +20,8 @@ enum PlayerMovement
     WALK
 };
 
+const glm::vec3 WorldUp(0.0f, 1.0f, 0.0f);
+
 class Player
 {
 public:
@@ -89,27 +91,28 @@ public:
 
     void UpdateVectors()
     {
+        // glm::vec3 front;
+        // front.x = cos(glm::radians(Yaw));
+        // front.y = 0;
+        // front.z = sin(glm::radians(Yaw));
+        // Front = glm::normalize(front);
+
+        // Right = glm::normalize(glm::cross(Front, WORLD_UP));
+        // Up = glm::normalize(glm::cross(Right, Front));
         glm::vec3 front;
-        front.x = cos(glm::radians(Yaw));
-        front.y = 0;
-        front.z = sin(glm::radians(Yaw));
+        front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+        front.y = sin(glm::radians(Pitch));
+        front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
         Front = glm::normalize(front);
 
-        Right = glm::normalize(glm::cross(Front, WORLD_UP));
+        Right = glm::normalize(glm::cross(Front, WorldUp));
         Up = glm::normalize(glm::cross(Right, Front));
     }
 
     void Update(float deltaTime)
     {
-        VelocityY -= 0.5f * deltaTime;
-        if (Position.y < 0 && VelocityY < 0)
-        {
-            IsGrounded = true;
-            VelocityY = 0;
-        }
-
+        // std::cout << "x: " << Position.x << ", y: " << Position.y << ", z: " << Position.z << std::endl;
         camera.Position = glm::vec3(Position.x, Position.y + 0.5f, Position.z);
-        Position.y += VelocityY;
     }
 };
 
