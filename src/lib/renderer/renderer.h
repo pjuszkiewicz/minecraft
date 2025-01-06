@@ -32,6 +32,8 @@ public:
     Texture *backTexture;
     Texture *frontTexture;
 
+    Texture *texturePack;
+
     Renderer() {
         glm::vec3 *cubePositions = new glm::vec3[1000000];
 
@@ -50,15 +52,26 @@ public:
         glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 1000000, &cubePositions[0], GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-        glGenVertexArrays(1, &quadVAO);
-        glGenBuffers(1, &quadVBO);
-        glBindVertexArray(quadVAO);
-        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) 0);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
+        vbo = new VBO(CubeVertices, sizeof(CubeVertices));
+        vbo->Bind();
+
+        vao = new VAO();
+        vao->Bind();
+        vao->LinkAttrib(0, 3, GL_FALSE, 5 * sizeof(float), (void *) 0);
+        vao->LinkAttrib(1, 2, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
+
+        // glGenBuffers(1, &quadVBO);
+        // glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+        // glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
+
+        // glGenVertexArrays(1, &quadVAO);
+        // glBindVertexArray(quadVAO);
+        //
+        // glEnableVertexAttribArray(0);
+        // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) 0);
+        // glEnableVertexAttribArray(1);
+        // glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
+
         // also set instance data
         glEnableVertexAttribArray(2);
         glBindBuffer(GL_ARRAY_BUFFER, instanceVBO); // this attribute comes from a different vertex buffer
@@ -100,6 +113,8 @@ public:
         rightTexture = new Texture((assetsPath + "/textures/right.png").c_str(), GL_RGBA);
         backTexture = new Texture((assetsPath + "/textures/back.png").c_str(), GL_RGBA);
         frontTexture = new Texture((assetsPath + "/textures/front.png").c_str(), GL_RGBA);
+
+        texturePack = new Texture((assetsPath + "/textures/texturepack.png").c_str(), GL_RGBA);
     }
 
     ~Renderer() {
@@ -129,11 +144,12 @@ public:
         // vbo->Bind();
 
         dirtTexture->use(0);
+        // texturePack->use(0);
 
 
-        // vao->Bind();
+        vao->Bind();
 
-        glBindVertexArray(quadVAO);
+        // glBindVertexArray(quadVAO);
         glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 1000000);
 
         vao->Unbind();

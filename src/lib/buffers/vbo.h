@@ -10,9 +10,8 @@ public:
     VBO(const auto &vertices, const GLsizeiptr size)
     {
         glGenBuffers(1, &ID);
-        glBindBuffer(GL_ARRAY_BUFFER, ID);
-        glBufferData(GL_ARRAY_BUFFER, size, &vertices, GL_STATIC_DRAW);
-        Unbind();
+        Bind();
+        glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
     }
 
     void Bind()
