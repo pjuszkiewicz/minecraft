@@ -9,18 +9,18 @@ const int CHUNK_HEIGHT = 16;
 
 class Chunk{
     public:
-    float PosX;
-    float PosZ;
+    float x;
+    float z;
     Block blocks[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
 
     Chunk() {
-        PosX = 0;
-        PosZ = 0;
+        x = 0;
+        z = 0;
     }
 
     Chunk(float x, float z) {
-        PosX = x;
-        PosZ = z;
+        this->x = x;
+        this->z = z;
     }
 };
 

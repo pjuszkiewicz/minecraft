@@ -57,7 +57,7 @@ build CMakeFiles/minecraft.dir/src/glad.c.o: C_COMPILER__minecraft_unscanned_Deb
 
 build CMakeFiles/minecraft.dir/src/main.cpp.o: CXX_COMPILER__minecraft_unscanned_Debug /Users/piotr/Development/C++/minecraft/src/main.cpp || cmake_object_order_depends_target_minecraft
   DEP_FILE = CMakeFiles/minecraft.dir/src/main.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src
 

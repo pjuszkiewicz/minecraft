@@ -8,6 +8,10 @@
 const int SCR_WIDTH = 1280;
 const int SCR_HEIGHT = 720;
 
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+    glViewport(0, 0, width, height);
+}
+
 class Window {
 public:
     GLFWwindow *glfwWindow;
@@ -32,9 +36,8 @@ public:
             glfwTerminate();
         }
         glfwMakeContextCurrent(glfwWindow);
-        // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        //    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-        //    glfwSetCursorPosCallback(window, mouse_callback);
+
+        glfwSetFramebufferSizeCallback(glfwWindow, framebuffer_size_callback);
 
         loadGlad();
 
@@ -44,10 +47,8 @@ public:
     }
 
     bool shouldClose() const {
-        // if (!window) return false;
         return glfwWindowShouldClose(glfwWindow);
     }
-
 
     int loadGlad() {
         if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
@@ -56,59 +57,6 @@ public:
         }
 
         return 0;
-    }
-
-
-    void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
-        //    float xpos = static_cast<float>(xposIn);
-        //    float ypos = static_cast<float>(yposIn);
-        //
-        //    if (firstMouse)
-        //    {
-        //        lastX = xpos;
-        //        lastY = ypos;
-        //        firstMouse = false;
-        //    }
-        //
-        //    float xoffset = xpos - lastX;
-        //    float yoffset = lastY - ypos;
-        //
-        //    lastX = xpos;
-        //    lastY = ypos;
-        //
-        //    player.HandleMouseMove(xoffset, yoffset);
-    }
-
-    void processInput(GLFWwindow *window) {
-        //    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        //        glfwSetWindowShouldClose(window, true);
-        //
-        //    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-        //        player.HandlePlayerMove(SPRINT, deltaTime);
-        //    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
-        //        player.HandlePlayerMove(WALK, deltaTime);
-        //
-        //    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        //        player.HandlePlayerMove(FORWARD, deltaTime);
-        //    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        //        player.HandlePlayerMove(BACKWARD, deltaTime);
-        //    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        //        player.HandlePlayerMove(LEFT, deltaTime);
-        //    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        //        player.HandlePlayerMove(RIGHT, deltaTime);
-        //
-        //    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        //        player.HandlePlayerMove(JUMP, deltaTime);
-        //
-        //    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
-        //        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        //    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-        //        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-
-
-    void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-        glViewport(0, 0, width, height);
     }
 };
 

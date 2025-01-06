@@ -6,7 +6,7 @@
 
 const float MOUSE_SENSITIVITY = 0.1f;
 const float WALK_SPEED = 3.5f;
-const float SPRINT_SPEED = 6.0f;
+const float SPRINT_SPEED = 12.0f;
 const glm::vec3 WORLD_UP(0.0f, 1.0f, 0.0f);
 
 enum PlayerMovement
@@ -109,7 +109,7 @@ public:
         Up = glm::normalize(glm::cross(Right, Front));
     }
 
-    void Update(float deltaTime)
+    void update(float deltaTime)
     {
         // std::cout << "x: " << Position.x << ", y: " << Position.y << ", z: " << Position.z << std::endl;
         camera.Position = glm::vec3(Position.x, Position.y + 0.5f, Position.z);
