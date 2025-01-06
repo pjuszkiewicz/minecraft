@@ -92,7 +92,7 @@ public:
 
         diamondTexture = new Texture((assetsPath + "/textures/diamond_block.png").c_str(),
                                      GL_RGBA);
-        dirtTexture = new Texture((assetsPath + "/textures/dirt.png").c_str(), GL_RGBA);
+        dirtTexture = new Texture((assetsPath + "/textures/dirt.png").c_str(), GL_RGB);
 
         bottomTexture = new Texture((assetsPath + "/textures/bottom.png").c_str(), GL_RGBA);
         topTexture = new Texture((assetsPath + "/textures/top.png").c_str(), GL_RGBA);
