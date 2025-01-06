@@ -15,6 +15,10 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 class Window {
 public:
     GLFWwindow *glfwWindow;
+    GLFWmonitor *glfwMonitor;
+    const GLFWvidmode *glfwVideoMode;
+
+    bool isFullscreen = false;
 
     Window() {
         createWindow();
@@ -42,6 +46,12 @@ public:
         loadGlad();
 
         glEnable(GL_DEPTH_TEST);
+        glEnable(GL_MULTISAMPLE);
+        glfwWindowHint(GLFW_SAMPLES, 16);
+
+        glfwMonitor = glfwGetPrimaryMonitor();
+        glfwVideoMode = glfwGetVideoMode(glfwMonitor);
+
 
         return glfwWindow;
     }
@@ -57,6 +67,18 @@ public:
         }
 
         return 0;
+    }
+
+    void toggleFullscreen() {
+        if (isFullscreen) {
+            // Przełącz na tryb okienkowy
+            glfwSetWindowMonitor(glfwWindow, NULL, 100, 100, 1280, 720, 0);
+        } else {
+            // Przełącz na tryb pełnoekranowy
+            glfwSetWindowMonitor(glfwWindow, glfwMonitor, 0, 0, glfwVideoMode->width, glfwVideoMode->height,
+                                 glfwVideoMode->refreshRate);
+        }
+        isFullscreen = !isFullscreen;
     }
 };
 

@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include "../block/block.h"
 
-const int CHUNK_WIDTH = 16;
+const int CHUNK_WIDTH = 32;
 const int CHUNK_HEIGHT = 16;
 
 class Chunk{

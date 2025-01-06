@@ -8,7 +8,10 @@
 
 #include <vector>
 
-const int RENDER_CHUNKS = 2;
+const int RENDER_DISTANCE = 4;
+
+// const std::string assetsPath = "/Users/piotr/Development/C++/minecraft/src/assets";
+const std::string assetsPath = "/home/piotr/Development/C++/Minecraft/src/assets";
 
 class Renderer {
 public:
@@ -33,19 +36,19 @@ public:
         vao->LinkAttrib(0, 3, GL_FLOAT, 5 * sizeof(float), (void *) (0));
         vao->LinkAttrib(1, 2, GL_FLOAT, 5 * sizeof(float), (void *) (3 * sizeof(float)));
 
-        shader = new Shader("/Users/piotr/Development/C++/minecraft/src/assets/shaders/example/vertex.vs",
-                            "/Users/piotr/Development/C++/minecraft/src/assets/shaders/example/fragment.fs");
+        shader = new Shader((assetsPath + "/shaders/example/vertex.vs").c_str(),
+                            (assetsPath + "/shaders/example/fragment.fs").c_str());
 
-        diamondTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/diamond_block.png",
+        diamondTexture = new Texture((assetsPath + "/textures/diamond_block.png").c_str(),
                                      GL_RGBA);
-        dirtTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/dirt.png", GL_RGBA);
+        dirtTexture = new Texture((assetsPath + "/textures/dirt.png").c_str(), GL_RGBA);
 
-        bottomTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/bottom.png", GL_RGBA);
-        topTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/top.png", GL_RGBA);
-        leftTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/left.png", GL_RGBA);
-        rightTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/right.png", GL_RGBA);
-        backTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/back.png", GL_RGBA);
-        frontTexture = new Texture("/Users/piotr/Development/C++/minecraft/src/assets/textures/front.png", GL_RGBA);
+        bottomTexture = new Texture((assetsPath + "/textures/bottom.png").c_str(), GL_RGBA);
+        topTexture = new Texture((assetsPath + "/textures/top.png").c_str(), GL_RGBA);
+        leftTexture = new Texture((assetsPath + "/textures/left.png").c_str(), GL_RGBA);
+        rightTexture = new Texture((assetsPath + "/textures/right.png").c_str(), GL_RGBA);
+        backTexture = new Texture((assetsPath + "/textures/back.png").c_str(), GL_RGBA);
+        frontTexture = new Texture((assetsPath + "/textures/front.png").c_str(), GL_RGBA);
     }
 
     ~Renderer() {
@@ -67,7 +70,7 @@ public:
     ) {
         clear();
         update_shader(player);
-        draw_new_chunks(chunks);
+        draw_new_chunks(chunks, player);
     }
 
     void update_shader(Player *player) {
@@ -80,18 +83,31 @@ public:
         shader->setMat4("view", view);
     }
 
-    void draw_new_chunks(const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks) const {
+    void draw_new_chunks(const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks, Player *player) const {
         vbo->Bind();
         vao->Bind();
 
-        for (const auto &[key, value]: chunks) {
-            draw_chunk(chunks, value);
+        float playerX = player->Position.x / CHUNK_WIDTH;
+        float playerZ = player->Position.z / CHUNK_WIDTH;
+
+        for (int i = playerX - RENDER_DISTANCE; i <= playerX + RENDER_DISTANCE; i++) {
+            for (int j = playerZ - RENDER_DISTANCE; j <= playerZ + RENDER_DISTANCE; j++) {
+                auto it = chunks.find(std::make_pair(i, j));
+                if (it != chunks.end()) {
+                    const Chunk& chunk = it->second;
+                    draw_chunk(chunks, chunk);
+                }
+
+                // if (chunks.count(std::make_pair(i, j)) != 0) {
+                //     Chunk chunk = chunks.at(std::make_pair(i, j));
+                //     draw_chunk(chunks, chunk);
+                // }
+            }
         }
     }
 
-    void draw_chunk(std::unordered_map<std::pair<int, int>, Chunk, PairHash> chunks, Chunk chunk) const {
+    void draw_chunk(const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks, const Chunk &chunk) const {
         dirtTexture->use(0);
-
         for (int x = 0; x < CHUNK_WIDTH; x++) {
             for (int y = 0; y < CHUNK_HEIGHT; y++) {
                 for (int z = 0; z < CHUNK_WIDTH; z++) {
@@ -104,10 +120,10 @@ public:
 
                     bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z].Type != AIR;
                     if (x == 0) {
-                        std::pair<int, int> key = {chunk.x - 1, chunk.z};
+                        auto it = chunks.find(std::make_pair(chunk.x - 1, chunk.z));
 
-                        if (chunks.count(key) == 1) {
-                            Chunk collidingChunk = chunks[key];
+                        if (it != chunks.end()) {
+                            const Chunk& collidingChunk = it->second;
 
                             if (collidingChunk.blocks[CHUNK_WIDTH - 1][y][z].Type != AIR) {
                                 isLeftColliding = true;
@@ -117,10 +133,10 @@ public:
 
                     bool isRightColliding = x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].Type != AIR;
                     if (x == CHUNK_WIDTH - 1) {
-                        std::pair<int, int> key = {chunk.x + 1, chunk.z};
+                        auto it = chunks.find(std::make_pair(chunk.x + 1, chunk.z));
 
-                        if (chunks.count(key) == 1) {
-                            Chunk collidingChunk = chunks[key];
+                        if (it != chunks.end()) {
+                            const Chunk& collidingChunk = it->second;
 
                             if (collidingChunk.blocks[0][y][z].Type != AIR) {
                                 isRightColliding = true;
@@ -130,10 +146,10 @@ public:
 
                     bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1].Type != AIR;
                     if (z == 0) {
-                        std::pair<int, int> key = {chunk.x, chunk.z - 1};
+                        auto it = chunks.find(std::make_pair(chunk.x, chunk.z - 1));
 
-                        if (chunks.count(key) == 1) {
-                            Chunk collidingChunk = chunks[key];
+                        if (it != chunks.end()) {
+                            const Chunk& collidingChunk = it->second;
 
                             if (collidingChunk.blocks[x][y][CHUNK_WIDTH - 1].Type != AIR) {
                                 isFrontColliding = true;
@@ -143,10 +159,10 @@ public:
 
                     bool isBackColliding = z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1].Type != AIR;
                     if (z == CHUNK_WIDTH - 1) {
-                        std::pair<int, int> key = {chunk.x, chunk.z + 1};
+                        auto it = chunks.find(std::make_pair(chunk.x, chunk.z + 1));
 
-                        if (chunks.count(key) == 1) {
-                            Chunk collidingChunk = chunks[key];
+                        if (it != chunks.end()) {
+                            const Chunk& collidingChunk = it->second;
 
                             if (collidingChunk.blocks[x][y][0].Type != AIR) {
                                 isBackColliding = true;
@@ -164,35 +180,35 @@ public:
 
                     // front face
                     if (!isFrontColliding) {
-                        backTexture->use(0);
+                        // backTexture->use(0);
                         glDrawArrays(GL_TRIANGLES, 0, 6);
                     }
 
                     // back face
                     if (!isBackColliding) {
-                        frontTexture->use(0);
+                        // frontTexture->use(0);
                         glDrawArrays(GL_TRIANGLES, 6, 6);
                     }
 
                     // left face
                     if (!isLeftColliding) {
-                        leftTexture->use(0);
+                        // leftTexture->use(0);
                         glDrawArrays(GL_TRIANGLES, 12, 6);
                     }
 
                     // right face
                     if (!isRightColliding) {
-                        rightTexture->use(0);
+                        // rightTexture->use(0);
                         glDrawArrays(GL_TRIANGLES, 18, 6);
                     }
 
                     if (!isTopColliding) {
-                        topTexture->use(0);
+                        // topTexture->use(0);
                         glDrawArrays(GL_TRIANGLES, 30, 6);
                     }
 
                     if (!isBottomColliding) {
-                        bottomTexture->use(0);
+                        // bottomTexture->use(0);
                         glDrawArrays(GL_TRIANGLES, 24, 6);
                     }
                 }

@@ -111,7 +111,6 @@ public:
 
     void update(float deltaTime)
     {
-        // std::cout << "x: " << Position.x << ", y: " << Position.y << ", z: " << Position.z << std::endl;
         camera.Position = glm::vec3(Position.x, Position.y + 0.5f, Position.z);
     }
 };

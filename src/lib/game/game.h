@@ -11,9 +11,8 @@ public:
     Window *window;
     Renderer *renderer;
     Player *player;
-    Chunk chunks[RENDER_CHUNKS][RENDER_CHUNKS];
 
-    std::unordered_map<std::pair<int, int>, Chunk, PairHash> newChunks;
+    std::unordered_map<std::pair<int, int>, Chunk, PairHash> chunks;
 
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
@@ -22,6 +21,9 @@ public:
     float lastY = SCR_HEIGHT / 2.0f;
 
     bool firstMouse = true;
+
+    int fps = 0;
+    float lastFpsTime = 0.0f;
 
     Game() {
         window = new Window();
@@ -40,8 +42,9 @@ public:
     void loop() {
         while (!window->shouldClose()) {
             updateDeltaTime();
+            updateFpsTime();
             player->update(deltaTime);
-            renderer->draw(player, newChunks);
+            renderer->draw(player, chunks);
 
 
             // opengl stuff
@@ -60,22 +63,25 @@ public:
         lastFrame = currentFrame;
     }
 
+    void updateFpsTime() {
+        double currentTime = glfwGetTime();
+        fps++;
+        if (currentTime - lastFpsTime > 1.0f) {
+            std::cout << "FPS: " << fps << std::endl;
+            fps = 0;
+            lastFpsTime = currentTime;
+        }
+    }
+
     void generateChunks() {
-        for (int x = 0; x <= 2; x++) {
-            for (int z = 0; z <= 2; z++) {
+        for (int x = -5; x <= 5; x++) {
+            for (int z = -5; z <= 5; z++) {
                 Chunk chunk(x, z);
 
                 // Generowanie chunka
                 for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
                     for (int by = 0; by < CHUNK_HEIGHT; by++) {
                         for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
-
-                            // if (by == CHUNK_HEIGHT - 1) {
-                            //     if (bx == 0 || bz == CHUNK_WIDTH - 1) {
-                            //         continue;
-                            //     }
-                            // }
-
                             int xOffset = x * CHUNK_WIDTH;
                             int zOffset = z * CHUNK_WIDTH;
 
@@ -86,35 +92,38 @@ public:
                     }
                 }
 
-                newChunks[{x, z}] = chunk;
+                chunks[{x, z}] = chunk;
             }
         }
     }
 
-    void processInput(GLFWwindow *window, float deltaTime) {
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, true);
+    void processInput(GLFWwindow *glfwWindow, float deltaTime) {
+        if (glfwGetKey(glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(glfwWindow, true);
         //
-        if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
             player->HandlePlayerMove(SPRINT, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
             player->HandlePlayerMove(WALK, deltaTime);
 
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_W) == GLFW_PRESS)
             player->HandlePlayerMove(FORWARD, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_S) == GLFW_PRESS)
             player->HandlePlayerMove(BACKWARD, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_A) == GLFW_PRESS)
             player->HandlePlayerMove(LEFT, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_D) == GLFW_PRESS)
             player->HandlePlayerMove(RIGHT, deltaTime);
 
-        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
             player->HandlePlayerMove(JUMP, deltaTime);
 
-        if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_F11) == GLFW_PRESS)
+            window->toggleFullscreen();
+
+        if (glfwGetKey(glfwWindow, GLFW_KEY_O) == GLFW_PRESS)
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+        if (glfwGetKey(glfwWindow, GLFW_KEY_P) == GLFW_PRESS)
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
