@@ -73,9 +73,55 @@ public:
         }
     }
 
+    void updateChunk(int x, int z) {
+        const glm::vec3 top = glm::vec3(0, 1, 0);
+        const glm::vec3 bottom = glm::vec3(0, -1, 0);
+        const glm::vec3 left = glm::vec3(-1, 0, 0);
+        const glm::vec3 right = glm::vec3(1, 0, 0);
+        const glm::vec3 forward = glm::vec3(0, 0, 1);
+        const glm::vec3 back = glm::vec3(0, 0, -1);
+
+        auto chunkIndex = chunks.find(std::make_pair(x, z));
+
+        if (chunkIndex != chunks.end()) {
+            Chunk chunk = chunkIndex->second;
+
+            for (int x = 0; x < CHUNK_WIDTH; x++) {
+                for (int y = 0; y < CHUNK_HEIGHT; y++) {
+                    for (int z = 0; z < CHUNK_WIDTH; z++) {
+                        Block block = chunk.getBlock(glm::vec3(x, y, z));
+                        if (!isBlockAt(glm::vec3(x, y, z) + top)) block.drawTop = true;
+                        if (!isBlockAt(glm::vec3(x, y, z) + bottom)) block.drawBottom = true;
+                        if (!isBlockAt(glm::vec3(x, y, z) + left)) block.drawLeft = true;
+                        if (!isBlockAt(glm::vec3(x, y, z) + right)) block.drawRight = true;
+                        if (!isBlockAt(glm::vec3(x, y, z) + forward)) block.drawFront = true;
+                        if (!isBlockAt(glm::vec3(x, y, z) + back)) block.drawBack = true;
+                    }
+                }
+            }
+        }
+    }
+
+    bool isBlockAt(glm::vec3 pos) {
+        int chunkWorldX = pos.x - ((int) pos.x % CHUNK_WIDTH);
+        int chunkWorldZ = pos.z - ((int) pos.z % CHUNK_WIDTH);
+        int chunkX = chunkWorldX / CHUNK_WIDTH;
+        int chunkZ = chunkWorldZ / CHUNK_WIDTH;
+
+        auto chunkIndex = chunks.find(std::make_pair(chunkX, chunkZ));
+        if (chunkIndex != chunks.end()) {
+            Chunk chunk = chunkIndex->second;
+            Block block = chunk.getBlock(pos);
+
+            return block.type != BlockType::AIR;
+        }
+
+        return false;
+    }
+
     void generateChunks() {
-        for (int x = -5; x <= 5; x++) {
-            for (int z = -5; z <= 5; z++) {
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
                 Chunk chunk(x, z);
 
                 // Generowanie chunka
@@ -86,13 +132,16 @@ public:
                             int zOffset = z * CHUNK_WIDTH;
 
                             glm::vec3 pos(bx + xOffset, by, bz + zOffset);
-                            // Block block(DIAMOND, pos);
-                            chunk.blocks[bx][by][bz] = 1;
+                            Block block(DIAMOND, pos);
+
+                            chunk.blocks[bx][by][bz] = block;
                         }
                     }
                 }
 
                 chunks[{x, z}] = chunk;
+
+                // updateChunk(x, z);
             }
         }
     }

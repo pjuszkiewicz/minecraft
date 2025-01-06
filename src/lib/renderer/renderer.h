@@ -1,25 +1,24 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "../../lib/objects/cube.h"
 #include "../../lib/texture/texture.h"
 #include "../../lib/map/pair_hash.h"
+#include "../../lib/shader/shader.h"
+#include "../../lib/player/player.h"
+#include "../../lib/chunk/chunk.h"
 #include <unordered_map>
 
 #include <vector>
 
+#include "../mesh/mesh.h"
+
 const int RENDER_DISTANCE = 4;
 
-// const std::string assetsPath = "/Users/piotr/Development/C++/minecraft/src/assets";
-const std::string assetsPath = "/home/piotr/Development/C++/Minecraft/src/assets";
+const std::string assetsPath = "/Users/piotr/Development/C++/minecraft/src/assets";
+// const std::string assetsPath = "/home/piotr/Development/C++/Minecraft/src/assets";
 
 class Renderer {
 public:
-    unsigned int instanceVBO, quadVAO, quadVBO;
-
-    VBO *vbo;
-    // VBO *instanceVBO;
-    VAO *vao;
     Shader *shader;
 
     Texture *diamondTexture;
@@ -34,72 +33,11 @@ public:
 
     Texture *texturePack;
 
+    Mesh *mesh;
+
+    bool changed = false;
+
     Renderer() {
-        glm::vec3 *cubePositions = new glm::vec3[1000000];
-
-        int i = 0;
-        for (int z = 0; z < 100; z++) {
-            for (int y = 0; y < 100; y++) {
-                for (int x = 0; x < 100; x++) {
-                    cubePositions[i] = glm::vec3((float) x, (float) y, (float) z);
-                    i++;
-                }
-            }
-        }
-
-        glGenBuffers(1, &instanceVBO);
-        glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 1000000, &cubePositions[0], GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-        // vbo = new VBO(CubeVertices, sizeof(CubeVertices));
-        // vbo->Bind();
-        //
-        // vao = new VAO();
-        // vao->Bind();
-        // vao->LinkAttrib(0, 3, GL_FALSE, 5 * sizeof(float), (void *) 0);
-        // vao->LinkAttrib(1, 2, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
-
-        glGenBuffers(1, &quadVBO);
-        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
-
-        glGenVertexArrays(1, &quadVAO);
-        glBindVertexArray(quadVAO);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) 0);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
-
-        // also set instance data
-        glEnableVertexAttribArray(2);
-        glBindBuffer(GL_ARRAY_BUFFER, instanceVBO); // this attribute comes from a different vertex buffer
-        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glVertexAttribDivisor(2, 1);
-
-        //
-        // vao = new VAO();
-        // vao->Bind();
-        //
-        // vbo = new VBO(CubeVertices, sizeof(CubeVertices));
-        // vbo->Bind();
-        //
-        // vao->LinkAttrib(0, 3, GL_FLOAT, 5 * sizeof(float), (void *) (0));
-        // vao->LinkAttrib(1, 2, GL_FLOAT, 5 * sizeof(float), (void *) (3 * sizeof(float)));
-        //
-        // vbo->Unbind();
-        //
-        // glEnableVertexAttribArray(2);
-        //
-        // unsigned int buffer;
-        // glGenBuffers(1, &buffer);
-        // glBindBuffer(GL_ARRAY_BUFFER, buffer);
-        // glBufferData(GL_ARRAY_BUFFER, 1000 * sizeof(glm::mat3), &cubePositions[0], GL_STATIC_DRAW);
-        // glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) (0));
-        // glVertexAttribDivisor(2, 1);
-
         shader = new Shader((assetsPath + "/shaders/example/vertex.vs").c_str(),
                             (assetsPath + "/shaders/example/fragment.fs").c_str());
 
@@ -115,14 +53,7 @@ public:
         frontTexture = new Texture((assetsPath + "/textures/front.png").c_str(), GL_RGBA);
 
         texturePack = new Texture((assetsPath + "/textures/texturepack.png").c_str(), GL_RGBA);
-    }
-
-    ~Renderer() {
-        vbo->Delete();
-        delete vbo;
-
-        vao->Delete();
-        delete vao;
+        mesh = new Mesh();
     }
 
     void clear() {
@@ -136,23 +67,14 @@ public:
     ) {
         clear();
         update_shader(player);
-        // draw_new_chunks(chunks, player);
-        draw_test();
-    }
 
-    void draw_test() {
-        // vbo->Bind();
+        if (!changed) {
+            draw_new_chunks(chunks, player);
+            changed = true;
+        }
 
         dirtTexture->use(0);
-        // texturePack->use(0);
-
-
-        // vao->Bind();
-
-        glBindVertexArray(quadVAO);
-        glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 1000000);
-
-        vao->Unbind();
+        mesh->draw();
     }
 
     void update_shader(Player *player) {
@@ -166,26 +88,42 @@ public:
     }
 
     void draw_new_chunks(const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks, Player *player) const {
-        vbo->Bind();
-        vao->Bind();
+        std::vector<glm::vec3> *positions = new std::vector<glm::vec3>();
+
+        int count = 0;
 
         float playerX = player->Position.x / CHUNK_WIDTH;
         float playerZ = player->Position.z / CHUNK_WIDTH;
 
         for (int i = playerX - RENDER_DISTANCE; i <= playerX + RENDER_DISTANCE; i++) {
             for (int j = playerZ - RENDER_DISTANCE; j <= playerZ + RENDER_DISTANCE; j++) {
+
                 auto it = chunks.find(std::make_pair(i, j));
                 if (it != chunks.end()) {
                     const Chunk &chunk = it->second;
-                    draw_chunk(chunks, chunk);
-                }
 
-                // if (chunks.count(std::make_pair(i, j)) != 0) {
-                //     Chunk chunk = chunks.at(std::make_pair(i, j));
-                //     draw_chunk(chunks, chunk);
-                // }
+                    // chunk
+                    for (int x = 0; x < 1; x++) {
+                        for (int y = 15; y < CHUNK_HEIGHT; y++) {
+                            for (int z = 0; z < 1; z++) {
+
+                                if (chunk.blocks[x][y][z].type == BlockType::AIR) {
+                                    continue;
+                                }
+
+                                float bx = (i * CHUNK_WIDTH) + x;
+                                float bz = (j * CHUNK_WIDTH) + z;
+
+                                positions->push_back(glm::vec3(bx, y, bz));
+                                count++;
+                            }
+                        }
+                    }
+                }
             }
         }
+        std::cout << positions->size() << std::endl;
+        mesh->setPositions(positions);
     }
 
     void draw_chunk(const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks, const Chunk &chunk) const {
@@ -193,66 +131,66 @@ public:
         for (int x = 0; x < CHUNK_WIDTH; x++) {
             for (int y = 0; y < CHUNK_HEIGHT; y++) {
                 for (int z = 0; z < CHUNK_WIDTH; z++) {
-                    if (chunk.blocks[x][y][z] == 0) {
+                    if (chunk.blocks[x][y][z].type == BlockType::AIR) {
                         continue;
                     }
 
-                    bool isTopColliding = y != CHUNK_HEIGHT - 1 && chunk.blocks[x][y + 1][z] != 0;
-                    bool isBottomColliding = y != 0 && chunk.blocks[x][y - 1][z] != 0;
+                    bool isTopColliding = y != CHUNK_HEIGHT - 1 && chunk.blocks[x][y + 1][z].type != BlockType::AIR;
+                    bool isBottomColliding = y != 0 && chunk.blocks[x][y - 1][z].type != BlockType::AIR;
 
-                    bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z] != 0;
+                    bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z].type != BlockType::AIR;
                     if (x == 0) {
                         auto it = chunks.find(std::make_pair(chunk.x - 1, chunk.z));
 
                         if (it != chunks.end()) {
                             const Chunk &collidingChunk = it->second;
 
-                            if (collidingChunk.blocks[CHUNK_WIDTH - 1][y][z] != 0) {
+                            if (collidingChunk.blocks[CHUNK_WIDTH - 1][y][z].type != BlockType::AIR) {
                                 isLeftColliding = true;
                             }
                         }
                     }
 
-                    bool isRightColliding = x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z] != 0;
+                    bool isRightColliding = x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].type != BlockType::AIR;
                     if (x == CHUNK_WIDTH - 1) {
                         auto it = chunks.find(std::make_pair(chunk.x + 1, chunk.z));
 
                         if (it != chunks.end()) {
                             const Chunk &collidingChunk = it->second;
 
-                            if (collidingChunk.blocks[0][y][z] != 0) {
+                            if (collidingChunk.blocks[0][y][z].type != BlockType::AIR) {
                                 isRightColliding = true;
                             }
                         }
                     }
 
-                    bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1] != 0;
+                    bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1].type != BlockType::AIR;
                     if (z == 0) {
                         auto it = chunks.find(std::make_pair(chunk.x, chunk.z - 1));
 
                         if (it != chunks.end()) {
                             const Chunk &collidingChunk = it->second;
 
-                            if (collidingChunk.blocks[x][y][CHUNK_WIDTH - 1] != 0) {
+                            if (collidingChunk.blocks[x][y][CHUNK_WIDTH - 1].type != BlockType::AIR) {
                                 isFrontColliding = true;
                             }
                         }
                     }
 
-                    bool isBackColliding = z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1] != 0;
+                    bool isBackColliding = z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1].type != BlockType::AIR;
                     if (z == CHUNK_WIDTH - 1) {
                         auto it = chunks.find(std::make_pair(chunk.x, chunk.z + 1));
 
                         if (it != chunks.end()) {
                             const Chunk &collidingChunk = it->second;
 
-                            if (collidingChunk.blocks[x][y][0] != 0) {
+                            if (collidingChunk.blocks[x][y][0].type != BlockType::AIR) {
                                 isBackColliding = true;
                             }
                         }
                     }
 
-                    if (chunk.blocks[x][y][z] == 0) {
+                    if (chunk.blocks[x][y][z].type == BlockType::AIR) {
                         continue;
                     }
 

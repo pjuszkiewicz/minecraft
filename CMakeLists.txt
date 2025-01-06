@@ -5,8 +5,7 @@ cmake_policy(SET CMP0072 NEW)
 
 find_package(OpenGL REQUIRED)
 
-add_executable(minecraft src/glad.c src/main.cpp
-        src/lib/map/pair_hash.h)
+add_executable(minecraft src/glad.c src/main.cpp src/mesh.cpp)
 
 target_link_libraries(minecraft glfw)
 # target_link_libraries(minecraft include/glad/glad.h)

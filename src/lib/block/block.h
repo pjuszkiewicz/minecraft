@@ -11,22 +11,29 @@ enum BlockType{
 
 class Block{
     public:
-        glm::vec3 Position;
-        BlockType Type;
+        glm::vec3 position;
+        BlockType type;
+
+        bool drawTop = false;
+        bool drawBottom = false;
+        bool drawLeft = false;
+        bool drawRight = false;
+        bool drawFront = false;
+        bool drawBack = false;
 
         Block() {
-            Type = AIR;
-            Position = glm::vec3(0.0f, 0.0f, 0.0f);
+            type = AIR;
+            position = glm::vec3(0.0f, 0.0f, 0.0f);
         }
 
         Block(BlockType type) {
-            Type = type;
-            Position = glm::vec3(0.0f, 0.0f, 0.0f);
+            this->type = type;
+            position = glm::vec3(0.0f, 0.0f, 0.0f);
         }
 
         Block(BlockType type, glm::vec3 position) {
-            Type = type;
-            Position = position;
+            this->type = type;
+            this->position = position;
         }
 };
 

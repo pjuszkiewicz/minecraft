@@ -11,7 +11,7 @@ class Chunk{
     public:
     float x;
     float z;
-    int blocks[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
+    Block blocks[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
 
     Chunk() {
         x = 0;
@@ -21,6 +21,17 @@ class Chunk{
     Chunk(float x, float z) {
         this->x = x;
         this->z = z;
+    }
+
+    Block getBlock(int x, int y, int z) const {
+        return blocks[x][y][z];
+    }
+
+    Block getBlock(glm::vec3 pos) const {
+        int x = (int) pos.x;
+        int y = (int) pos.y;
+        int z = (int) pos.z;
+        return blocks[x][y][z];
     }
 };
 
