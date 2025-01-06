@@ -15,8 +15,10 @@ const std::string assetsPath = "/home/piotr/Development/C++/Minecraft/src/assets
 
 class Renderer {
 public:
+    unsigned int instanceVBO, quadVAO, quadVBO;
+
     VBO *vbo;
-    VBO *instanceVBO;
+    // VBO *instanceVBO;
     VAO *vao;
     Shader *shader;
 
@@ -30,40 +32,60 @@ public:
     Texture *backTexture;
     Texture *frontTexture;
 
-
     Renderer() {
-        glm::vec3* cubePositions = new glm::vec3[1000];
+        glm::vec3 *cubePositions = new glm::vec3[1000000];
+
         int i = 0;
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
-                for (int z = 0; z < 10; z++) {
-                    cubePositions[i] = glm::vec3(x, y, z);
+        for (int z = 0; z < 100; z++) {
+            for (int y = 0; y < 100; y++) {
+                for (int x = 0; x < 100; x++) {
+                    cubePositions[i] = glm::vec3((float) x, (float) y, (float) z);
                     i++;
                 }
             }
         }
 
-        instanceVBO = new VBO(&cubePositions[0], sizeof(glm::vec3) * 1000);
+        glGenBuffers(1, &instanceVBO);
+        glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 1000000, &cubePositions[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-        vao = new VAO();
-        vao->Bind();
-
-        vbo = new VBO(CubeVertices, sizeof(CubeVertices));
-        vbo->Bind();
-
-        vao->LinkAttrib(0, 3, GL_FLOAT, 5 * sizeof(float), (void *) (0));
-        vao->LinkAttrib(1, 2, GL_FLOAT, 5 * sizeof(float), (void *) (3 * sizeof(float)));
-
-        vbo->Unbind();
-
+        glGenVertexArrays(1, &quadVAO);
+        glGenBuffers(1, &quadVBO);
+        glBindVertexArray(quadVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) 0);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
+        // also set instance data
         glEnableVertexAttribArray(2);
-        instanceVBO->Bind();
-
-        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)(0));
-
+        glBindBuffer(GL_ARRAY_BUFFER, instanceVBO); // this attribute comes from a different vertex buffer
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glVertexAttribDivisor(2, 1);
 
+        //
+        // vao = new VAO();
+        // vao->Bind();
+        //
+        // vbo = new VBO(CubeVertices, sizeof(CubeVertices));
+        // vbo->Bind();
+        //
+        // vao->LinkAttrib(0, 3, GL_FLOAT, 5 * sizeof(float), (void *) (0));
+        // vao->LinkAttrib(1, 2, GL_FLOAT, 5 * sizeof(float), (void *) (3 * sizeof(float)));
+        //
+        // vbo->Unbind();
+        //
+        // glEnableVertexAttribArray(2);
+        //
+        // unsigned int buffer;
+        // glGenBuffers(1, &buffer);
+        // glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        // glBufferData(GL_ARRAY_BUFFER, 1000 * sizeof(glm::mat3), &cubePositions[0], GL_STATIC_DRAW);
+        // glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) (0));
+        // glVertexAttribDivisor(2, 1);
 
         shader = new Shader((assetsPath + "/shaders/example/vertex.vs").c_str(),
                             (assetsPath + "/shaders/example/fragment.fs").c_str());
@@ -104,16 +126,15 @@ public:
     }
 
     void draw_test() {
-
         // vbo->Bind();
 
         dirtTexture->use(0);
 
 
+        // vao->Bind();
 
-        vao->Bind();
-
-        glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 1000);
+        glBindVertexArray(quadVAO);
+        glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 1000000);
 
         vao->Unbind();
     }
