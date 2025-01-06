@@ -47,7 +47,9 @@ public:
 
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_MULTISAMPLE);
-        glfwWindowHint(GLFW_SAMPLES, 16);
+        glfwWindowHint(GLFW_SAMPLES, 4);
+
+        glEnable(GL_CULL_FACE);
 
         glfwMonitor = glfwGetPrimaryMonitor();
         glfwVideoMode = glfwGetVideoMode(glfwMonitor);

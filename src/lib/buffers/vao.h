@@ -18,8 +18,8 @@ class VAO{
         void* offset
     ) {
         Bind();
-        glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
         glEnableVertexAttribArray(layout);
+        glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
         Unbind();
     }
 

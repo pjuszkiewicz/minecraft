@@ -29,7 +29,7 @@ public:
         window = new Window();
         renderer = new Renderer();
 
-        player = new Player(glm::vec3(0.0f, 0.0f, 0.0f));
+        player = new Player(glm::vec3(0.0f, 17.0f, 0.0f));
 
         generateChunks();
     }
@@ -86,8 +86,8 @@ public:
                             int zOffset = z * CHUNK_WIDTH;
 
                             glm::vec3 pos(bx + xOffset, by, bz + zOffset);
-                            Block block(DIAMOND, pos);
-                            chunk.blocks[bx][by][bz] = block;
+                            // Block block(DIAMOND, pos);
+                            chunk.blocks[bx][by][bz] = 1;
                         }
                     }
                 }

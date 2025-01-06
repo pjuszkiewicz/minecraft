@@ -11,7 +11,7 @@ class Chunk{
     public:
     float x;
     float z;
-    Block blocks[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
+    int blocks[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
 
     Chunk() {
         x = 0;
