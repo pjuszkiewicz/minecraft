@@ -3,38 +3,32 @@
 
 #include <glm/glm.hpp>
 
-enum BlockType{
+enum BlockType {
     AIR,
     DIRT,
     DIAMOND,
 };
 
-class Block{
-    public:
-        glm::vec3 position;
-        BlockType type;
+class Block {
+public:
+    glm::vec3 position;
+    BlockType type;
 
-        bool drawTop = false;
-        bool drawBottom = false;
-        bool drawLeft = false;
-        bool drawRight = false;
-        bool drawFront = false;
-        bool drawBack = false;
+    bool drawTop = false;
+    bool drawBottom = false;
+    bool drawLeft = false;
+    bool drawRight = false;
+    bool drawFront = false;
+    bool drawBack = false;
 
-        Block() {
-            type = AIR;
-            position = glm::vec3(0.0f, 0.0f, 0.0f);
-        }
+    Block(): position(glm::vec3(0.0f, 0.0f, 0.0f)), type(AIR) {
+    }
 
-        Block(BlockType type) {
-            this->type = type;
-            position = glm::vec3(0.0f, 0.0f, 0.0f);
-        }
+    Block(BlockType type): type(type), position(glm::vec3(0.0f, 0.0f, 0.0f)) {
+    }
 
-        Block(BlockType type, glm::vec3 position) {
-            this->type = type;
-            this->position = position;
-        }
+    Block(BlockType type, glm::vec3 position): type(type), position(position) {
+    };
 };
 
 

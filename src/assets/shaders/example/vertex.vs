@@ -15,15 +15,6 @@ uniform mat4 projection;
 
 void main()
 {
-    int faceIndex = gl_VertexID / 6;
-   bool isFaceVisible = (visibilityMask & (1 << faceIndex)) != 0;
-
-   if (isFaceVisible == false) {
-       gl_Position = vec4(0.0); // Ukryj wierzchołek
-       return;
-   }
-
-
     gl_Position = projection * view * vec4(aPos + aOffset, 1.0);
     TexCoord = aTexCoord;
 }

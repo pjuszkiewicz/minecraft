@@ -3,14 +3,11 @@
 //
 #include <iostream>
 
-#include "lib/mesh/mesh.h"
-#include "lib/objects/cube.h"
+#include "../../lib/glad/glad.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <GLFW/glfw3.h>
-#include <vector>
+#include "../../lib/mesh/mesh.h"
+#include "../../lib/objects/cube.h"
+
 
 Mesh::Mesh() {
     this->positions = new std::vector<glm::vec3>();
@@ -61,15 +58,15 @@ Mesh::Mesh() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // visibility
-    glGenBuffers(1, &visibilityVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(uint8_t) * this->faces->size(), &this->faces->front(), GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(3); // Atrybut o lokalizacji 2
-    glVertexAttribIPointer(3, 1, GL_UNSIGNED_BYTE, sizeof(uint8_t), (void *) 0);
+    // glGenBuffers(1, &visibilityVBO);
+    // glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(uint8_t) * this->faces->size(), &this->faces->front(), GL_STATIC_DRAW);
+    //
+    // glEnableVertexAttribArray(3); // Atrybut o lokalizacji 2
+    // glVertexAttribIPointer(3, 1, GL_UNSIGNED_BYTE, sizeof(uint8_t), (void *) 0);
 
     glVertexAttribDivisor(2, 1);
-    glVertexAttribDivisor(3, 1);
+    // glVertexAttribDivisor(3, 1);
 }
 
 void Mesh::setPositions(std::vector<glm::vec3> *positions) {
