@@ -25,7 +25,7 @@ Renderer::Renderer() {
     frontTexture = new Texture((assetsPath + "/textures/front.png").c_str(), GL_RGBA);
 
     texturePack = new Texture((assetsPath + "/textures/texturepack.png").c_str(), GL_RGBA);
-    mesh = new Mesh();
+    mesh = new InstancedMesh();
 }
 
 void Renderer::clear() {

@@ -91,8 +91,8 @@ build CMakeFiles/minecraft.dir/src/lib/player/player.cpp.o: CXX_COMPILER__minecr
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/lib/player
 
-build CMakeFiles/minecraft.dir/src/lib/mesh/mesh.cpp.o: CXX_COMPILER__minecraft_unscanned_Debug /home/piotr/Development/C++/Minecraft/src/lib/mesh/mesh.cpp || cmake_object_order_depends_target_minecraft
-  DEP_FILE = CMakeFiles/minecraft.dir/src/lib/mesh/mesh.cpp.o.d
+build CMakeFiles/minecraft.dir/src/lib/mesh/instancedMesh.cpp.o: CXX_COMPILER__minecraft_unscanned_Debug /home/piotr/Development/C++/Minecraft/src/lib/mesh/instancedMesh.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/lib/mesh/instancedMesh.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/lib/mesh
@@ -123,7 +123,7 @@ build CMakeFiles/minecraft.dir/src/lib/chunk/chunk.cpp.o: CXX_COMPILER__minecraf
 #############################################
 # Link the executable minecraft
 
-build minecraft: CXX_EXECUTABLE_LINKER__minecraft_Debug CMakeFiles/minecraft.dir/src/lib/glad/glad.c.o CMakeFiles/minecraft.dir/src/main.cpp.o CMakeFiles/minecraft.dir/src/lib/window/window.cpp.o CMakeFiles/minecraft.dir/src/lib/texture/texture.cpp.o CMakeFiles/minecraft.dir/src/lib/shader/shader.cpp.o CMakeFiles/minecraft.dir/src/lib/renderer/renderer.cpp.o CMakeFiles/minecraft.dir/src/lib/player/player.cpp.o CMakeFiles/minecraft.dir/src/lib/mesh/mesh.cpp.o CMakeFiles/minecraft.dir/src/lib/game/game.cpp.o CMakeFiles/minecraft.dir/src/lib/camera/camera.cpp.o CMakeFiles/minecraft.dir/src/lib/chunk/chunk.cpp.o
+build minecraft: CXX_EXECUTABLE_LINKER__minecraft_Debug CMakeFiles/minecraft.dir/src/lib/glad/glad.c.o CMakeFiles/minecraft.dir/src/main.cpp.o CMakeFiles/minecraft.dir/src/lib/window/window.cpp.o CMakeFiles/minecraft.dir/src/lib/texture/texture.cpp.o CMakeFiles/minecraft.dir/src/lib/shader/shader.cpp.o CMakeFiles/minecraft.dir/src/lib/renderer/renderer.cpp.o CMakeFiles/minecraft.dir/src/lib/player/player.cpp.o CMakeFiles/minecraft.dir/src/lib/mesh/instancedMesh.cpp.o CMakeFiles/minecraft.dir/src/lib/game/game.cpp.o CMakeFiles/minecraft.dir/src/lib/camera/camera.cpp.o CMakeFiles/minecraft.dir/src/lib/chunk/chunk.cpp.o
   FLAGS = -g
   LINK_LIBRARIES = -lglfw
   OBJECT_DIR = CMakeFiles/minecraft.dir

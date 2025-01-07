@@ -32,7 +32,7 @@ public:
 
     Texture *texturePack;
 
-    Mesh *mesh;
+    InstancedMesh *mesh;
 
     bool changed = false;
 

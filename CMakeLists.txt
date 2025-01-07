@@ -14,7 +14,7 @@ add_executable(
         src/lib/shader/shader.cpp
         src/lib/renderer/renderer.cpp
         src/lib/player/player.cpp
-        src/lib/mesh/mesh.cpp
+        src/lib/mesh/instancedMesh.cpp
         src/lib/game/game.cpp
         src/lib/camera/camera.cpp
         src/lib/chunk/chunk.cpp
