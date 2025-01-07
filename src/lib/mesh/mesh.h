@@ -6,8 +6,9 @@
 
 class Mesh {
 private:
-    unsigned int VBO, instanceVBO;
+    unsigned int VBO, instanceVBO, visibilityVBO;
     std::vector<glm::vec3> *positions;
+    std::vector<uint8_t> *faces;
 
 public:
     unsigned int VAO;

@@ -14,10 +14,12 @@
 
 Mesh::Mesh() {
     this->positions = new std::vector<glm::vec3>();
+    this->faces = new std::vector<uint8_t>();
 
     glGenBuffers(1, &instanceVBO);
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * this->positions->size(), &this->positions->front(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * this->positions->size(), &this->positions->front(),
+                 GL_STATIC_DRAW);
 
     // glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 10000, &positions[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -57,19 +59,30 @@ Mesh::Mesh() {
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO); // this attribute comes from a different vertex buffer
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // visibility
+    glGenBuffers(1, &visibilityVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(uint8_t) * this->faces->size(), &this->faces->front(), GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(3); // Atrybut o lokalizacji 2
+    glVertexAttribIPointer(3, 1, GL_UNSIGNED_BYTE, sizeof(uint8_t), (void *) 0);
+
     glVertexAttribDivisor(2, 1);
+    glVertexAttribDivisor(3, 1);
 }
 
-void Mesh::setPositions(std::vector<glm::vec3>* positions) {
+void Mesh::setPositions(std::vector<glm::vec3> *positions) {
     this->positions = positions;
 
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * this->positions->size(), &this->positions->front(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * this->positions->size(), &this->positions->front(),
+                 GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Mesh::draw() {
     glBindVertexArray(VAO);
-    glDrawArraysInstanced(GL_TRIANGLES, 0, 6, this->positions->size());
+    glDrawArraysInstanced(GL_TRIANGLES, 0, 36, this->positions->size());
     glBindVertexArray(0);
 }

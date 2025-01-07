@@ -97,16 +97,14 @@ public:
 
         for (int i = playerX - RENDER_DISTANCE; i <= playerX + RENDER_DISTANCE; i++) {
             for (int j = playerZ - RENDER_DISTANCE; j <= playerZ + RENDER_DISTANCE; j++) {
-
                 auto it = chunks.find(std::make_pair(i, j));
                 if (it != chunks.end()) {
                     const Chunk &chunk = it->second;
 
                     // chunk
-                    for (int x = 0; x < 1; x++) {
+                    for (int x = 0; x < CHUNK_WIDTH; x++) {
                         for (int y = 15; y < CHUNK_HEIGHT; y++) {
-                            for (int z = 0; z < 1; z++) {
-
+                            for (int z = 0; z < CHUNK_WIDTH; z++) {
                                 if (chunk.blocks[x][y][z].type == BlockType::AIR) {
                                     continue;
                                 }
@@ -115,6 +113,111 @@ public:
                                 float bz = (j * CHUNK_WIDTH) + z;
 
                                 positions->push_back(glm::vec3(bx, y, bz));
+
+                                // test scian
+                                bool isTopColliding =
+                                        y != CHUNK_HEIGHT - 1 && chunk.blocks[x][y + 1][z].type != BlockType::AIR;
+                                bool isBottomColliding = y != 0 && chunk.blocks[x][y - 1][z].type != BlockType::AIR;
+
+                                bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z].type != BlockType::AIR;
+                                if (x == 0) {
+                                    auto it = chunks.find(std::make_pair(chunk.x - 1, chunk.z));
+
+                                    if (it != chunks.end()) {
+                                        const Chunk &collidingChunk = it->second;
+
+                                        if (collidingChunk.blocks[CHUNK_WIDTH - 1][y][z].type != BlockType::AIR) {
+                                            isLeftColliding = true;
+                                        }
+                                    }
+                                }
+
+                                // bool isRightColliding =
+                                //         x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].type != BlockType::AIR;
+                                // if (x == CHUNK_WIDTH - 1) {
+                                //     auto it = chunks.find(std::make_pair(chunk.x + 1, chunk.z));
+                                //
+                                //     if (it != chunks.end()) {
+                                //         const Chunk &collidingChunk = it->second;
+                                //
+                                //         if (collidingChunk.blocks[0][y][z].type != BlockType::AIR) {
+                                //             isRightColliding = true;
+                                //         }
+                                //     }
+                                // }
+                                //
+                                // bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1].type != BlockType::AIR;
+                                // if (z == 0) {
+                                //     auto it = chunks.find(std::make_pair(chunk.x, chunk.z - 1));
+                                //
+                                //     if (it != chunks.end()) {
+                                //         const Chunk &collidingChunk = it->second;
+                                //
+                                //         if (collidingChunk.blocks[x][y][CHUNK_WIDTH - 1].type != BlockType::AIR) {
+                                //             isFrontColliding = true;
+                                //         }
+                                //     }
+                                // }
+                                //
+                                // bool isBackColliding =
+                                //         z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1].type != BlockType::AIR;
+                                // if (z == CHUNK_WIDTH - 1) {
+                                //     auto it = chunks.find(std::make_pair(chunk.x, chunk.z + 1));
+                                //
+                                //     if (it != chunks.end()) {
+                                //         const Chunk &collidingChunk = it->second;
+                                //
+                                //         if (collidingChunk.blocks[x][y][0].type != BlockType::AIR) {
+                                //             isBackColliding = true;
+                                //         }
+                                //     }
+                                // }
+                                //
+                                // if (chunk.blocks[x][y][z].type == BlockType::AIR) {
+                                //     continue;
+                                // }
+                                //
+                                // glm::mat4 model = glm::mat4(1.0f);
+                                // float block_x = chunk.x * CHUNK_WIDTH + x;
+                                // float block_z = chunk.z * CHUNK_WIDTH + z;
+                                // model = glm::translate(model, glm::vec3(block_x, y, block_z));
+                                // shader->setMat4("model", model);
+                                //
+                                // // front face
+                                // if (!isFrontColliding) {
+                                //     backTexture->use(0);
+                                //     glDrawArrays(GL_TRIANGLES, 0, 6);
+                                // }
+                                //
+                                // // back face
+                                // if (!isBackColliding) {
+                                //     frontTexture->use(0);
+                                //     glDrawArrays(GL_TRIANGLES, 6, 6);
+                                // }
+                                //
+                                // // left face
+                                // if (!isLeftColliding) {
+                                //     leftTexture->use(0);
+                                //     glDrawArrays(GL_TRIANGLES, 12, 6);
+                                // }
+                                //
+                                // // right face
+                                // if (!isRightColliding) {
+                                //     rightTexture->use(0);
+                                //     glDrawArrays(GL_TRIANGLES, 18, 6);
+                                // }
+                                //
+                                // if (!isTopColliding) {
+                                //     topTexture->use(0);
+                                //     glDrawArrays(GL_TRIANGLES, 30, 6);
+                                // }
+                                //
+                                // if (!isBottomColliding) {
+                                //     bottomTexture->use(0);
+                                //     glDrawArrays(GL_TRIANGLES, 24, 6);
+                                // }
+                                // test scian
+
                                 count++;
                             }
                         }
@@ -194,44 +297,44 @@ public:
                         continue;
                     }
 
-                    glm::mat4 model = glm::mat4(1.0f);
-                    float block_x = chunk.x * CHUNK_WIDTH + x;
-                    float block_z = chunk.z * CHUNK_WIDTH + z;
-                    model = glm::translate(model, glm::vec3(block_x, y, block_z));
-                    shader->setMat4("model", model);
+                    // glm::mat4 model = glm::mat4(1.0f);
+                    // float block_x = chunk.x * CHUNK_WIDTH + x;
+                    // float block_z = chunk.z * CHUNK_WIDTH + z;
+                    // model = glm::translate(model, glm::vec3(block_x, y, block_z));
+                    // shader->setMat4("model", model);
 
                     // front face
                     if (!isFrontColliding) {
-                        backTexture->use(0);
-                        glDrawArrays(GL_TRIANGLES, 0, 6);
+                        // backTexture->use(0);
+                        // glDrawArrays(GL_TRIANGLES, 0, 6);
                     }
 
                     // back face
                     if (!isBackColliding) {
-                        frontTexture->use(0);
-                        glDrawArrays(GL_TRIANGLES, 6, 6);
+                        // frontTexture->use(0);
+                        // glDrawArrays(GL_TRIANGLES, 6, 6);
                     }
 
                     // left face
                     if (!isLeftColliding) {
-                        leftTexture->use(0);
-                        glDrawArrays(GL_TRIANGLES, 12, 6);
+                        // leftTexture->use(0);
+                        // glDrawArrays(GL_TRIANGLES, 12, 6);
                     }
 
                     // right face
                     if (!isRightColliding) {
-                        rightTexture->use(0);
-                        glDrawArrays(GL_TRIANGLES, 18, 6);
+                        // rightTexture->use(0);
+                        // glDrawArrays(GL_TRIANGLES, 18, 6);
                     }
 
                     if (!isTopColliding) {
-                        topTexture->use(0);
-                        glDrawArrays(GL_TRIANGLES, 30, 6);
+                        // topTexture->use(0);
+                        // glDrawArrays(GL_TRIANGLES, 30, 6);
                     }
 
                     if (!isBottomColliding) {
-                        bottomTexture->use(0);
-                        glDrawArrays(GL_TRIANGLES, 24, 6);
+                        // bottomTexture->use(0);
+                        // glDrawArrays(GL_TRIANGLES, 24, 6);
                     }
                 }
             }
