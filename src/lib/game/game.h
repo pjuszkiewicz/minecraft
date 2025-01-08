@@ -11,7 +11,7 @@ class Game {
 public:
     Window *window;
     Renderer *renderer;
-    Player *player;
+    Player player;
 
     std::unordered_map<std::pair<int, int>, Chunk, PairHash> chunks;
 

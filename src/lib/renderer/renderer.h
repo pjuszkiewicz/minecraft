@@ -10,15 +10,15 @@
 
 #include <vector>
 
+#include "../mesh/chunkMesh.h"
 #include "../mesh/mesh.h"
 
-const int RENDER_DISTANCE = 4;
-
-
+const int RENDER_DISTANCE = 5;
 
 class Renderer {
 public:
     Shader *shader;
+    Shader *instancedShader;
 
     Texture *diamondTexture;
     Texture *dirtTexture;
@@ -32,22 +32,31 @@ public:
 
     Texture *texturePack;
 
-    InstancedMesh *mesh;
+    std::vector<ChunkMesh> chunkMeshes;
+
+    Player player;
 
     bool changed = false;
 
+    Renderer(Player &player);
 
-    Renderer();
+    int chunkX;
+    int lastChunkX;
+    int chunkZ;
+    int lastChunkZ;
 
     void clear();
 
-    void draw(Player *player, const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
+    void draw(
+        const Player &player,
+        const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
 
-    void update_shader(Player *player);
+    void update_shader(const Player &player);
 
-    void draw_new_chunks(const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks, Player *player) const;
-
-    void draw_chunk(const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks, const Chunk &chunk) const;
+    void update_chunks(
+        const std::unordered_map<std::pair<int, int>,
+            Chunk, PairHash> &chunks
+    );
 };
 
 #endif //RENDERER_H

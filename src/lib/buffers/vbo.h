@@ -3,30 +3,34 @@
 
 #include "../../lib/glad/glad.h"
 
-class VBO
-{
+/**
+ * Menedżer Vertex Buffer Object
+ */
+class VBO {
 public:
-    GLuint ID;
-    VBO(const auto &vertices, const GLsizeiptr size)
-    {
-        glGenBuffers(1, &ID);
-        Bind();
-        glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-    }
+    unsigned int ID;
+    /**
+     * Tworzy Vertex Buffer Object i przesyła do niego dane z parametry vertices
+     *
+     * VBO dalej zostaje zbindowane po utworzeniu
+     * @param data Array wartości VBO
+     */
+    VBO(const auto *data) ;
 
-    void Bind()
-    {
-        glBindBuffer(GL_ARRAY_BUFFER, ID);
-    }
+    /**
+     * Binduje VBO
+     */
+    void Bind() const ;
 
-    void Unbind()
-    {
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-    }
-    void Delete()
-    {
-        glDeleteBuffers(1, &ID);
-    }
+    /**
+    * Unbinduje VBO
+    */
+    void Unbind() ;
+
+    /**
+    * Usuwa VBO
+    */
+    void Delete() const;
 };
 
 #endif

@@ -2,38 +2,44 @@
 #define VAO_H
 
 #include "../../lib/glad/glad.h"
+#include "vbo.h"
 
-class VAO{
-    public:
-    GLuint ID;    
-    VAO() {
-        glGenVertexArrays(1, &ID);
-    }
+class VAO {
+public:
+    GLuint ID;
 
-    void LinkAttrib(
-        GLuint layout,
-        GLuint numComponents,
-        GLenum type,
-        GLsizeiptr stride,
-        void* offset
-    ) {
-        Bind();
-        glEnableVertexAttribArray(layout);
-        glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
-        Unbind();
-    }
+    /**
+     * Tworzy Vertex Array Object
+     */
+    VAO();
 
-    void Bind() {
-        glBindVertexArray(ID);
-    }
+    /**
+     * Ustawia wskaźniki atrybutów dla bufora
+     *
+     * Pokazuje karcie graficznej jak ma obsłużyć dane podane w VBO
+     * @param vbo referencja VBO dla którego ustawiamy wskaźniki
+     * @param layout index danych w vertex shaderze
+     * @param size rozmiar danych (np. dla vec3 wybieramy 3)
+     * @param type typ danych (z reguły GL_FLOAT)
+     * @param stride rozmiar jednego rzędu danych
+     * @param offset odstęp pod którym zaczyna się wartośćw rzędzie
+     */
+    void LinkVBO(VBO *vbo, GLuint layout, GLint size, GLenum type, GLsizei stride, const void *offset);
 
-    void Unbind() {
-        glBindVertexArray(0);
-    }
+    /**
+     * Binduje VAO
+     */
+    void Bind() const;
 
-    void Delete() {
-        glDeleteVertexArrays(1, &ID);
-    }
+    /**
+     * Unbinduje VAO
+     */
+    void Unbind();
+
+    /**
+     * Usuwa VAO
+     */
+    void Delete();
 };
 
 #endif

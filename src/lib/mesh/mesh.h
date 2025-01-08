@@ -7,18 +7,18 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <GLFW/glfw3.h>
-class InstancedMesh {
+
+class Mesh{
 private:
-    unsigned int VBO, instanceVBO, visibilityVBO;
-    std::vector<glm::vec3> *positions;
-    std::vector<uint8_t> *faces;
+    unsigned int VBO;
+    float* vertices;
 
 public:
     unsigned int VAO;
-    InstancedMesh();
-    void draw();
-    void setPositions(std::vector<glm::vec3>* positions);
+    Mesh();
+    void draw() const;
 };
+
 
 
 

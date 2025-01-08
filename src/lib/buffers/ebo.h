@@ -1,14 +1,14 @@
 #ifndef EBO_H
 #define EBO_H
 
-#include <glad/glad.h>
+#include "../../lib/glad/glad.h"
 
 class EBO
 {
 
 public:
     GLuint ID;
-    EBO(GLuint *indices, GLsizeiptr size)
+    EBO(const GLuint *indices, GLsizeiptr size)
     {
         glGenBuffers(1, &ID);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);

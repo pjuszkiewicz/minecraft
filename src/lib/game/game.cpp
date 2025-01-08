@@ -5,10 +5,10 @@
 #include "../../lib/game/game.h"
 
 Game::Game() {
-    window = new Window();
-    renderer = new Renderer();
+    // player = new Player(glm::vec3(0.0f, 0.0f, 0.0f));
 
-    player = new Player(glm::vec3(0.0f, 17.0f, 0.0f));
+    window = new Window();
+    renderer = new Renderer(player);
 
     generateChunks();
 }
@@ -22,9 +22,10 @@ void Game::loop() {
     while (!window->shouldClose()) {
         updateDeltaTime();
         updateFpsTime();
-        player->update(deltaTime);
-        renderer->draw(player, chunks);
-
+        player.update(deltaTime);
+        renderer->draw(
+            player,
+            chunks);
 
         // opengl stuff
         glfwSwapBuffers(window->glfwWindow);
@@ -99,8 +100,8 @@ bool Game::isBlockAt(glm::vec3 pos) {
 }
 
 void Game::generateChunks() {
-    for (int x = -1; x <= 1; x++) {
-        for (int z = -1; z <= 1; z++) {
+    for (int x = -50; x <= 50; x++) {
+        for (int z = -50; z <= 50; z++) {
             Chunk chunk(x, z);
 
             // Generowanie chunka
@@ -130,21 +131,21 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         glfwSetWindowShouldClose(glfwWindow, true);
     //
     if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-        player->HandlePlayerMove(SPRINT, deltaTime);
+        player.HandlePlayerMove(SPRINT, deltaTime);
     if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
-        player->HandlePlayerMove(WALK, deltaTime);
+        player.HandlePlayerMove(WALK, deltaTime);
 
     if (glfwGetKey(glfwWindow, GLFW_KEY_W) == GLFW_PRESS)
-        player->HandlePlayerMove(FORWARD, deltaTime);
+        player.HandlePlayerMove(FORWARD, deltaTime);
     if (glfwGetKey(glfwWindow, GLFW_KEY_S) == GLFW_PRESS)
-        player->HandlePlayerMove(BACKWARD, deltaTime);
+        player.HandlePlayerMove(BACKWARD, deltaTime);
     if (glfwGetKey(glfwWindow, GLFW_KEY_A) == GLFW_PRESS)
-        player->HandlePlayerMove(LEFT, deltaTime);
+        player.HandlePlayerMove(LEFT, deltaTime);
     if (glfwGetKey(glfwWindow, GLFW_KEY_D) == GLFW_PRESS)
-        player->HandlePlayerMove(RIGHT, deltaTime);
+        player.HandlePlayerMove(RIGHT, deltaTime);
 
     if (glfwGetKey(glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
-        player->HandlePlayerMove(JUMP, deltaTime);
+        player.HandlePlayerMove(JUMP, deltaTime);
 
     if (glfwGetKey(glfwWindow, GLFW_KEY_F11) == GLFW_PRESS)
         window->toggleFullscreen();
@@ -171,5 +172,5 @@ void Game::mouse_callback(double xposIn, double yposIn) {
     lastX = xpos;
     lastY = ypos;
 
-    player->HandleMouseMove(xoffset, yoffset);
+    player.HandleMouseMove(xoffset, yoffset);
 }

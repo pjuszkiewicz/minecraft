@@ -12,7 +12,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : Front
     UpdateCameraVectors();
 }
 
-glm::mat4 Camera::GetViewMatrix() {
+glm::mat4 Camera::GetViewMatrix() const{
     return glm::lookAt(Position, Position + Front, Up);
 }
 
