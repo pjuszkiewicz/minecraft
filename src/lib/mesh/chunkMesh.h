@@ -8,7 +8,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "../../lib/chunk/chunk.h"
+#include "../../lib/Chunk/Chunk.h"
 
 class ChunkMesh {
 private:
@@ -23,8 +23,17 @@ public:
     int chunkZ;
     ChunkMesh(int chunkX, int chunkZ);
     void draw() const;
-    void setPositions(std::vector<glm::vec3>* positions);
+
+    void updateBuffers() const;
     void updateChunk(const Chunk &chunk);
+    void updateBlock(const Chunk &chunk, int x, int y, int z);
+
+    void addTopFace(glm::vec3 position);
+    void addBottomFace(glm::vec3 position);
+    void addLeftFace(glm::vec3 position, bool isTopColliding);
+    void addRightFace(glm::vec3 position, bool isTopColliding);
+    void addFrontFace(glm::vec3 position, bool isTopColliding);
+    void addBackFace(glm::vec3 position, bool isTopColliding);
 };
 
 #endif

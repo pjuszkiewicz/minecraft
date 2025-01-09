@@ -11,19 +11,23 @@ add_executable(
         src/main.cpp
         src/lib/window/window.cpp
         src/lib/texture/texture.cpp
-        src/lib/shader/shader.cpp
-        src/lib/renderer/renderer.cpp
+        src/lib/Shader/shader.cpp
+        src/lib/Renderer/renderer.cpp
         src/lib/player/player.cpp
-        src/lib/mesh/mesh.cpp
-        src/lib/mesh/chunkMesh.cpp
-        src/lib/game/game.cpp
-        src/lib/camera/camera.cpp
-        src/lib/chunk/chunk.cpp
-        src/lib/objects/cube.cpp
-        src/lib/buffers/vbo.cpp
-        src/lib/buffers/vao.cpp
-        src/lib/world/world.cpp
-        src/lib/world/world.h
+        src/lib/Mesh/mesh.cpp
+        src/lib/Mesh/chunkMesh.cpp
+        src/lib/Game/game.cpp
+        src/lib/Camera/camera.cpp
+        src/lib/Chunk/chunk.cpp
+        src/lib/Buffers/vbo.cpp
+        src/lib/Buffers/vao.cpp
+        src/lib/World/world.cpp
+        src/lib/World/world.h
+        src/lib/texture/TexturePack.cpp
+        src/lib/texture/TexturePack.h
+        src/lib/Material/Material.cpp
+        src/lib/Material/Material.h
+        src/lib/Constants.h
 )
 
 target_link_libraries(minecraft glfw)

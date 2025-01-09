@@ -2,7 +2,7 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/shader/shader.h"
+#include "../../lib/Shader/Shader.h"
 
 Shader::Shader(const char *vertexPath, const char *fragmentPath) {
     std::cout << vertexPath << std::endl;
@@ -11,7 +11,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
     std::string fragmentCode;
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
-    // ensure ifstream objects can throw exceptions:
+    // ensure ifstream Objects can throw exceptions:
     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try {

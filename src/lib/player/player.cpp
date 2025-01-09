@@ -2,7 +2,7 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/player/player.h"
+#include "../../lib/Player/Player.h"
 
 Player::Player(glm::vec3 position) {
     Position = position;

@@ -2,7 +2,7 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/texture/texture.h"
+#include "../../lib/Texture/Texture.h"
 
 Texture::Texture(const char *path, int format) {
     stbi_set_flip_vertically_on_load(true);

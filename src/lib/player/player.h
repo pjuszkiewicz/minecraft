@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "../../lib/camera/camera.h"
+#include "../../lib/Camera/Camera.h"
 
 #include <glm/glm.hpp>
 #include <iostream>

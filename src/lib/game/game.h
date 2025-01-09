@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../../lib/renderer/renderer.h"
+#include "../../lib/Renderer/Renderer.h"
 #include <unordered_map>
-#include "../../lib/map/pair_hash.h"
-#include "../../lib/window/window.h"
+#include "../../lib/Map/PairHash.h"
+#include "../../lib/Window/Window.h"
 
 
 class Game {

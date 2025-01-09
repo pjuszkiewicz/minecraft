@@ -2,7 +2,7 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/chunk/chunk.h"
+#include "../../lib/Chunk/Chunk.h"
 
 Block Chunk::getBlock(int x, int y, int z) const {
     return blocks[x][y][z];

@@ -1,14 +1,8 @@
-//
-// Created by piotr on 07.01.25.
-//
-
-#include "../../lib/game/game.h"
+#include "../../lib/Game/Game.h"
 #define STB_PERLIN_IMPLEMENTATION
 #include "../stb_perlin.h"
 
 Game::Game() {
-    // player = new Player(glm::vec3(0.0f, 0.0f, 0.0f));
-
     window = new Window();
     renderer = new Renderer(player);
 
@@ -29,7 +23,6 @@ void Game::loop() {
             player,
             chunks);
 
-        // opengl stuff
         glfwSwapBuffers(window->glfwWindow);
         glfwPollEvents();
 
@@ -49,7 +42,7 @@ void Game::updateFpsTime() {
     double currentTime = glfwGetTime();
     fps++;
     if (currentTime - lastFpsTime > 1.0f) {
-        std::cout << "FPS: " << fps << std::endl;
+        // std::cout << "FPS: " << fps << std::endl;
         fps = 0;
         lastFpsTime = currentTime;
     }
@@ -120,8 +113,8 @@ float perlinNoise(float x, float z, int octaves, float persistence, float scale)
 
 void Game::generateChunks() {
 
-    for (int x = -50; x <= 50; x++) {
-        for (int z = -50; z <= 50; z++) {
+    for (int x = -20; x <= 20; x++) {
+        for (int z = -20; z <= 20; z++) {
             Chunk chunk(x, z);
 
             int chunkX = x * CHUNK_WIDTH;
@@ -131,13 +124,13 @@ void Game::generateChunks() {
             for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
                 for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
 
-                    float scale = 0.05;
+                    float scale = 0.1;
 
                     // float noise = stb_perlin_noise3((chunkX + bx) * scale, 0.0f, (chunkZ + bz) * scale, 0, 0, 0);
-                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 2, 0, scale) + 0.5;
+                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 0, scale) + 0.5;
                     if (noise < 0.0f) noise = 0.0;
 
-                    int height = (int) (noise * 16);
+                    int height = (int) (noise * 32);
 
 
                     for (int by = 0; by < height + 1; by++) {
@@ -153,8 +146,6 @@ void Game::generateChunks() {
             }
 
             chunks[{x, z}] = chunk;
-
-            // updateChunk(x, z);
         }
     }
 }

@@ -1,13 +1,9 @@
-//
-// Created by Piotr Juszkiewicz on 06/01/2025.
-//
 #include <iostream>
 
 #include "../../lib/glad/glad.h"
-
-#include "./chunkMesh.h"
-
-#include "../objects/cube.h"
+#include "./ChunkMesh.h"
+#include "../Objects/Cube.h"
+#include "../Texture/TexturePack.h"
 
 ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     this->chunkX = chunkX;
@@ -40,12 +36,11 @@ ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
 
     // Instance
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    GLuint location = 2; // Lokalizacja atrybutu w shaderze
-
+    GLuint location = 2;
     for (int i = 0; i < 4; i++) {
         glEnableVertexAttribArray(location + i);
         glVertexAttribPointer(location + i, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) (i * sizeof(glm::vec4)));
-        glVertexAttribDivisor(location + i, 1); // Użyj jednej macierzy na instancję
+        glVertexAttribDivisor(location + i, 1);
     }
 
     // Texture
@@ -70,127 +65,14 @@ void ChunkMesh::draw() const {
     }
 }
 
-glm::vec2 getUVForBlock(int blockID, int ui, int vi) {
-    int blocksPerRow = 256 / 32; // np. BLOCK_SIZE = 16
-    int row = blockID / blocksPerRow;
-    int col = blockID % blocksPerRow;
-
-    // Dolny lewy róg tekstury w atlasie
-    float u = (float) ui / blocksPerRow;
-    float v = (float) vi / blocksPerRow;
-
-    // Rozmiar pojedynczej tekstury w atlasie
-    float uvWidth = 1.0f / blocksPerRow;
-
-    return glm::vec2(u, v);
-}
-
 float calculateAO(bool side1, bool side2, bool corner) {
-    if (side1 && side2) return 0.0f;  // Maksymalne zacienienie
-    return 1.0f - (side1 + side2 + corner) * 0.25f;  // Im więcej sąsiadów, tym ciemniej
+    if (side1 && side2) return 0.0f;// Maksymalne zacienienie
+    return 1.0f - (side1 + side2 + corner) * 0.25f; // Im więcej sąsiadów, tym ciemniej
 }
 
-void ChunkMesh::updateChunk(const Chunk &chunk) {
-    this->positions = new std::vector<glm::mat4>();
-    this->textures = new std::vector<glm::vec2>();
-
-    for (int x = 0; x < CHUNK_WIDTH; x++) {
-        for (int y = 0; y < CHUNK_HEIGHT; y++) {
-            for (int z = 0; z < CHUNK_WIDTH; z++) {
-                if (chunk.blocks[x][y][z].type == BlockType::AIR) {
-                    continue;
-                }
-
-                bool isTopColliding = y != CHUNK_HEIGHT - 1 && chunk.blocks[x][y + 1][z].type != BlockType::AIR;
-                bool isBottomColliding = y != 0 && chunk.blocks[x][y - 1][z].type != BlockType::AIR;
-                bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z].type != BlockType::AIR;
-                bool isRightColliding = x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].type != BlockType::AIR;
-                bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1].type != BlockType::AIR;
-                bool isBackColliding = z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1].type != BlockType::AIR;
-
-                auto block = glm::mat4(1.0f);
-
-                glm::vec3 pos = chunk.blocks[x][y][z].position;
-
-                // front face
-                if (!isFrontColliding) {
-                    block = glm::mat4(1.0f);
-                    block = glm::translate(block, pos);
-
-                    this->positions->push_back(block);
-
-                    glm::vec2 uv = getUVForBlock(1, 1, 8);
-                    this->textures->push_back(uv);
-                }
-
-                // back face
-                if (!isBackColliding) {
-                    block = glm::mat4(1.0f);
-                    block = glm::translate(block, pos);
-                    block = glm::translate(block, glm::vec3(1.0f, 0.0f, 1.0f));
-                    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-                    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-                    this->positions->push_back(block);
-                    glm::vec2 uv = getUVForBlock(1, 1, 8);
-                    this->textures->push_back(uv);
-                }
-                //
-                // top face
-                if (!isTopColliding) {
-                    block = glm::mat4(1.0f);
-                    block = glm::translate(block, pos);
-                    block = glm::translate(block, glm::vec3(0.0f, 1.0f, 0.0f));
-                    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-                    this->positions->push_back(block);
-                    glm::vec2 uv = getUVForBlock(1, 2, 8);
-                    this->textures->push_back(uv);
-                }
-
-                // bottom face
-                if (!isBottomColliding) {
-                    block = glm::mat4(1.0f);
-                    block = glm::translate(block, pos);
-                    block = glm::translate(block, glm::vec3(0.0f, 0.0f, 1.0f));
-                    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
-                    this->positions->push_back(block);
-                    glm::vec2 uv = getUVForBlock(1, 1, 8);
-                    this->textures->push_back(uv);
-                }
-
-                // right face
-                if (!isRightColliding) {
-                    block = glm::mat4(1.0f);
-                    block = glm::translate(block, pos);
-                    block = glm::translate(block, glm::vec3(1.0f, 0.0f, 0.0f));
-                    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-                    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-                    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-                    this->positions->push_back(block);
-                    glm::vec2 uv = getUVForBlock(1, 1, 8);
-                    this->textures->push_back(uv);
-                }
-
-                // left face
-                if (!isLeftColliding) {
-                    block = glm::mat4(1.0f);
-                    block = glm::translate(block, pos);
-                    block = glm::translate(block, glm::vec3(0.0f, 0.0f, 1.0f));
-                    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-                    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-                    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-                    this->positions->push_back(block);
-                    glm::vec2 uv = getUVForBlock(1, 1, 8);
-                    this->textures->push_back(uv);
-                }
-
-                float ao = calculateAO(isFrontColliding, isLeftColliding, false);
-                ambientOcclusions->push_back(ao);
-            }
-        }
-    }
-
+void ChunkMesh::updateBuffers() const {
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    glBufferData( GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->positions->size(), this->positions->data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->positions->size(), this->positions->data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
@@ -200,4 +82,115 @@ void ChunkMesh::updateChunk(const Chunk &chunk) {
     glBindBuffer(GL_ARRAY_BUFFER, ambientOcclusionVBO);
     glBufferData(GL_ARRAY_BUFFER, ambientOcclusions->size() * sizeof(float), ambientOcclusions->data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ChunkMesh::updateChunk(const Chunk &chunk) {
+    this->positions = new std::vector<glm::mat4>();
+    this->textures = new std::vector<glm::vec2>();
+
+    for (int x = 0; x < CHUNK_WIDTH; x++) {
+        for (int y = 0; y < CHUNK_HEIGHT; y++) {
+            for (int z = 0; z < CHUNK_WIDTH; z++) {
+                updateBlock(chunk, x, y, z);
+            }
+        }
+    }
+
+    updateBuffers();
+}
+
+void ChunkMesh::updateBlock(const Chunk &chunk, int x, int y, int z) {
+    if (chunk.blocks[x][y][z].type == BlockType::AIR) {
+        return;
+    }
+
+    glm::vec3 pos = chunk.blocks[x][y][z].position;
+
+    bool isTopColliding = y != CHUNK_HEIGHT - 1 && chunk.blocks[x][y + 1][z].type != BlockType::AIR;
+    if (!isTopColliding) addTopFace(pos);
+
+    bool isBottomColliding = y != 0 && chunk.blocks[x][y - 1][z].type != BlockType::AIR;
+    if (!isBottomColliding) addBottomFace(pos);
+
+    bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z].type != BlockType::AIR;
+    if (!isLeftColliding) addLeftFace(pos, isTopColliding);
+
+    bool isRightColliding = x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].type != BlockType::AIR;
+    if (!isRightColliding) addRightFace(pos, isTopColliding);
+
+    bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1].type != BlockType::AIR;
+    if (!isFrontColliding) addFrontFace(pos, isTopColliding);
+
+    bool isBackColliding = z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1].type != BlockType::AIR;
+    if (!isBackColliding) addBackFace(pos, isTopColliding);
+
+    float ao = calculateAO(isFrontColliding, isLeftColliding, false);
+    ambientOcclusions->push_back(ao);
+}
+
+void ChunkMesh::addLeftFace(glm::vec3 position, bool isTopColliding) {
+    auto block = glm::mat4(1.0f);
+    block = glm::translate(block, position);
+    block = glm::translate(block, glm::vec3(0.0f, 0.0f, 1.0f));
+    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    this->positions->push_back(block);
+    int texture = isTopColliding ? 0 : 1;
+    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    this->textures->push_back(uv);
+}
+
+void ChunkMesh::addRightFace(glm::vec3 position, bool isTopColliding) {
+    auto block = glm::mat4(1.0f);
+    block = glm::translate(block, position);
+    block = glm::translate(block, glm::vec3(1.0f, 0.0f, 0.0f));
+    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    this->positions->push_back(block);
+    int texture = isTopColliding ? 0 : 1;
+    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    this->textures->push_back(uv);
+}
+
+void ChunkMesh::addFrontFace(glm::vec3 position, bool isTopColliding) {
+    auto block = glm::mat4(1.0f);
+    block = glm::translate(block, position);
+    this->positions->push_back(block);
+    int texture = isTopColliding ? 0 : 1;
+    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    this->textures->push_back(uv);
+}
+
+void ChunkMesh::addBackFace(glm::vec3 position, bool isTopColliding) {
+    auto block = glm::mat4(1.0f);
+    block = glm::translate(block, position);
+    block = glm::translate(block, glm::vec3(1.0f, 0.0f, 1.0f));
+    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    this->positions->push_back(block);
+    int texture = isTopColliding ? 0 : 1;
+    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    this->textures->push_back(uv);
+}
+
+void ChunkMesh::addBottomFace(glm::vec3 position) {
+    auto block = glm::mat4(1.0f);
+    block = glm::translate(block, position);
+    block = glm::translate(block, glm::vec3(0.0f, 0.0f, 1.0f));
+    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+    this->positions->push_back(block);
+    glm::vec2 uv = TexturePack::getUVForBlock(1, 0, 8);
+    this->textures->push_back(uv);
+}
+
+void ChunkMesh::addTopFace(glm::vec3 position) {
+    auto block = glm::mat4(1.0f);
+    block = glm::translate(block, position);
+    block = glm::translate(block, glm::vec3(0.0f, 1.0f, 0.0f));
+    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    this->positions->push_back(block);
+    glm::vec2 uv = TexturePack::getUVForBlock(1, 2, 8);
+    this->textures->push_back(uv);
 }

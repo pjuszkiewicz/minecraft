@@ -1,34 +1,24 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "../../lib/texture/texture.h"
-#include "../../lib/map/pair_hash.h"
-#include "../../lib/shader/shader.h"
-#include "../../lib/player/player.h"
-#include "../../lib/chunk/chunk.h"
+#include "../../lib/Texture/Texture.h"
+#include "../../lib/Map/PairHash.h"
+#include "../../lib/Shader/Shader.h"
+#include "../../lib/Player/Player.h"
+#include "../../lib/Chunk/Chunk.h"
 #include <unordered_map>
 
 #include <vector>
 
-#include "../mesh/chunkMesh.h"
-#include "../mesh/mesh.h"
+#include "../Mesh/ChunkMesh.h"
+#include "../Mesh/Mesh.h"
 
-const int RENDER_DISTANCE = 10;
+const int RENDER_DISTANCE = 5;
 
 class Renderer {
 public:
     Shader *shader;
     Shader *instancedShader;
-
-    Texture *diamondTexture;
-    Texture *dirtTexture;
-
-    Texture *bottomTexture;
-    Texture *topTexture;
-    Texture *leftTexture;
-    Texture *rightTexture;
-    Texture *backTexture;
-    Texture *frontTexture;
 
     Texture *texturePack;
 

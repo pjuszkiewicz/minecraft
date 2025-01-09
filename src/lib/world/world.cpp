@@ -1,8 +1,4 @@
-//
-// Created by Piotr Juszkiewicz on 08/01/2025.
-//
-
-#include "world.h"
+#include "World.h"
 
 // #define STB_PERLIN_IMPLEMENTATION
 // #include "../stb_perlin.h"

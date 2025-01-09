@@ -2,38 +2,27 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/renderer/renderer.h"
-#include <iostream>
-#include "../../lib/objects/cube.h"
+#include "../../lib/Renderer/Renderer.h"
+
 
 Renderer::Renderer(Player &player) {
+    std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
+    // const std::string ASSETS_PATH = "/home/piotr/Development/C++/Minecraft/src/assets";
+
     chunkX = 0;
     lastChunkX = 0;
     chunkZ = 0;
     lastChunkZ = 0;
 
     this->player = player;
-    // const std::string assetsPath = "/Users/piotr/Development/C++/minecraft/src/assets";
-    const std::string assetsPath = "/home/piotr/Development/C++/Minecraft/src/assets";
 
-    shader = new Shader((assetsPath + "/shaders/example/vertex.vs").c_str(),
-                        (assetsPath + "/shaders/example/fragment.fs").c_str());
+    shader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
+                        (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
 
-    instancedShader = new Shader((assetsPath + "/shaders/example/instanced.vs").c_str(),
-                                 (assetsPath + "/shaders/example/instanced.fs").c_str());
+    instancedShader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
+                                 (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
 
-    diamondTexture = new Texture((assetsPath + "/textures/diamond_block.png").c_str(),
-                                 GL_RGBA);
-    dirtTexture = new Texture((assetsPath + "/textures/dirt.png").c_str(), GL_RGB);
-
-    bottomTexture = new Texture((assetsPath + "/textures/bottom.png").c_str(), GL_RGBA);
-    topTexture = new Texture((assetsPath + "/textures/top.png").c_str(), GL_RGBA);
-    leftTexture = new Texture((assetsPath + "/textures/left.png").c_str(), GL_RGBA);
-    rightTexture = new Texture((assetsPath + "/textures/right.png").c_str(), GL_RGBA);
-    backTexture = new Texture((assetsPath + "/textures/back.png").c_str(), GL_RGBA);
-    frontTexture = new Texture((assetsPath + "/textures/front.png").c_str(), GL_RGBA);
-
-    texturePack = new Texture((assetsPath + "/textures/texturepack.png").c_str(), GL_RGBA);
+    texturePack = new Texture((ASSETS_PATH + "/textures/texturepack.png").c_str(), GL_RGBA);
 }
 
 void Renderer::clear() {
@@ -45,20 +34,14 @@ void Renderer::draw(
     const Player &player,
     const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks
 ) {
-    int newChunkX = (player.Position.x - ((int) player.Position.x % CHUNK_WIDTH)) / CHUNK_WIDTH;
-    int newChunkZ = (player.Position.z - ((int) player.Position.z % CHUNK_WIDTH)) / CHUNK_WIDTH;
+    int newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
+    int newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
 
     if (newChunkX != chunkX || newChunkZ != chunkZ) {
         lastChunkX = chunkX;
         chunkX = newChunkX;
         lastChunkZ = chunkZ;
         chunkZ = newChunkZ;
-
-        int dx = chunkX - lastChunkX;
-        int dz = chunkZ - lastChunkZ;
-
-        if (dx != 0) {
-        }
 
         update_chunks(chunks);
     }
@@ -72,10 +55,7 @@ void Renderer::draw(
     }
 
     texturePack->use(0);
-
     instancedShader->use();
-    glm::vec3 lightDirection = glm::normalize(glm::vec3(0.5f, -0.5f, 0.5f)); // Światło z góry i lekko z przodu
-    instancedShader->setVec3("lightDirection", lightDirection);
 
     for (ChunkMesh chunkMesh: chunkMeshes) {
         chunkMesh.draw();
@@ -86,23 +66,31 @@ void Renderer::update_chunks(
     const std::unordered_map<std::pair<int, int>,
         Chunk, PairHash> &chunks
 ) {
-    // chunkMeshes.clear();
+    std::cout << "Chunk Meshes count: " << chunkMeshes.size() << std::endl;
+    std::cout << "Update chunks: " << glfwGetTime() << std::endl;
 
     auto key = chunks.find(std::make_pair(0, 0));
 
-    // int index = 0;
-    // for (ChunkMesh chunkMesh: chunkMeshes) {
+    std::vector<int> chunkMeshesToReuse;
+
+    // Usuwanie chunków
     for (int i = 0; i < chunkMeshes.size(); i++) {
-        if (abs(chunkMeshes[i].chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMeshes[i].chunkZ - chunkZ) > RENDER_DISTANCE) {
-            chunkMeshes.erase(chunkMeshes.begin() + i);
-            i--;
+        if (abs(chunkMeshes[i].chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMeshes[i].chunkZ - chunkZ) >
+            RENDER_DISTANCE) {
+            // chunkMeshes.erase(chunkMeshes.begin() + i);
+            // i--;
+            chunkMeshesToReuse.push_back(i);
         }
     }
 
+    std::cout << "Delete chunks: " << glfwGetTime() << std::endl;
+
+    // Dodanie nowych
     for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
         for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
             int x = chunkX + i;
             int z = chunkZ + j;
+
             bool skip = false;
 
             for (ChunkMesh chunkMesh: chunkMeshes) {
@@ -111,19 +99,23 @@ void Renderer::update_chunks(
                 }
             }
 
-            if (skip) {continue;}
-
-
-
-            ChunkMesh chunk = ChunkMesh(x, z);
+            if (skip) { continue; }
 
             key = chunks.find(std::make_pair(x, z));
             if (key != chunks.end()) {
-                chunk.updateChunk(key->second);
-                chunkMeshes.push_back(chunk);
+                if (chunkMeshesToReuse.size() > 0) {
+                    chunkMeshes[chunkMeshesToReuse[0]].updateChunk(key->second);
+                    chunkMeshesToReuse.erase(chunkMeshesToReuse.begin());
+                } else {
+                    ChunkMesh chunk = ChunkMesh(x, z);
+                    chunk.updateChunk(key->second);
+                    chunkMeshes.push_back(chunk);
+                }
             }
         }
     }
+
+    std::cout << "update chunks: " << glfwGetTime() << std::endl;
 }
 
 void Renderer::update_shader(const Player &player) {
@@ -143,4 +135,7 @@ void Renderer::update_shader(const Player &player) {
 
     glm::vec2 uvScale(1.0f / 8, 1.0f / 8);
     instancedShader->setVec2("uvScale", uvScale);
+
+    glm::vec3 lightDirection = glm::normalize(glm::vec3(1.0f, -0.5f, 0.5f));
+    instancedShader->setVec3("lightDirection", lightDirection);
 }
