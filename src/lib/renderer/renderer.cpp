@@ -71,8 +71,11 @@ void Renderer::draw(
         changed = true;
     }
 
-    diamondTexture->use(0);
+    texturePack->use(0);
+
     instancedShader->use();
+    glm::vec3 lightDirection = glm::normalize(glm::vec3(0.5f, -0.5f, 0.5f)); // Światło z góry i lekko z przodu
+    instancedShader->setVec3("lightDirection", lightDirection);
 
     for (ChunkMesh chunkMesh: chunkMeshes) {
         chunkMesh.draw();
@@ -127,7 +130,7 @@ void Renderer::update_shader(const Player &player) {
     const int SCR_WIDTH = 1280;
     const int SCR_HEIGHT = 720;
 
-    glm::mat4 projection = glm::perspective(45.0f, (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(45.0f, (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 1000.0f);
     glm::mat4 view = player.camera.GetViewMatrix();
 
     shader->use();
@@ -137,4 +140,7 @@ void Renderer::update_shader(const Player &player) {
     instancedShader->use();
     instancedShader->setMat4("projection", projection);
     instancedShader->setMat4("view", view);
+
+    glm::vec2 uvScale(1.0f / 8, 1.0f / 8);
+    instancedShader->setVec2("uvScale", uvScale);
 }

@@ -1,12 +1,21 @@
 #version 330 core
 
-out vec4 FragColor;  
+in vec3 FragNormal;
 in vec2 TexCoord;
 
+in float ambientOcclusion;
+out vec4 FragColor;
+
 uniform sampler2D ourTexture;
-  
+uniform vec3 lightDirection;
+
 void main()
 {
-    FragColor = texture(ourTexture, TexCoord);
-//     FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    vec3 normal = normalize(FragNormal);
+
+//     FragColor = texture(ourTexture, TexCoord) * ambientOcclusion;
+
+    float intensity = max(dot(normal, normalize(lightDirection)), 0.5);
+    vec4 texColor = texture(ourTexture, TexCoord);
+    FragColor = vec4(texColor.rgb * intensity, texColor.a);
 }

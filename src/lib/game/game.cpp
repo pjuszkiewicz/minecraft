@@ -3,6 +3,8 @@
 //
 
 #include "../../lib/game/game.h"
+#define STB_PERLIN_IMPLEMENTATION
+#include "../stb_perlin.h"
 
 Game::Game() {
     // player = new Player(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -99,15 +101,45 @@ bool Game::isBlockAt(glm::vec3 pos) {
     return false;
 }
 
+float perlinNoise(float x, float z, int octaves, float persistence, float scale) {
+    float noise = 0.0f;
+    float amplitude = 1.0f;
+    float frequency = 1.0f;
+    float maxValue = 0.0f; // Do normalizacji
+
+    for (int i = 0; i < octaves; i++) {
+        noise += amplitude * stb_perlin_noise3(x * frequency * scale, 0.0f, z * frequency * scale, 0, 0, 0);
+        maxValue += amplitude;
+
+        amplitude *= persistence; // Zmniejsz amplitudę
+        frequency *= 2.0f;        // Zwiększ częstotliwość
+    }
+
+    return noise / maxValue; // Normalizuj wynik do zakresu 0-1
+}
+
 void Game::generateChunks() {
+
     for (int x = -50; x <= 50; x++) {
         for (int z = -50; z <= 50; z++) {
             Chunk chunk(x, z);
 
+            int chunkX = x * CHUNK_WIDTH;
+            int chunkZ = z * CHUNK_WIDTH;
+
             // Generowanie chunka
             for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
-                for (int by = 0; by < CHUNK_HEIGHT; by++) {
-                    for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
+                for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
+
+                    float scale = 0.05;
+
+                    // float noise = stb_perlin_noise3((chunkX + bx) * scale, 0.0f, (chunkZ + bz) * scale, 0, 0, 0);
+                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 1, 0, scale);
+
+                    int height = (int) (noise * 32) + 1;
+
+
+                    for (int by = 0; by < height; by++) {
                         int xOffset = x * CHUNK_WIDTH;
                         int zOffset = z * CHUNK_WIDTH;
 

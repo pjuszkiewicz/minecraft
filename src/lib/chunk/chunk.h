@@ -5,7 +5,7 @@
 #include "../block/block.h"
 
 const int CHUNK_WIDTH = 16;
-const int CHUNK_HEIGHT = 16;
+const int CHUNK_HEIGHT = 64;
 
 class Chunk {
 public:

@@ -139,6 +139,12 @@ build CMakeFiles/minecraft.dir/src/lib/buffers/vao.cpp.o: CXX_COMPILER__minecraf
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/lib/buffers
 
+build CMakeFiles/minecraft.dir/src/lib/world/world.cpp.o: CXX_COMPILER__minecraft_unscanned_Debug /Users/piotr/Development/C++/minecraft/src/lib/world/world.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/lib/world/world.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/minecraft.dir
+  OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/lib/world
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target minecraft
@@ -147,7 +153,7 @@ build CMakeFiles/minecraft.dir/src/lib/buffers/vao.cpp.o: CXX_COMPILER__minecraf
 #############################################
 # Link the executable minecraft
 
-build minecraft: CXX_EXECUTABLE_LINKER__minecraft_Debug CMakeFiles/minecraft.dir/src/lib/glad/glad.c.o CMakeFiles/minecraft.dir/src/main.cpp.o CMakeFiles/minecraft.dir/src/lib/window/window.cpp.o CMakeFiles/minecraft.dir/src/lib/texture/texture.cpp.o CMakeFiles/minecraft.dir/src/lib/shader/shader.cpp.o CMakeFiles/minecraft.dir/src/lib/renderer/renderer.cpp.o CMakeFiles/minecraft.dir/src/lib/player/player.cpp.o CMakeFiles/minecraft.dir/src/lib/mesh/mesh.cpp.o CMakeFiles/minecraft.dir/src/lib/mesh/chunkMesh.cpp.o CMakeFiles/minecraft.dir/src/lib/game/game.cpp.o CMakeFiles/minecraft.dir/src/lib/camera/camera.cpp.o CMakeFiles/minecraft.dir/src/lib/chunk/chunk.cpp.o CMakeFiles/minecraft.dir/src/lib/objects/cube.cpp.o CMakeFiles/minecraft.dir/src/lib/buffers/vbo.cpp.o CMakeFiles/minecraft.dir/src/lib/buffers/vao.cpp.o
+build minecraft: CXX_EXECUTABLE_LINKER__minecraft_Debug CMakeFiles/minecraft.dir/src/lib/glad/glad.c.o CMakeFiles/minecraft.dir/src/main.cpp.o CMakeFiles/minecraft.dir/src/lib/window/window.cpp.o CMakeFiles/minecraft.dir/src/lib/texture/texture.cpp.o CMakeFiles/minecraft.dir/src/lib/shader/shader.cpp.o CMakeFiles/minecraft.dir/src/lib/renderer/renderer.cpp.o CMakeFiles/minecraft.dir/src/lib/player/player.cpp.o CMakeFiles/minecraft.dir/src/lib/mesh/mesh.cpp.o CMakeFiles/minecraft.dir/src/lib/mesh/chunkMesh.cpp.o CMakeFiles/minecraft.dir/src/lib/game/game.cpp.o CMakeFiles/minecraft.dir/src/lib/camera/camera.cpp.o CMakeFiles/minecraft.dir/src/lib/chunk/chunk.cpp.o CMakeFiles/minecraft.dir/src/lib/objects/cube.cpp.o CMakeFiles/minecraft.dir/src/lib/buffers/vbo.cpp.o CMakeFiles/minecraft.dir/src/lib/buffers/vao.cpp.o CMakeFiles/minecraft.dir/src/lib/world/world.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   LINK_LIBRARIES = -lglfw
   OBJECT_DIR = CMakeFiles/minecraft.dir

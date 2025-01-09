@@ -8,7 +8,7 @@
 
 const float MOUSE_SENSITIVITY = 0.1f;
 const float WALK_SPEED = 3.5f;
-const float SPRINT_SPEED = 12.0f;
+const float SPRINT_SPEED = 25.0f;
 const glm::vec3 WORLD_UP(0.0f, 1.0f, 0.0f);
 
 enum PlayerMovement {

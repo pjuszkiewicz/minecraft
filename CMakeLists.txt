@@ -22,6 +22,8 @@ add_executable(
         src/lib/objects/cube.cpp
         src/lib/buffers/vbo.cpp
         src/lib/buffers/vao.cpp
+        src/lib/world/world.cpp
+        src/lib/world/world.h
 )
 
 target_link_libraries(minecraft glfw)

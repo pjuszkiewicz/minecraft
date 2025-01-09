@@ -13,7 +13,7 @@
 #include "../mesh/chunkMesh.h"
 #include "../mesh/mesh.h"
 
-const int RENDER_DISTANCE = 5;
+const int RENDER_DISTANCE = 10;
 
 class Renderer {
 public:
