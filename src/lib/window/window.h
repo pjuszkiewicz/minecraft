@@ -5,8 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-const int SCR_WIDTH = 1280;
-const int SCR_HEIGHT = 720;
+const int SCR_WIDTH = 1600;
+const int SCR_HEIGHT = 900;
 
 class Window {
 public:

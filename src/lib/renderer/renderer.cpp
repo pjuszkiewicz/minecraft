@@ -13,8 +13,8 @@ Renderer::Renderer(Player &player) {
     lastChunkZ = 0;
 
     this->player = player;
-    const std::string assetsPath = "/Users/piotr/Development/C++/minecraft/src/assets";
-    // const std::string assetsPath = "/home/piotr/Development/C++/Minecraft/src/assets";
+    // const std::string assetsPath = "/Users/piotr/Development/C++/minecraft/src/assets";
+    const std::string assetsPath = "/home/piotr/Development/C++/Minecraft/src/assets";
 
     shader = new Shader((assetsPath + "/shaders/example/vertex.vs").c_str(),
                         (assetsPath + "/shaders/example/fragment.fs").c_str());
@@ -127,8 +127,8 @@ void Renderer::update_chunks(
 }
 
 void Renderer::update_shader(const Player &player) {
-    const int SCR_WIDTH = 1280;
-    const int SCR_HEIGHT = 720;
+    const int SCR_WIDTH = 1600;
+    const int SCR_HEIGHT = 900;
 
     glm::mat4 projection = glm::perspective(45.0f, (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 1000.0f);
     glm::mat4 view = player.camera.GetViewMatrix();

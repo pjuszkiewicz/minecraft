@@ -20,6 +20,8 @@ void main()
 {
     ambientOcclusion = ao;
     vec4 pos = aOffset * vec4(aPos, 1.0);
+
+
     gl_Position = projection * view * pos;
     TexCoord = uvOffset + aTexCoord * uvScale;
     FragNormal = mat3(transpose(inverse(aOffset))) * aPos;

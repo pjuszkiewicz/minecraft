@@ -134,12 +134,13 @@ void Game::generateChunks() {
                     float scale = 0.05;
 
                     // float noise = stb_perlin_noise3((chunkX + bx) * scale, 0.0f, (chunkZ + bz) * scale, 0, 0, 0);
-                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 1, 0, scale);
+                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 2, 0, scale) + 0.5;
+                    if (noise < 0.0f) noise = 0.0;
 
-                    int height = (int) (noise * 32) + 1;
+                    int height = (int) (noise * 16);
 
 
-                    for (int by = 0; by < height; by++) {
+                    for (int by = 0; by < height + 1; by++) {
                         int xOffset = x * CHUNK_WIDTH;
                         int zOffset = z * CHUNK_WIDTH;
 

@@ -13,9 +13,9 @@ void main()
 {
     vec3 normal = normalize(FragNormal);
 
-//     FragColor = texture(ourTexture, TexCoord) * ambientOcclusion;
+    FragColor = texture(ourTexture, TexCoord);
 
-    float intensity = max(dot(normal, normalize(lightDirection)), 0.5);
-    vec4 texColor = texture(ourTexture, TexCoord);
-    FragColor = vec4(texColor.rgb * intensity, texColor.a);
+//     float intensity = max(dot(normal, normalize(lightDirection)), 0.5);
+//     vec4 texColor = texture(ourTexture, TexCoord);
+//     FragColor = vec4(texColor.rgb * intensity, texColor.a);
 }
