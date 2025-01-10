@@ -5,6 +5,10 @@
 #include "../Objects/Cube.h"
 #include "../Texture/TexturePack.h"
 
+ChunkMesh::ChunkMesh() {
+    ChunkMesh(0, 0);
+}
+
 ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     this->chunkX = chunkX;
     this->chunkZ = chunkZ;
@@ -66,7 +70,7 @@ void ChunkMesh::draw() const {
 }
 
 float calculateAO(bool side1, bool side2, bool corner) {
-    if (side1 && side2) return 0.0f;// Maksymalne zacienienie
+    if (side1 && side2) return 0.0f; // Maksymalne zacienienie
     return 1.0f - (side1 + side2 + corner) * 0.25f; // Im więcej sąsiadów, tym ciemniej
 }
 

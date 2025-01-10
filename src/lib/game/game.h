@@ -7,6 +7,9 @@
 #include "../../lib/Window/Window.h"
 
 
+#include <thread>
+#include <chrono>
+
 class Game {
 public:
     Window *window;
@@ -25,7 +28,10 @@ public:
 
     int fps = 0;
     float lastFpsTime = 0.0f;
-
+    int chunkX = 0;
+    int lastChunkX = 0;
+    int chunkZ = 0;
+    int lastChunkZ = 0;
 
     Game();
 
@@ -46,6 +52,8 @@ public:
     void processInput(GLFWwindow *glfwWindow, float deltaTime);
 
     void mouse_callback(double xposIn, double yposIn);
+
+    void chunkUpdateLoop();
 };
 
 #endif

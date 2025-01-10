@@ -11,16 +11,16 @@
 #include "../../lib/Chunk/Chunk.h"
 
 class ChunkMesh {
-private:
+public:
     unsigned int vbo, instanceVBO, textureVBO, ambientOcclusionVBO;
     std::vector<glm::mat4> *positions;
     std::vector<glm::vec2> *textures;
     std::vector<float> *ambientOcclusions;
 
-public:
     unsigned int VAO;
     int chunkX;
     int chunkZ;
+    ChunkMesh();
     ChunkMesh(int chunkX, int chunkZ);
     void draw() const;
 

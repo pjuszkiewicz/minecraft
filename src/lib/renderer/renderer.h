@@ -22,18 +22,16 @@ public:
 
     Texture *texturePack;
 
-    std::vector<ChunkMesh> chunkMeshes;
-
-    Player player;
+    std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes;
 
     bool changed = false;
-
-    Renderer(Player &player);
 
     int chunkX;
     int lastChunkX;
     int chunkZ;
     int lastChunkZ;
+
+    Renderer();
 
     void clear();
 
@@ -42,6 +40,11 @@ public:
         const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
 
     void update_shader(const Player &player);
+
+    void update_initial_chunks(
+        const std::unordered_map<std::pair<int, int>,
+            Chunk, PairHash> &chunks
+    );
 
     void update_chunks(
         const std::unordered_map<std::pair<int, int>,

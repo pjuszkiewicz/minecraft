@@ -1,11 +1,12 @@
 #include "../../lib/Game/Game.h"
 #define STB_PERLIN_IMPLEMENTATION
 #include "../stb_perlin.h"
+#include <future>
+#include <functional>
 
 Game::Game() {
     window = new Window();
-    renderer = new Renderer(player);
-
+    renderer = new Renderer();
     generateChunks();
 }
 
@@ -14,14 +15,72 @@ Game::~Game() {
     delete renderer;
 }
 
+void update_chunks(Renderer *renderer, const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks) {
+    renderer->update_chunks(chunks);
+}
+
+void test_thread(Renderer *renderer, const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    renderer->update_chunks(chunks);
+}
+
 void Game::loop() {
+    // std::thread t(&Renderer::update_chunks, &renderer, std::ref(chunks));
+    // std::thread t(update_chunks, &renderer, std::ref(chunks));
+
+    // std::thread renderingThread(&Game::chunkUpdateLoop, this);
+    // renderingThread.detach();
+
+    // std::async(std::launch::async, &Renderer::update_chunks, &renderer, std::ref(chunks));
+
+    auto task = std::async(std::launch::async, [&]() {
+        std::cout << "test" << std::endl;
+        renderer->update_chunks(chunks);
+        std::cout << "test" << std::endl;
+    });
+
+    // std::thread t(test_thread, renderer, std::ref(chunks));
+    // t.join();
+    // std::thread t([&] {
+    //     while (true) {
+    //         // Capture x by value
+    //         std::cout << "THREAD" << std::endl;
+    //         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    //         renderer->update_chunks(chunks);
+    //         std::cout << "THREAD" << std::endl;
+    //
+    //         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    //     }
+    // });
+
+    // t.detach();
+
     while (!window->shouldClose()) {
         updateDeltaTime();
         updateFpsTime();
         player.update(deltaTime);
         renderer->draw(
             player,
-            chunks);
+            chunks
+        );
+
+        int newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
+        int newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
+
+        if (newChunkX != chunkX || newChunkZ != chunkZ) {
+            lastChunkX = chunkX;
+            chunkX = newChunkX;
+            lastChunkZ = chunkZ;
+            chunkZ = newChunkZ;
+
+            auto task = std::async(std::launch::async, [&]() {
+                std::cout << "test" << std::endl;
+                renderer->update_chunks(chunks);
+                std::cout << "test" << std::endl;
+            });
+        }
+
+        // auto bound_function = std::bind();
 
         glfwSwapBuffers(window->glfwWindow);
         glfwPollEvents();
@@ -45,6 +104,27 @@ void Game::updateFpsTime() {
         // std::cout << "FPS: " << fps << std::endl;
         fps = 0;
         lastFpsTime = currentTime;
+    }
+}
+
+void Game::chunkUpdateLoop() {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    while (true) {
+        std::cout << "loop" << std::endl;
+        int newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
+        int newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
+
+        if (newChunkX != chunkX || newChunkZ != chunkZ) {
+            lastChunkX = chunkX;
+            chunkX = newChunkX;
+            lastChunkZ = chunkZ;
+            chunkZ = newChunkZ;
+
+            // t.join();
+            renderer->update_chunks(chunks);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
 
@@ -105,14 +185,13 @@ float perlinNoise(float x, float z, int octaves, float persistence, float scale)
         maxValue += amplitude;
 
         amplitude *= persistence; // Zmniejsz amplitudę
-        frequency *= 2.0f;        // Zwiększ częstotliwość
+        frequency *= 2.0f; // Zwiększ częstotliwość
     }
 
     return noise / maxValue; // Normalizuj wynik do zakresu 0-1
 }
 
 void Game::generateChunks() {
-
     for (int x = -20; x <= 20; x++) {
         for (int z = -20; z <= 20; z++) {
             Chunk chunk(x, z);
@@ -123,7 +202,6 @@ void Game::generateChunks() {
             // Generowanie chunka
             for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
                 for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
-
                     float scale = 0.1;
 
                     // float noise = stb_perlin_noise3((chunkX + bx) * scale, 0.0f, (chunkZ + bz) * scale, 0, 0, 0);
