@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "vao.h"
+#include "VAO.h"
 
 VAO::VAO() {
     glGenVertexArrays(1, &ID);

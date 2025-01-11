@@ -5,6 +5,7 @@
 
 #include <glm/glm.hpp>
 #include <iostream>
+#include "../Constants.h"
 
 const float MOUSE_SENSITIVITY = 0.1f;
 const float WALK_SPEED = 3.5f;
@@ -40,8 +41,13 @@ public:
 
     Camera camera;
 
+    float lastX = 1600 / 2.0f;
+    float lastY = 900 / 2.0f;
+    bool firstMouse = true;
 
     Player(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f));
+
+    void handleMouseCallback(double xPosIn, double yPosIn);
 
     void HandleMouseMove(float xOffset, float yOffset);
 

@@ -2,7 +2,7 @@
 #define VAO_H
 
 #include "../../lib/glad/glad.h"
-#include "vbo.h"
+#include "VBO.h"
 
 class VAO {
 public:

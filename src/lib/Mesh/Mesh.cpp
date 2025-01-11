@@ -3,8 +3,8 @@
 //
 #include <iostream>
 #include "../../lib/glad/glad.h"
-#include "./mesh.h"
-#include "../objects/cube.h"
+#include "./Mesh.h"
+#include "../Objects/Cube.h"
 
 Mesh::Mesh() {
 //    this->vertices = vertices;

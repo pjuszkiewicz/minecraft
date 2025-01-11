@@ -21,11 +21,6 @@ public:
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
 
-    float lastX = SCR_WIDTH / 2.0f;
-    float lastY = SCR_HEIGHT / 2.0f;
-
-    bool firstMouse = true;
-
     int fps = 0;
     float lastFpsTime = 0.0f;
     int chunkX = 0;
@@ -50,8 +45,6 @@ public:
     void generateChunks();
 
     void processInput(GLFWwindow *glfwWindow, float deltaTime);
-
-    void mouse_callback(double xposIn, double yposIn);
 
     void chunkUpdateLoop();
 };

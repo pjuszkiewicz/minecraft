@@ -9,6 +9,25 @@ Player::Player(glm::vec3 position) {
     camera = Camera(Position);
 }
 
+void Player::handleMouseCallback(double xPosIn, double yPosIn) {
+    float xpos = static_cast<float>(xPosIn);
+    float ypos = static_cast<float>(yPosIn);
+
+    if (firstMouse) {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+
+    lastX = xpos;
+    lastY = ypos;
+
+    HandleMouseMove(xoffset, yoffset);
+}
+
 void Player::HandleMouseMove(float xOffset, float yOffset) {
     Yaw += xOffset * MOUSE_SENSITIVITY;
     Pitch += yOffset * MOUSE_SENSITIVITY;

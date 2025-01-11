@@ -2,7 +2,7 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/Window/window.h"
+#include "../../lib/Window/Window.h"
 
 int loadGlad() {
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {

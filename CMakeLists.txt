@@ -9,22 +9,22 @@ add_executable(
         minecraft
         src/lib/glad/glad.c
         src/main.cpp
-        src/lib/window/window.cpp
-        src/lib/texture/texture.cpp
-        src/lib/Shader/shader.cpp
-        src/lib/Renderer/renderer.cpp
-        src/lib/player/player.cpp
-        src/lib/Mesh/mesh.cpp
-        src/lib/Mesh/chunkMesh.cpp
-        src/lib/Game/game.cpp
-        src/lib/Camera/camera.cpp
-        src/lib/Chunk/chunk.cpp
-        src/lib/Buffers/vbo.cpp
-        src/lib/Buffers/vao.cpp
-        src/lib/World/world.cpp
-        src/lib/World/world.h
-        src/lib/texture/TexturePack.cpp
-        src/lib/texture/TexturePack.h
+        src/lib/Window/Window.cpp
+        src/lib/Texture/Texture.cpp
+        src/lib/Shader/Shader.cpp
+        src/lib/Renderer/Renderer.cpp
+        src/lib/Player/Player.cpp
+        src/lib/Mesh/Mesh.cpp
+        src/lib/Mesh/ChunkMesh.cpp
+        src/lib/Game/Game.cpp
+        src/lib/Camera/Camera.cpp
+        src/lib/Chunk/Chunk.cpp
+        src/lib/Buffers/VBO.cpp
+        src/lib/Buffers/VAO.cpp
+        src/lib/World/World.cpp
+        src/lib/World/World.h
+        src/lib/Texture/TexturePack.cpp
+        src/lib/Texture/TexturePack.h
         src/lib/Material/Material.cpp
         src/lib/Material/Material.h
         src/lib/Constants.h

@@ -1,8 +1,9 @@
 #include "../../lib/Game/Game.h"
-#define STB_PERLIN_IMPLEMENTATION
-#include "../stb_perlin.h"
 #include <future>
 #include <functional>
+
+#define STB_PERLIN_IMPLEMENTATION
+#include "../stb_perlin.h"
 
 Game::Game() {
     window = new Window();
@@ -25,36 +26,6 @@ void test_thread(Renderer *renderer, const std::unordered_map<std::pair<int, int
 }
 
 void Game::loop() {
-    // std::thread t(&Renderer::update_chunks, &renderer, std::ref(chunks));
-    // std::thread t(update_chunks, &renderer, std::ref(chunks));
-
-    // std::thread renderingThread(&Game::chunkUpdateLoop, this);
-    // renderingThread.detach();
-
-    // std::async(std::launch::async, &Renderer::update_chunks, &renderer, std::ref(chunks));
-
-    auto task = std::async(std::launch::async, [&]() {
-        std::cout << "test" << std::endl;
-        renderer->update_chunks(chunks);
-        std::cout << "test" << std::endl;
-    });
-
-    // std::thread t(test_thread, renderer, std::ref(chunks));
-    // t.join();
-    // std::thread t([&] {
-    //     while (true) {
-    //         // Capture x by value
-    //         std::cout << "THREAD" << std::endl;
-    //         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    //         renderer->update_chunks(chunks);
-    //         std::cout << "THREAD" << std::endl;
-    //
-    //         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    //     }
-    // });
-
-    // t.detach();
-
     while (!window->shouldClose()) {
         updateDeltaTime();
         updateFpsTime();
@@ -75,12 +46,11 @@ void Game::loop() {
 
             // auto task = std::async(std::launch::async, [&]() {
             //     std::cout << "test" << std::endl;
-            //     renderer->update_chunks(chunks);
+            //     Renderer->update_chunks(chunks);
             //     std::cout << "test" << std::endl;
             // });
         }
 
-        // auto bound_function = std::bind();
 
         glfwSwapBuffers(window->glfwWindow);
         glfwPollEvents();
@@ -256,23 +226,4 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     if (glfwGetKey(glfwWindow, GLFW_KEY_P) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-}
-
-void Game::mouse_callback(double xposIn, double yposIn) {
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
-
-    if (firstMouse) {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos;
-
-    lastX = xpos;
-    lastY = ypos;
-
-    player.HandleMouseMove(xoffset, yoffset);
 }

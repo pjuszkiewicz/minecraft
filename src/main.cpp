@@ -12,7 +12,7 @@
 Game game;
 
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
-    game.mouse_callback(xposIn, yposIn);
+    game.player.handleMouseCallback(xposIn, yposIn);
 }
 
 int main() {

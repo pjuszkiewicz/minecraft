@@ -96,7 +96,7 @@ void Renderer::update_initial_chunks(
             if (key != chunks.end()) {
                 auto chunk = ChunkMesh(x, z);
                 chunk.updateChunk(key->second);
-                // chunkMeshes.push_back(chunk);
+                // chunkMeshes.push_back(Chunk);
                 chunkMeshes[{x, z}] = chunk;
             }
         }
@@ -179,9 +179,9 @@ void Renderer::update_chunks(
                     // chunkMeshes[chunkMeshesToReuse.back()].chunkZ = foundChunk->second.z;
                     // chunkMeshesToReuse.pop_back();
                 } else {
-                    // ChunkMesh chunk = ChunkMesh(x, z);
-                    // chunk.updateChunk(key->second);
-                    // chunkMeshes.push_back(chunk);
+                    // ChunkMesh Chunk = ChunkMesh(x, z);
+                    // Chunk.updateChunk(key->second);
+                    // chunkMeshes.push_back(Chunk);
                 }
             }
         }
