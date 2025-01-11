@@ -73,11 +73,11 @@ void Game::loop() {
             lastChunkZ = chunkZ;
             chunkZ = newChunkZ;
 
-            auto task = std::async(std::launch::async, [&]() {
-                std::cout << "test" << std::endl;
-                renderer->update_chunks(chunks);
-                std::cout << "test" << std::endl;
-            });
+            // auto task = std::async(std::launch::async, [&]() {
+            //     std::cout << "test" << std::endl;
+            //     renderer->update_chunks(chunks);
+            //     std::cout << "test" << std::endl;
+            // });
         }
 
         // auto bound_function = std::bind();
