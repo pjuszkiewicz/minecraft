@@ -2,26 +2,57 @@
 #include <future>
 #include <functional>
 
-void Game::test() {
+void Game::prepareChunksLoop() {
+    int chunkX = 0;
+    int lastChunkX = 0;
+    int newChunkX = 0;
+
+    int chunkZ = 0;
+    int lastChunkZ = 0;
+    int newChunkZ = 0;
+
     while (true) {
-        for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
-            for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
-                int x = chunkX + i;
-                int z = chunkZ + j;
+        newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
+        newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
 
-                // auto pair = std::make_pair(x, z);
+        if (newChunkX != chunkX || newChunkZ != chunkZ) {
+            lastChunkX = chunkX;
+            chunkX = newChunkX;
+            lastChunkZ = chunkZ;
+            chunkZ = newChunkZ;
+        }
 
-                auto key = std::make_pair(x, z);
+        if (renderer.chunksToAdd.size() == 0) {
+            renderer.isReadyToAdd = false;
+            for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
+                for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
+                    int x = chunkX + i;
+                    int z = chunkZ + j;
 
-                auto foundChunkMesh = renderer.chunkMeshes.find(key);
-                if (foundChunkMesh != renderer.chunkMeshes.end()) {
-                    continue;
+                    auto key = std::make_pair(x, z);
+
+                    auto foundChunkMesh = renderer.chunkMeshes.find(key);
+                    if (foundChunkMesh != renderer.chunkMeshes.end()) {
+                        continue;
+                    }
+
+                    auto foundChunk = world.chunks.find(key);
+                    if (foundChunk != world.chunks.end()) {
+                        renderer.chunksToAdd.push_back(foundChunk->second);
+                    }
                 }
+            }
+            renderer.isReadyToAdd = true;
+        }
 
-                auto foundChunk = world.chunks.find(key);
-                if (foundChunk != world.chunks.end()) {
-                    renderer.chunksToRender.push_back(foundChunk->second);
-                }
+
+        for (auto chunkMeshPair: renderer.chunkMeshes) {
+            ChunkMesh chunkMesh = chunkMeshPair.second;
+
+            if (abs(chunkMesh.chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMesh.chunkZ - chunkZ) > RENDER_DISTANCE) {
+                auto pair = std::make_pair(chunkMesh.chunkX, chunkMesh.chunkZ);
+                renderer.chunksToRemove.push_back(pair);
+                // renderer.chunkMeshes.erase(pair);
             }
         }
 
@@ -32,7 +63,7 @@ void Game::test() {
 
 Game::Game() {
     world.generateChunks();
-    std::thread t(&Game::test, this);
+    std::thread t(&Game::prepareChunksLoop, this);
     t.detach();
 }
 
@@ -42,19 +73,7 @@ void Game::loop() {
         updateDeltaTime();
 
         player.update(deltaTime);
-
         renderer.draw(player, world.chunks);
-
-        int newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
-        int newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
-
-        if (newChunkX != chunkX || newChunkZ != chunkZ) {
-            lastChunkX = chunkX;
-            chunkX = newChunkX;
-            lastChunkZ = chunkZ;
-            chunkZ = newChunkZ;
-        }
-
 
         glfwSwapBuffers(window.glfwWindow);
         glfwPollEvents();
@@ -73,8 +92,7 @@ void Game::updateDeltaTime() {
 
     fps++;
     if (currentTime - lastFpsTime > 1.0f) {
-        // std::cout << "FPS: " << fps << std::endl;
-        std::cout << renderer.count << std::endl;
+        std::cout << "FPS: " << fps << std::endl;
         fps = 0;
         lastFpsTime = currentTime;
     }

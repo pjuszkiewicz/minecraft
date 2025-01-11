@@ -44,6 +44,9 @@ Window::Window() {
 
     glEnable(GL_CULL_FACE);
 
+    // glfwSwapInterval(0); // Disable V-Sync
+
+
     glfwMonitor = glfwGetPrimaryMonitor();
     glfwVideoMode = glfwGetVideoMode(glfwMonitor);
 }

@@ -14,8 +14,6 @@
 #include "../Renderer/Mesh.h"
 #include "../Constants.h"
 
-const int RENDER_DISTANCE = 5;
-
 class Renderer {
 public:
     Shader *shader;
@@ -25,11 +23,11 @@ public:
 
     std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes;
 
-    bool changed = false;
-
     int count = 0;
 
-    std::vector<Chunk> chunksToRender;
+    bool isReadyToAdd = false;
+    std::vector<Chunk> chunksToAdd;
+    std::vector<std::pair<int, int>> chunksToRemove;
 
     Renderer();
 
@@ -39,23 +37,13 @@ public:
         const Player &player,
         const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
 
-    void draw_chunks(
-        const Player &player,
-        const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
+    void draw_chunks();
 
     void update_shader(const Player &player) const;
 
-    void update_initial_chunks(
-        const std::unordered_map<std::pair<int, int>,
-            Chunk, PairHash> &chunks
-    );
-
     void add_chunk();
+    void remove_chunks();
 
-    void update_chunks(
-        const std::unordered_map<std::pair<int, int>,
-            Chunk, PairHash> &chunks
-    );
 };
 
 #endif //RENDERER_H

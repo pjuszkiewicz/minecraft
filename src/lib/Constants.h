@@ -13,4 +13,6 @@ const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/asset
 constexpr int SCREEN_WIDTH = 1600;
 constexpr int SCREEN_HEIGHT = 900;
 
+const int RENDER_DISTANCE = 10;
+
 #endif //CONSTANTS_H

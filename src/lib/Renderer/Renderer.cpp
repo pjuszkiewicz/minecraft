@@ -29,47 +29,34 @@ void Renderer::draw(
     clear();
     update_shader(player);
 
-    if (!changed) {
-        update_initial_chunks(chunks);
-        changed = true;
-    }
-
-    if (chunksToRender.size() > 0) {
-        add_chunk();
-    }
-
-    draw_chunks(player, chunks);
+    add_chunk();
+    remove_chunks();
+    draw_chunks();
 }
 
 void Renderer::add_chunk() {
-    std::cout << "Adding chunk, left: " << chunksToRender.size() << std::endl;
-    Chunk chunk = chunksToRender[chunksToRender.size() - 1];
+    if (chunksToAdd.size() == 0) return;
+    if (!isReadyToAdd) return;
+
+    Chunk chunk = chunksToAdd[chunksToAdd.size() - 1];
     int x = chunk.x;
     int z = chunk.z;
 
     auto mesh = ChunkMesh(x, z);
     mesh.updateChunk(chunk);
-    // chunkMeshes.push_back(Chunk);
     chunkMeshes[{x, z}] = mesh;
-    chunksToRender.pop_back();
-
-
-    // for (auto chunk : chunksToRender) {
-    //     int x = chunk.x;
-    //     int z = chunk.z;
-    //
-    //     auto mesh = ChunkMesh(x, z);
-    //     mesh.updateChunk(chunk);
-    //     // chunkMeshes.push_back(Chunk);
-    //     chunkMeshes[{x, z}] = mesh;
-    //     chunksToRender.pop_back();
-    // }
+    chunksToAdd.pop_back();
 }
 
-void Renderer::draw_chunks(
-    const Player &player,
-    const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks
-) {
+
+void Renderer::remove_chunks() {
+    if (chunksToRemove.size() == 0) return;
+    auto p = chunksToRemove[chunksToRemove.size() - 1];
+    chunkMeshes.erase(p);
+    chunksToRemove.pop_back();
+}
+
+void Renderer::draw_chunks() {
     texturePack->use(0);
     instancedShader->use();
 
@@ -77,112 +64,6 @@ void Renderer::draw_chunks(
         ChunkMesh chunkMesh = chunkMeshPair.second;
         chunkMesh.draw();
     }
-}
-
-void Renderer::update_initial_chunks(
-    const std::unordered_map<std::pair<int, int>,
-        Chunk, PairHash> &chunks
-) {
-    auto key = chunks.find(std::make_pair(0, 0));
-
-    for (int x = -RENDER_DISTANCE; x <= RENDER_DISTANCE; x++) {
-        for (int z = -RENDER_DISTANCE; z <= RENDER_DISTANCE; z++) {
-            bool skip = false;
-
-            for (auto chunkMeshPair: chunkMeshes) {
-                ChunkMesh chunkMesh = chunkMeshPair.second;
-                if (chunkMesh.chunkX == x && chunkMesh.chunkZ == z) {
-                    skip = true;
-                }
-            }
-
-            if (skip) { continue; }
-
-            key = chunks.find(std::make_pair(x, z));
-            if (key != chunks.end()) {
-                auto chunk = ChunkMesh(x, z);
-                chunk.updateChunk(key->second);
-                // chunkMeshes.push_back(Chunk);
-                chunkMeshes[{x, z}] = chunk;
-            }
-        }
-    }
-}
-
-void Renderer::update_chunks(
-    const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks
-) {
-    int chunkX = 0;
-    int chunkZ = 0;
-    std::cout << std::endl;
-    std::cout << "Chunk Meshes count: " << chunkMeshes.size() << std::endl;
-    std::cout << "Update chunks: " << glfwGetTime() << std::endl;
-
-    auto key = chunks.find(std::make_pair(0, 0));
-
-    std::vector<std::pair<int, int> > chunkMeshesToReuse;
-
-    std::unordered_set<std::pair<int, int>, PairHash> loadedChunks;
-    for (auto chunkMeshPair: chunkMeshes) {
-        ChunkMesh chunkMesh = chunkMeshPair.second;
-        loadedChunks.insert(std::make_pair(chunkMesh.chunkX, chunkMesh.chunkZ));
-    }
-
-    // Usuwanie chunków
-    for (auto chunkMeshPair: chunkMeshes) {
-        ChunkMesh chunkMesh = chunkMeshPair.second;
-
-        if (abs(chunkMesh.chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMesh.chunkZ - chunkZ) > RENDER_DISTANCE) {
-            auto pair = std::make_pair(chunkMesh.chunkX, chunkMesh.chunkZ);
-            chunkMeshesToReuse.push_back(pair);
-        }
-    }
-
-    std::cout << "Delete chunks: " << glfwGetTime() << std::endl;
-    std::cout << "chunksRemoved: " << chunkMeshesToReuse.size() << std::endl;
-
-    int testCount = 0;
-
-    // // Dodanie nowych
-    for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
-        for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
-            int x = chunkX + i;
-            int z = chunkZ + j;
-
-            // auto pair = std::make_pair(x, z);
-
-            auto key = std::make_pair(x, z);
-
-            auto foundChunkMesh = chunkMeshes.find(key);
-            if (foundChunkMesh != chunkMeshes.end()) {
-                continue;
-            }
-
-            auto foundChunk = chunks.find(key);
-            if (foundChunk != chunks.end()) {
-                ChunkMesh chunkMesh = ChunkMesh(x, z);
-                chunkMesh.updateChunk(foundChunk->second);
-                chunkMeshes[key] = chunkMesh;
-            }
-
-            testCount++;
-
-            if (foundChunk != chunks.end()) {
-                if (chunkMeshesToReuse.size() > 0) {
-                    // chunkMeshes[chunkMeshesToReuse.back()].updateChunk(foundChunk->second);
-                    // chunkMeshes[chunkMeshesToReuse.back()].chunkX = foundChunk->second.x;
-                    // chunkMeshes[chunkMeshesToReuse.back()].chunkZ = foundChunk->second.z;
-                    // chunkMeshesToReuse.pop_back();
-                } else {
-                    // ChunkMesh Chunk = ChunkMesh(x, z);
-                    // Chunk.updateChunk(key->second);
-                    // chunkMeshes.push_back(Chunk);
-                }
-            }
-        }
-    }
-
-    std::cout << "update chunks: " << glfwGetTime() << ", " << testCount << std::endl;
 }
 
 void Renderer::update_shader(const Player &player) const {

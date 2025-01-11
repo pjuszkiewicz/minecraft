@@ -33,7 +33,7 @@ public:
     glm::vec3 Up;
 
     float Yaw = -90.0f;
-    float Pitch = 0.0f;
+    float Pitch = -90.0f;
 
     float VelocityY = -0.1f;
     bool IsGrounded = true;
@@ -45,7 +45,7 @@ public:
     float lastY = 900 / 2.0f;
     bool firstMouse = true;
 
-    Player(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f));
+    Player(glm::vec3 position = glm::vec3(0.0f, 128.0f, 0.0f));
 
     void handleMouseCallback(double xPosIn, double yPosIn);
 
