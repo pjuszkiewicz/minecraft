@@ -2,6 +2,8 @@
 #include <future>
 #include <functional>
 
+#include "../Renderer/ChunkBuilder.h"
+
 void Game::prepareChunksLoop() {
     int chunkX = 0;
     int lastChunkX = 0;
@@ -38,7 +40,10 @@ void Game::prepareChunksLoop() {
 
                     auto foundChunk = world.chunks.find(key);
                     if (foundChunk != world.chunks.end()) {
-                        renderer.chunksToAdd.push_back(foundChunk->second);
+                        ChunkBuilder builder(x, z);
+                        builder.updateChunk(foundChunk->second);
+
+                        renderer.chunksToAdd.push_back(builder);
                     }
                 }
             }

@@ -10,6 +10,7 @@
 
 #include <vector>
 
+#include "ChunkBuilder.h"
 #include "../Renderer/ChunkMesh.h"
 #include "../Renderer/Mesh.h"
 #include "../Constants.h"
@@ -26,7 +27,7 @@ public:
     int count = 0;
 
     bool isReadyToAdd = false;
-    std::vector<Chunk> chunksToAdd;
+    std::vector<ChunkBuilder> chunksToAdd;
     std::vector<std::pair<int, int>> chunksToRemove;
 
     Renderer();

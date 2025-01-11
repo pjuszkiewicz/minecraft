@@ -22,6 +22,8 @@ add_executable(
         src/lib/World/World.cpp
         src/lib/World/World.h
         src/lib/Constants.h
+        src/lib/Renderer/ChunkBuilder.cpp
+        src/lib/Renderer/ChunkBuilder.h
 )
 
 target_link_libraries(minecraft glfw)

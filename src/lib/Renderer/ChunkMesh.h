@@ -21,20 +21,14 @@ public:
     unsigned int VAO;
     int chunkX;
     int chunkZ;
+
     ChunkMesh();
+
     ChunkMesh(int chunkX, int chunkZ);
+
     void draw() const;
 
     void updateBuffers() const;
-    void updateChunk(const Chunk &chunk);
-    void updateBlock(const Chunk &chunk, int x, int y, int z);
-
-    void addTopFace(glm::vec3 position);
-    void addBottomFace(glm::vec3 position);
-    void addLeftFace(glm::vec3 position, bool isTopColliding);
-    void addRightFace(glm::vec3 position, bool isTopColliding);
-    void addFrontFace(glm::vec3 position, bool isTopColliding);
-    void addBackFace(glm::vec3 position, bool isTopColliding);
 };
 
 #endif

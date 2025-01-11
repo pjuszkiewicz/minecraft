@@ -38,16 +38,18 @@ void Renderer::add_chunk() {
     if (chunksToAdd.size() == 0) return;
     if (!isReadyToAdd) return;
 
-    Chunk chunk = chunksToAdd[chunksToAdd.size() - 1];
+    ChunkBuilder chunk = chunksToAdd[chunksToAdd.size() - 1];
     int x = chunk.x;
     int z = chunk.z;
 
     auto mesh = ChunkMesh(x, z);
-    mesh.updateChunk(chunk);
+    mesh.positions = chunk.positions;
+    mesh.textures = chunk.textures;
+    mesh.updateBuffers();
+    // mesh.updateChunk(chunk);
     chunkMeshes[{x, z}] = mesh;
     chunksToAdd.pop_back();
 }
-
 
 void Renderer::remove_chunks() {
     if (chunksToRemove.size() == 0) return;
