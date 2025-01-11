@@ -38,15 +38,11 @@ public:
 
     void updateFpsTime();
 
-    void updateChunk(int x, int z);
-
     bool isBlockAt(glm::vec3 pos);
 
     void generateChunks();
 
     void processInput(GLFWwindow *glfwWindow, float deltaTime);
-
-    void chunkUpdateLoop();
 };
 
 #endif

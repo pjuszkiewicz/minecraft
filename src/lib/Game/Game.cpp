@@ -77,56 +77,6 @@ void Game::updateFpsTime() {
     }
 }
 
-void Game::chunkUpdateLoop() {
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-    while (true) {
-        std::cout << "loop" << std::endl;
-        int newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
-        int newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
-
-        if (newChunkX != chunkX || newChunkZ != chunkZ) {
-            lastChunkX = chunkX;
-            chunkX = newChunkX;
-            lastChunkZ = chunkZ;
-            chunkZ = newChunkZ;
-
-            // t.join();
-            renderer->update_chunks(chunks);
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    }
-}
-
-void Game::updateChunk(int x, int z) {
-    const glm::vec3 top = glm::vec3(0, 1, 0);
-    const glm::vec3 bottom = glm::vec3(0, -1, 0);
-    const glm::vec3 left = glm::vec3(-1, 0, 0);
-    const glm::vec3 right = glm::vec3(1, 0, 0);
-    const glm::vec3 forward = glm::vec3(0, 0, 1);
-    const glm::vec3 back = glm::vec3(0, 0, -1);
-
-    auto chunkIndex = chunks.find(std::make_pair(x, z));
-
-    if (chunkIndex != chunks.end()) {
-        Chunk chunk = chunkIndex->second;
-
-        for (int x = 0; x < CHUNK_WIDTH; x++) {
-            for (int y = 0; y < CHUNK_HEIGHT; y++) {
-                for (int z = 0; z < CHUNK_WIDTH; z++) {
-                    Block block = chunk.getBlock(glm::vec3(x, y, z));
-                    if (!isBlockAt(glm::vec3(x, y, z) + top)) block.drawTop = true;
-                    if (!isBlockAt(glm::vec3(x, y, z) + bottom)) block.drawBottom = true;
-                    if (!isBlockAt(glm::vec3(x, y, z) + left)) block.drawLeft = true;
-                    if (!isBlockAt(glm::vec3(x, y, z) + right)) block.drawRight = true;
-                    if (!isBlockAt(glm::vec3(x, y, z) + forward)) block.drawFront = true;
-                    if (!isBlockAt(glm::vec3(x, y, z) + back)) block.drawBack = true;
-                }
-            }
-        }
-    }
-}
-
 bool Game::isBlockAt(glm::vec3 pos) {
     int chunkWorldX = pos.x - ((int) pos.x % CHUNK_WIDTH);
     int chunkWorldZ = pos.z - ((int) pos.z % CHUNK_WIDTH);

@@ -12,6 +12,7 @@
 
 #include "../Mesh/ChunkMesh.h"
 #include "../Mesh/Mesh.h"
+#include "../Constants.h"
 
 const int RENDER_DISTANCE = 5;
 

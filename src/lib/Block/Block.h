@@ -14,13 +14,6 @@ public:
     glm::vec3 position;
     BlockType type;
 
-    bool drawTop = false;
-    bool drawBottom = false;
-    bool drawLeft = false;
-    bool drawRight = false;
-    bool drawFront = false;
-    bool drawBack = false;
-
     Block(): position(glm::vec3(0.0f, 0.0f, 0.0f)), type(AIR) {
     }
 

@@ -7,13 +7,13 @@
 #include <thread>
 
 Renderer::Renderer() {
-    std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
-    // const std::string ASSETS_PATH = "/home/piotr/Development/C++/Minecraft/src/assets";
-
     chunkX = 0;
     lastChunkX = 0;
     chunkZ = 0;
     lastChunkZ = 0;
+
+    // const std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
+    const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/assets";
 
     shader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
                         (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
@@ -41,16 +41,6 @@ void Renderer::draw(
         chunkX = newChunkX;
         lastChunkZ = chunkZ;
         chunkZ = newChunkZ;
-
-        // std::thread t(update_chunks, chunks);
-        // std::thread t([this, chunks]() { update_chunks(chunks); });
-        // auto bound_function = std::bind(&Renderer::update_chunks, this, std::ref(chunks));
-
-        // Przekazanie związanej funkcji do std::thread
-        // std::thread t(bound_function);
-
-        // update_chunks(chunks);
-        // t.join();
     }
 
     clear();
@@ -125,23 +115,10 @@ void Renderer::update_chunks(
         ChunkMesh chunkMesh = chunkMeshPair.second;
 
         if (abs(chunkMesh.chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMesh.chunkZ - chunkZ) > RENDER_DISTANCE) {
-            // chunkMeshes.erase(chunkMeshPair.first);
-            // chunkMeshes.erase(chunkMeshes.begin() + i);
-            // i--;
-            // chunkMeshesToReuse.push_back(i);
             auto pair = std::make_pair(chunkMesh.chunkX, chunkMesh.chunkZ);
             chunkMeshesToReuse.push_back(pair);
         }
     }
-
-    // for (int i = 0; i < chunkMeshes.size(); i++) {
-    //     if (abs(chunkMeshes[i].chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMeshes[i].chunkZ - chunkZ) >
-    //         RENDER_DISTANCE) {
-    //         // chunkMeshes.erase(chunkMeshes.begin() + i);
-    //         // i--;
-    //         chunkMeshesToReuse.push_back(i);
-    //     }
-    // }
 
     std::cout << "Delete chunks: " << glfwGetTime() << std::endl;
     std::cout << "chunksRemoved: " << chunkMeshesToReuse.size() << std::endl;
@@ -191,10 +168,7 @@ void Renderer::update_chunks(
 }
 
 void Renderer::update_shader(const Player &player) {
-    const int SCR_WIDTH = 1600;
-    const int SCR_HEIGHT = 900;
-
-    glm::mat4 projection = glm::perspective(45.0f, (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 1000.0f);
+    glm::mat4 projection = glm::perspective(45.0f, (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT, 0.1f, 1000.0f);
     glm::mat4 view = player.camera.GetViewMatrix();
 
     shader->use();
