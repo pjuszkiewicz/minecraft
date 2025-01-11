@@ -3,10 +3,11 @@
 
 #include <vector>
 #include <unordered_map>
-#include "../Chunk/Chunk.h"
+#include "../World/Chunk.h"
 #include "../Map/PairHash.h"
 
 class World {
+public:
     std::unordered_map<std::pair<int, int>, Chunk, PairHash> chunks;
 
     bool isBlockAt(glm::vec3 pos);

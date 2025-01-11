@@ -6,9 +6,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../Renderer/Texture.h"
 #include <GLFW/glfw3.h>
 
-#include "../../lib/Chunk/Chunk.h"
+#include "../../lib/World/Chunk.h"
 
 class ChunkMesh {
 public:

@@ -7,11 +7,6 @@
 #include <thread>
 
 Renderer::Renderer() {
-    chunkX = 0;
-    lastChunkX = 0;
-    chunkZ = 0;
-    lastChunkZ = 0;
-
     // const std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
     const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/assets";
 
@@ -33,16 +28,6 @@ void Renderer::draw(
     const Player &player,
     const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks
 ) {
-    int newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
-    int newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
-
-    if (newChunkX != chunkX || newChunkZ != chunkZ) {
-        lastChunkX = chunkX;
-        chunkX = newChunkX;
-        lastChunkZ = chunkZ;
-        chunkZ = newChunkZ;
-    }
-
     clear();
     update_shader(player);
 
@@ -51,6 +36,13 @@ void Renderer::draw(
         changed = true;
     }
 
+    draw_chunks(player, chunks);
+}
+
+void Renderer::draw_chunks(
+    const Player &player,
+    const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks
+) {
     texturePack->use(0);
     instancedShader->use();
 
@@ -66,11 +58,8 @@ void Renderer::update_initial_chunks(
 ) {
     auto key = chunks.find(std::make_pair(0, 0));
 
-    for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
-        for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
-            int x = chunkX + i;
-            int z = chunkZ + j;
-
+    for (int x = -RENDER_DISTANCE; x <= RENDER_DISTANCE; x++) {
+        for (int z = -RENDER_DISTANCE; z <= RENDER_DISTANCE; z++) {
             bool skip = false;
 
             for (auto chunkMeshPair: chunkMeshes) {
@@ -96,6 +85,8 @@ void Renderer::update_initial_chunks(
 void Renderer::update_chunks(
     const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks
 ) {
+    int chunkX = 0;
+    int chunkZ = 0;
     std::cout << std::endl;
     std::cout << "Chunk Meshes count: " << chunkMeshes.size() << std::endl;
     std::cout << "Update chunks: " << glfwGetTime() << std::endl;
@@ -167,7 +158,7 @@ void Renderer::update_chunks(
     std::cout << "update chunks: " << glfwGetTime() << ", " << testCount << std::endl;
 }
 
-void Renderer::update_shader(const Player &player) {
+void Renderer::update_shader(const Player &player) const {
     glm::mat4 projection = glm::perspective(45.0f, (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT, 0.1f, 1000.0f);
     glm::mat4 view = player.camera.GetViewMatrix();
 

@@ -2,7 +2,7 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/Shader/Shader.h"
+#include "../Renderer/Shader.h"
 
 Shader::Shader(const char *vertexPath, const char *fragmentPath) {
     std::cout << vertexPath << std::endl;

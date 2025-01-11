@@ -10,19 +10,20 @@
 #include <thread>
 #include <chrono>
 
+#include "../World/World.h"
+
 class Game {
 public:
-    Window *window;
-    Renderer *renderer;
+    Window window;
+    Renderer renderer;
     Player player;
-
-    std::unordered_map<std::pair<int, int>, Chunk, PairHash> chunks;
+    World world;
 
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
-
-    int fps = 0;
     float lastFpsTime = 0.0f;
+    int fps = 0;
+
     int chunkX = 0;
     int lastChunkX = 0;
     int chunkZ = 0;
@@ -30,17 +31,9 @@ public:
 
     Game();
 
-    ~Game();
-
     void loop();
 
     void updateDeltaTime();
-
-    void updateFpsTime();
-
-    bool isBlockAt(glm::vec3 pos);
-
-    void generateChunks();
 
     void processInput(GLFWwindow *glfwWindow, float deltaTime);
 };

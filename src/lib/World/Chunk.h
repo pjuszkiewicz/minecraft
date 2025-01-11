@@ -2,7 +2,7 @@
 #define CHUNK_H
 
 #include <glm/glm.hpp>
-#include "../Block/Block.h"
+#include "../World/Block.h"
 
 const int CHUNK_WIDTH = 16;
 const int CHUNK_HEIGHT = 64;

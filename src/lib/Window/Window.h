@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "../../lib/glad/glad.h"
+#include "../../../vendor/glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 

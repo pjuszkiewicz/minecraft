@@ -2,8 +2,8 @@
 // Created by Piotr Juszkiewicz on 06/01/2025.
 //
 #include <iostream>
-#include "../../lib/glad/glad.h"
-#include "./Mesh.h"
+#include "../../../vendor/glad/glad.h"
+#include "../Renderer/Mesh.h"
 #include "../Objects/Cube.h"
 
 Mesh::Mesh() {

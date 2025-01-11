@@ -1,9 +1,8 @@
 #include <iostream>
 
-#include "../../lib/glad/glad.h"
-#include "./ChunkMesh.h"
+#include "../../../vendor/glad/glad.h"
+#include "../Renderer/ChunkMesh.h"
 #include "../Objects/Cube.h"
-#include "../Texture/TexturePack.h"
 
 ChunkMesh::ChunkMesh() {
     ChunkMesh(0, 0);
@@ -141,7 +140,7 @@ void ChunkMesh::addLeftFace(glm::vec3 position, bool isTopColliding) {
     block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     this->positions->push_back(block);
     int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
     this->textures->push_back(uv);
 }
 
@@ -154,7 +153,7 @@ void ChunkMesh::addRightFace(glm::vec3 position, bool isTopColliding) {
     block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
     this->positions->push_back(block);
     int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
     this->textures->push_back(uv);
 }
 
@@ -163,7 +162,7 @@ void ChunkMesh::addFrontFace(glm::vec3 position, bool isTopColliding) {
     block = glm::translate(block, position);
     this->positions->push_back(block);
     int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
     this->textures->push_back(uv);
 }
 
@@ -175,7 +174,7 @@ void ChunkMesh::addBackFace(glm::vec3 position, bool isTopColliding) {
     block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
     this->positions->push_back(block);
     int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = TexturePack::getUVForBlock(1, texture, 8);
+    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
     this->textures->push_back(uv);
 }
 
@@ -185,7 +184,7 @@ void ChunkMesh::addBottomFace(glm::vec3 position) {
     block = glm::translate(block, glm::vec3(0.0f, 0.0f, 1.0f));
     block = glm::rotate(block, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
     this->positions->push_back(block);
-    glm::vec2 uv = TexturePack::getUVForBlock(1, 0, 8);
+    glm::vec2 uv = Texture::getUVForBlock(1, 0, 8);
     this->textures->push_back(uv);
 }
 
@@ -195,6 +194,6 @@ void ChunkMesh::addTopFace(glm::vec3 position) {
     block = glm::translate(block, glm::vec3(0.0f, 1.0f, 0.0f));
     block = glm::rotate(block, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     this->positions->push_back(block);
-    glm::vec2 uv = TexturePack::getUVForBlock(1, 2, 8);
+    glm::vec2 uv = Texture::getUVForBlock(1, 2, 8);
     this->textures->push_back(uv);
 }
