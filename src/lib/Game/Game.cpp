@@ -40,8 +40,29 @@ void Game::prepareChunksLoop() {
 
                     auto foundChunk = world.chunks.find(key);
                     if (foundChunk != world.chunks.end()) {
-                        ChunkBuilder builder(x, z);
-                        builder.updateChunk(foundChunk->second);
+                        Chunk *forwardChunk = nullptr;
+                        auto forward = world.chunks.find(std::make_pair(x, z + 1));
+                        if (forward != world.chunks.end()) forwardChunk = &forward->second;
+
+                        Chunk *backChunk = nullptr;
+                        auto back = world.chunks.find(std::make_pair(x, z - 1));
+                        if (back != world.chunks.end()) backChunk = &back->second;
+
+                        Chunk *leftChunk = nullptr;
+                        auto left = world.chunks.find(std::make_pair(x - 1, z));
+                        if (left != world.chunks.end()) leftChunk = &left->second;
+
+                        Chunk *rightChunk = nullptr;
+                        auto right = world.chunks.find(std::make_pair(x + 1, z));
+                        if (right != world.chunks.end()) rightChunk = &right->second;
+
+                        ChunkBuilder builder(
+                            foundChunk->second,
+                            forwardChunk,
+                            backChunk,
+                            leftChunk,
+                            rightChunk
+                        );
 
                         renderer.chunksToAdd.push_back(builder);
                     }
@@ -97,11 +118,72 @@ void Game::updateDeltaTime() {
 
     fps++;
     if (currentTime - lastFpsTime > 1.0f) {
-        std::cout << "FPS: " << fps << std::endl;
+        // std::cout << "FPS: " << fps << std::endl;
         fps = 0;
         lastFpsTime = currentTime;
     }
 }
+
+void Game::destroyBlock() {
+    glm::vec3 pos = player.Position;
+    glm::vec3 camDir = player.camera.getCameraDirection();
+
+    int chunkX = static_cast<int>(floor(pos.x / CHUNK_WIDTH));
+    int chunkZ = static_cast<int>(floor(pos.z / CHUNK_WIDTH));
+    // std::cout << chunkX << ", " << chunkZ << std::endl;
+
+    for (float i = 0; i < 10; i++) {
+        glm::vec3 offset = camDir * i;
+        glm::vec3 blockPos = pos + offset;
+
+        if (world.isBlockAt(blockPos)) {
+            world.removeBlockAt(blockPos);
+            break;
+        }
+    }
+
+    for (int x = chunkX - 1; x <= chunkX + 1; x++) {
+        for (int z = chunkZ - 1; z <= chunkZ + 1; z++) {
+            auto key = std::make_pair(x, z);
+            auto foundChunk = world.chunks.find(key);
+            if (foundChunk != world.chunks.end()) {
+                Chunk *forwardChunk = nullptr;
+                auto forward = world.chunks.find(std::make_pair(x, z + 1));
+                if (forward != world.chunks.end()) forwardChunk = &forward->second;
+
+                Chunk *backChunk = nullptr;
+                auto back = world.chunks.find(std::make_pair(x, z - 1));
+                if (back != world.chunks.end()) backChunk = &back->second;
+
+                Chunk *leftChunk = nullptr;
+                auto left = world.chunks.find(std::make_pair(x - 1, z));
+                if (left != world.chunks.end()) leftChunk = &left->second;
+
+                Chunk *rightChunk = nullptr;
+                auto right = world.chunks.find(std::make_pair(x + 1, z));
+                if (right != world.chunks.end()) rightChunk = &right->second;
+
+                ChunkBuilder builder(
+                    foundChunk->second,
+                    forwardChunk,
+                    backChunk,
+                    leftChunk,
+                    rightChunk
+                );
+
+                // renderer.chunksToAdd.push_back(builder);
+                auto found = renderer.chunkMeshes.find(key);
+                if (found != renderer.chunkMeshes.end()) {
+                    auto &mesh = found->second;
+                    mesh.positions = builder.positions;
+                    mesh.textures = builder.textures;
+                    mesh.updateBuffers();
+                }
+            }
+        }
+    }
+}
+
 
 void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
     if (glfwGetKey(glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -131,4 +213,16 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     if (glfwGetKey(glfwWindow, GLFW_KEY_P) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+
+    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+        isLeftMousePressed = false;
+    }
+
+    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+        if (!isLeftMousePressed) {
+            destroyBlock();
+        }
+        isLeftMousePressed = true;
+    }
 }

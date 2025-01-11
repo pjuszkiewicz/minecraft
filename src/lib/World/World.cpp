@@ -4,21 +4,48 @@
 #include "../../../vendor/stb_perlin.h"
 
 bool World::isBlockAt(glm::vec3 pos) {
-    int chunkWorldX = pos.x - ((int) pos.x % CHUNK_WIDTH);
-    int chunkWorldZ = pos.z - ((int) pos.z % CHUNK_WIDTH);
-    int chunkX = chunkWorldX / CHUNK_WIDTH;
-    int chunkZ = chunkWorldZ / CHUNK_WIDTH;
+    int chunkX = static_cast<int>(floor(pos.x / CHUNK_WIDTH));
+    int chunkZ = static_cast<int>(floor(pos.z / CHUNK_WIDTH));
 
     auto chunkIndex = chunks.find(std::make_pair(chunkX, chunkZ));
     if (chunkIndex != chunks.end()) {
-        Chunk chunk = chunkIndex->second;
-        Block block = chunk.getBlock(pos);
+        Chunk &chunk = chunkIndex->second;
 
-        return block.type != BlockType::AIR;
+        int x = static_cast<int>(floor(pos.x)) - (chunkX * CHUNK_WIDTH);
+        int y = static_cast<int>(floor(pos.y));
+        int z = static_cast<int>(floor(pos.z)) - (chunkZ * CHUNK_WIDTH);
+
+        std::cout << x << " " << y << " " << z << std::endl;
+        return chunk.blocks[x][y][z].type != BlockType::AIR;
     }
 
     return false;
 }
+
+
+void World::removeBlockAt(glm::vec3 pos) {
+    // int chunkWorldX = pos.x - ((int) pos.x % CHUNK_WIDTH);
+    // int chunkWorldZ = pos.z - ((int) pos.z % CHUNK_WIDTH);
+
+    int chunkX = static_cast<int>(floor(pos.x / CHUNK_WIDTH));
+    int chunkZ = static_cast<int>(floor(pos.z / CHUNK_WIDTH));
+
+    // int chunkX = chunkWorldX / CHUNK_WIDTH;
+    // int chunkZ = chunkWorldZ / CHUNK_WIDTH;
+
+    auto chunkIndex = chunks.find(std::make_pair(chunkX, chunkZ));
+    if (chunkIndex != chunks.end()) {
+        Chunk &chunk = chunkIndex->second;
+
+        int x = static_cast<int>(floor(pos.x)) - (chunkX * CHUNK_WIDTH);
+        int y = static_cast<int>(floor(pos.y));
+        int z = static_cast<int>(floor(pos.z)) - (chunkZ * CHUNK_WIDTH);
+
+        std::cout << x << " " << y << " " << z << std::endl;
+        chunk.blocks[x][y][z].type = BlockType::AIR;
+    }
+}
+
 
 float perlinNoise(float x, float z, int octaves, float persistence, float scale) {
     float noise = 0.0f;
@@ -54,7 +81,7 @@ void World::generateChunks() {
                     float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 0, scale) + 0.5;
                     if (noise < 0.0f) noise = 0.0;
 
-                    int height = (int) (noise * 32);
+                    int height = (int) (noise * 5);
 
 
                     for (int by = 0; by < height + 1; by++) {

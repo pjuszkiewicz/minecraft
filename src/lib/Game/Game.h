@@ -24,6 +24,8 @@ public:
     float lastFpsTime = 0.0f;
     int fps = 0;
 
+    bool isLeftMousePressed = false;
+
     Game();
 
     void prepareChunksLoop();
@@ -33,6 +35,8 @@ public:
     void updateDeltaTime();
 
     void processInput(GLFWwindow *glfwWindow, float deltaTime);
+
+    void destroyBlock();
 };
 
 #endif

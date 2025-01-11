@@ -17,14 +17,27 @@ public:
     std::vector<glm::mat4> *positions;
     std::vector<glm::vec2> *textures;
 
-    int x;
-    int z;
+    Chunk chunk;
+    Chunk *forward;
+    Chunk *back;
+    Chunk *left;
+    Chunk *right;
 
-    ChunkBuilder(int x, int z);
+    ChunkBuilder(
+        const Chunk &chunk,
+        Chunk *forward,
+        Chunk *back,
+        Chunk *left,
+        Chunk *right
+    ) : chunk(chunk), forward(forward), back(back), left(left), right(right) {
+        updateChunk();
+    };
 
-    void updateChunk(const Chunk &chunk);
+    void updateChunk();
 
-    void updateBlock(const Chunk &chunk, int x, int y, int z);
+    void updateBlock(
+        const Chunk &chunk, int x, int y, int z
+    );
 
     void addTopFace(glm::vec3 position);
 

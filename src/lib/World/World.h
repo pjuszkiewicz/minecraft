@@ -13,6 +13,8 @@ public:
     bool isBlockAt(glm::vec3 pos);
 
     void generateChunks();
+
+    void removeBlockAt(glm::vec3 pos);
 };
 
 #endif //WORLD_H

@@ -4,12 +4,12 @@
 
 #include "./ChunkBuilder.h"
 
-ChunkBuilder::ChunkBuilder(int x, int z) : x(x), z(z) {
-    positions = new std::vector<glm::mat4>();
-    textures = new std::vector<glm::vec2>();
-}
+// ChunkBuilder::ChunkBuilder(int x, int z) : x(x), z(z) {
+//     positions = new std::vector<glm::mat4>();
+//     textures = new std::vector<glm::vec2>();
+// }
 
-void ChunkBuilder::updateChunk(const Chunk &chunk) {
+void ChunkBuilder::updateChunk() {
     this->positions = new std::vector<glm::mat4>();
     this->textures = new std::vector<glm::vec2>();
 
@@ -37,16 +37,45 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
     bool isBottomColliding = y != 0 && chunk.blocks[x][y - 1][z].type != BlockType::AIR;
     if (!isBottomColliding) addBottomFace(pos);
 
+
     bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z].type != BlockType::AIR;
+    if (x == 0) {
+        if (left != nullptr) {
+            if (left->blocks[CHUNK_WIDTH - 1][y][z].type != BlockType::AIR) {
+                isLeftColliding = true;
+            }
+        }
+    }
     if (!isLeftColliding) addLeftFace(pos, isTopColliding);
 
     bool isRightColliding = x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].type != BlockType::AIR;
+    if (x == CHUNK_WIDTH - 1) {
+        if (right != nullptr) {
+            if (right->blocks[0][y][z].type != BlockType::AIR) {
+                isRightColliding = true;
+            }
+        }
+    }
     if (!isRightColliding) addRightFace(pos, isTopColliding);
 
     bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1].type != BlockType::AIR;
+    if (z == 0) {
+        if (back != nullptr) {
+            if (back->blocks[x][y][CHUNK_WIDTH - 1].type != BlockType::AIR) {
+                isFrontColliding = true;
+            }
+        }
+    }
     if (!isFrontColliding) addFrontFace(pos, isTopColliding);
 
     bool isBackColliding = z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1].type != BlockType::AIR;
+    if (z == CHUNK_WIDTH - 1) {
+        if (forward != nullptr) {
+            if (forward->blocks[x][y][0].type != BlockType::AIR) {
+                isBackColliding = true;
+            }
+        }
+    }
     if (!isBackColliding) addBackFace(pos, isTopColliding);
 
     // float ao = calculateAO(isFrontColliding, isLeftColliding, false);

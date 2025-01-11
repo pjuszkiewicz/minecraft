@@ -12,6 +12,15 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : Front
     UpdateCameraVectors();
 }
 
+glm::vec3 Camera::getCameraDirection() const {
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    direction.y = sin(glm::radians(Pitch));
+    direction.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+
+    return glm::normalize(direction);
+}
+
 glm::mat4 Camera::GetViewMatrix() const{
     return glm::lookAt(Position, Position + Front, Up);
 }

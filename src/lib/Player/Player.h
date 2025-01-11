@@ -45,7 +45,7 @@ public:
     float lastY = 900 / 2.0f;
     bool firstMouse = true;
 
-    Player(glm::vec3 position = glm::vec3(0.0f, 128.0f, 0.0f));
+    Player(glm::vec3 position = glm::vec3(0.0f, 10.0f, 0.0f));
 
     void handleMouseCallback(double xPosIn, double yPosIn);
 
