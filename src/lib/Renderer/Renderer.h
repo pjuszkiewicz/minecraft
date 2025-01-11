@@ -27,6 +27,9 @@ public:
 
     bool changed = false;
 
+    int count = 0;
+
+    std::vector<Chunk> chunksToRender;
 
     Renderer();
 
@@ -46,6 +49,8 @@ public:
         const std::unordered_map<std::pair<int, int>,
             Chunk, PairHash> &chunks
     );
+
+    void add_chunk();
 
     void update_chunks(
         const std::unordered_map<std::pair<int, int>,

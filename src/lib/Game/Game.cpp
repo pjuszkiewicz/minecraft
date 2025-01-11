@@ -2,9 +2,40 @@
 #include <future>
 #include <functional>
 
+void Game::test() {
+    while (true) {
+        for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
+            for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
+                int x = chunkX + i;
+                int z = chunkZ + j;
+
+                // auto pair = std::make_pair(x, z);
+
+                auto key = std::make_pair(x, z);
+
+                auto foundChunkMesh = renderer.chunkMeshes.find(key);
+                if (foundChunkMesh != renderer.chunkMeshes.end()) {
+                    continue;
+                }
+
+                auto foundChunk = world.chunks.find(key);
+                if (foundChunk != world.chunks.end()) {
+                    renderer.chunksToRender.push_back(foundChunk->second);
+                }
+            }
+        }
+
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+}
+
 Game::Game() {
     world.generateChunks();
+    std::thread t(&Game::test, this);
+    t.detach();
 }
+
 
 void Game::loop() {
     while (!window.shouldClose()) {
@@ -22,7 +53,6 @@ void Game::loop() {
             chunkX = newChunkX;
             lastChunkZ = chunkZ;
             chunkZ = newChunkZ;
-            std::cout << "should change chunk" << std::endl;
         }
 
 
@@ -43,7 +73,8 @@ void Game::updateDeltaTime() {
 
     fps++;
     if (currentTime - lastFpsTime > 1.0f) {
-        std::cout << "FPS: " << fps << std::endl;
+        // std::cout << "FPS: " << fps << std::endl;
+        std::cout << renderer.count << std::endl;
         fps = 0;
         lastFpsTime = currentTime;
     }

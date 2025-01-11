@@ -31,6 +31,8 @@ public:
 
     Game();
 
+    void test();
+
     void loop();
 
     void updateDeltaTime();

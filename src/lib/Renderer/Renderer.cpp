@@ -12,10 +12,8 @@ Renderer::Renderer() {
 
     shader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
                         (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
-
     instancedShader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
                                  (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
-
     texturePack = new Texture((ASSETS_PATH + "/textures/texturepack.png").c_str(), GL_RGBA);
 }
 
@@ -36,7 +34,36 @@ void Renderer::draw(
         changed = true;
     }
 
+    if (chunksToRender.size() > 0) {
+        add_chunk();
+    }
+
     draw_chunks(player, chunks);
+}
+
+void Renderer::add_chunk() {
+    std::cout << "Adding chunk, left: " << chunksToRender.size() << std::endl;
+    Chunk chunk = chunksToRender[chunksToRender.size() - 1];
+    int x = chunk.x;
+    int z = chunk.z;
+
+    auto mesh = ChunkMesh(x, z);
+    mesh.updateChunk(chunk);
+    // chunkMeshes.push_back(Chunk);
+    chunkMeshes[{x, z}] = mesh;
+    chunksToRender.pop_back();
+
+
+    // for (auto chunk : chunksToRender) {
+    //     int x = chunk.x;
+    //     int z = chunk.z;
+    //
+    //     auto mesh = ChunkMesh(x, z);
+    //     mesh.updateChunk(chunk);
+    //     // chunkMeshes.push_back(Chunk);
+    //     chunkMeshes[{x, z}] = mesh;
+    //     chunksToRender.pop_back();
+    // }
 }
 
 void Renderer::draw_chunks(
