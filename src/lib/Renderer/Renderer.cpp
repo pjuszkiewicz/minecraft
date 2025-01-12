@@ -52,6 +52,7 @@ void Renderer::add_chunk() {
     auto mesh = ChunkMesh(x, z);
     mesh.positions = chunk.positions;
     mesh.textures = chunk.textures;
+    mesh.ambientOcclusions = chunk.ambientOcclusions;
     mesh.updateBuffers();
     // mesh.updateChunk(chunk);
     chunkMeshes[{x, z}] = mesh;
@@ -75,6 +76,19 @@ void Renderer::draw_chunks() {
     }
 }
 
+std::vector<glm::vec3> generateUniformSamples(int numSamples) {
+    std::vector<glm::vec3> samples;
+    for (int i = 0; i < numSamples; i++) {
+        float x = static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f;
+        float y = static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f;
+        float z = static_cast<float>(rand()) / RAND_MAX;
+        glm::vec3 sample = glm::normalize(glm::vec3(x, y, z));
+        samples.push_back(sample);
+    }
+    return samples;
+}
+
+
 void Renderer::update_shader(const Player &player) const {
     glm::mat4 projection = glm::perspective(45.0f, (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT, 0.1f, 1000.0f);
     glm::mat4 view = player.camera.GetViewMatrix();
@@ -86,12 +100,13 @@ void Renderer::update_shader(const Player &player) const {
     instancedShader->use();
     instancedShader->setMat4("projection", projection);
     instancedShader->setMat4("view", view);
+    instancedShader->setVec3("viewPos", player.camera.Position);
 
     glm::vec2 uvScale(1.0f / 8, 1.0f / 8);
     instancedShader->setVec2("uvScale", uvScale);
 
-    glm::vec3 lightDirection = glm::normalize(glm::vec3(1.0f, -0.5f, 0.5f));
-    instancedShader->setVec3("lightDirection", lightDirection);
+    glm::vec3 lightPos = glm::normalize(glm::vec3(1.0f, 15.0f, 0.5f));
+    instancedShader->setVec3("lightPos", lightPos);
 
     glm::mat4 orthoProjection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f, -1.0f, 1.0f);
     uiShader->use();

@@ -12,6 +12,7 @@
 void ChunkBuilder::updateChunk() {
     this->positions = new std::vector<glm::mat4>();
     this->textures = new std::vector<glm::vec2>();
+    this->ambientOcclusions = new std::vector<float>();
 
     for (int x = 0; x < CHUNK_WIDTH; x++) {
         for (int y = 0; y < CHUNK_HEIGHT; y++) {
@@ -22,6 +23,13 @@ void ChunkBuilder::updateChunk() {
     }
 
     // updateBuffers();
+}
+
+float calculateVertexAO(bool side1, bool side2, bool corner) {
+    if (side1 && side2) {
+        return 0.0f; // Oba boczne bloki zasłaniają – pełne zacienienie
+    }
+    return 1.0f - (side1 + side2 + corner) * 0.33f;
 }
 
 void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
@@ -78,8 +86,12 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
     }
     if (!isBackColliding) addBackFace(chunk.blocks[x][y][z], isTopColliding);
 
-    // float ao = calculateAO(isFrontColliding, isLeftColliding, false);
-    // ambientOcclusions->push_back(ao);
+    float ao = calculateVertexAO(
+        chunk.blocks[x][y][z + 1].type == BlockType::AIR,
+        chunk.blocks[x + 1][y][z].type == BlockType::AIR,
+        chunk.blocks[x + 1][y][z + 1].type == BlockType::AIR
+    );
+    ambientOcclusions->push_back(ao);
 }
 
 void ChunkBuilder::addLeftFace(Block block, bool isTopColliding) {

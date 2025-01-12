@@ -16,6 +16,7 @@ class ChunkBuilder {
 public:
     std::vector<glm::mat4> *positions;
     std::vector<glm::vec2> *textures;
+    std::vector<float> *ambientOcclusions;
 
     Chunk chunk;
     Chunk *forward;

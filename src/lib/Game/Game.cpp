@@ -78,7 +78,6 @@ void Game::prepareChunksLoop() {
             if (abs(chunkMesh.chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMesh.chunkZ - chunkZ) > RENDER_DISTANCE) {
                 auto pair = std::make_pair(chunkMesh.chunkX, chunkMesh.chunkZ);
                 renderer.chunksToRemove.push_back(pair);
-                // renderer.chunkMeshes.erase(pair);
             }
         }
 
@@ -213,6 +212,7 @@ void Game::rerenderChunks(int chunkX, int chunkZ) {
                     auto &mesh = found->second;
                     mesh.positions = builder.positions;
                     mesh.textures = builder.textures;
+                    mesh.ambientOcclusions = builder.ambientOcclusions;
                     mesh.updateBuffers();
                 }
             }
