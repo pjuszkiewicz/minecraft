@@ -105,7 +105,7 @@ void Renderer::update_shader(const Player &player) const {
     glm::vec2 uvScale(1.0f / 8, 1.0f / 8);
     instancedShader->setVec2("uvScale", uvScale);
 
-    glm::vec3 lightPos = glm::normalize(glm::vec3(1.0f, 15.0f, 0.5f));
+    glm::vec3 lightPos = glm::normalize(glm::vec3(1.0f, 0.0f, 0.5f));
     instancedShader->setVec3("lightPos", lightPos);
 
     glm::mat4 orthoProjection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f, -1.0f, 1.0f);

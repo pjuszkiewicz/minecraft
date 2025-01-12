@@ -41,7 +41,7 @@ public:
         if (type == ACACIA_PLANKS) {
             return std::pair<int, int>(3, 8);
         }
-                if (type == ACACIA_WOOD) {
+        if (type == ACACIA_WOOD) {
             return std::pair<int, int>(4, 8);
         }
         if (type == STONE) {
