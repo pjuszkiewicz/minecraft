@@ -15,4 +15,6 @@ constexpr int SCREEN_HEIGHT = 900;
 
 const int RENDER_DISTANCE = 5;
 
+const float MAX_BREAK_DISTANCE = 10.0f;
+
 #endif //CONSTANTS_H

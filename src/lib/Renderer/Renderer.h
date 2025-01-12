@@ -11,16 +11,21 @@
 #include <vector>
 
 #include "ChunkBuilder.h"
+#include "Crosshair.h"
 #include "../Renderer/ChunkMesh.h"
 #include "../Renderer/Mesh.h"
 #include "../Constants.h"
+#include "../../../vendor/glad/glad.h"
 
 class Renderer {
 public:
     Shader *shader;
     Shader *instancedShader;
+    Shader *uiShader;
 
     Texture *texturePack;
+
+    Crosshair *crosshair;
 
     std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes;
 

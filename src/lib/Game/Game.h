@@ -25,6 +25,7 @@ public:
     int fps = 0;
 
     bool isLeftMousePressed = false;
+    bool isRightMousePressed = false;
 
     Game();
 
@@ -37,6 +38,8 @@ public:
     void processInput(GLFWwindow *glfwWindow, float deltaTime);
 
     void destroyBlock();
+    void createBlock();
+    void rerenderChunks(int chunkX, int chunkZ);
 };
 
 #endif

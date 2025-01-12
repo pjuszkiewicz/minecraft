@@ -125,14 +125,14 @@ void Game::updateDeltaTime() {
 }
 
 void Game::destroyBlock() {
-    glm::vec3 pos = player.Position;
+    glm::vec3 pos = player.camera.Position;
     glm::vec3 camDir = player.camera.getCameraDirection();
 
     int chunkX = static_cast<int>(floor(pos.x / CHUNK_WIDTH));
     int chunkZ = static_cast<int>(floor(pos.z / CHUNK_WIDTH));
     // std::cout << chunkX << ", " << chunkZ << std::endl;
 
-    for (float i = 0; i < 10; i++) {
+    for (float i = 0; i < MAX_BREAK_DISTANCE; i += 0.01f) {
         glm::vec3 offset = camDir * i;
         glm::vec3 blockPos = pos + offset;
 
@@ -142,6 +142,41 @@ void Game::destroyBlock() {
         }
     }
 
+    rerenderChunks(chunkX, chunkZ);
+}
+
+void Game::createBlock() {
+    glm::vec3 pos = player.camera.Position;
+    glm::vec3 camDir = player.camera.getCameraDirection();
+
+    int chunkX = static_cast<int>(floor(pos.x / CHUNK_WIDTH));
+    int chunkZ = static_cast<int>(floor(pos.z / CHUNK_WIDTH));
+    // std::cout << chunkX << ", " << chunkZ << std::endl;
+
+    glm::vec3 posToPlace(0, 0, 0);
+    bool check1 = false;
+
+    for (float i = 0; i < MAX_BREAK_DISTANCE; i += 0.01f) {
+        glm::vec3 offset = camDir * i;
+        glm::vec3 blockPos = pos + offset;
+
+        if (!world.isBlockAt(blockPos)) {
+            posToPlace = pos + offset;
+            check1 = true;
+        } else {
+            break;
+        }
+    }
+
+    if (check1) {
+        world.placeBlockAt(posToPlace);
+
+        rerenderChunks(chunkX, chunkZ);
+    }
+}
+
+void Game::rerenderChunks(int chunkX, int chunkZ) {
+    std::cout << "rerenderChunks: " << chunkX << " " << chunkZ << std::endl;
     for (int x = chunkX - 1; x <= chunkX + 1; x++) {
         for (int z = chunkZ - 1; z <= chunkZ + 1; z++) {
             auto key = std::make_pair(x, z);
@@ -171,7 +206,6 @@ void Game::destroyBlock() {
                     rightChunk
                 );
 
-                // renderer.chunksToAdd.push_back(builder);
                 auto found = renderer.chunkMeshes.find(key);
                 if (found != renderer.chunkMeshes.end()) {
                     auto &mesh = found->second;
@@ -219,10 +253,21 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         isLeftMousePressed = false;
     }
 
+    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) {
+        isRightMousePressed = false;
+    }
+
     if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
         if (!isLeftMousePressed) {
             destroyBlock();
         }
         isLeftMousePressed = true;
+    }
+
+    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
+        if (!isRightMousePressed) {
+            createBlock();
+        }
+        isRightMousePressed = true;
     }
 }

@@ -14,7 +14,10 @@ Renderer::Renderer() {
                         (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
     instancedShader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
                                  (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
+    uiShader = new Shader((ASSETS_PATH + "/shaders/example/ui_vertex.vs").c_str(),
+                                 (ASSETS_PATH + "/shaders/example/ui_fragment.fs").c_str());
     texturePack = new Texture((ASSETS_PATH + "/textures/texturepack.png").c_str(), GL_RGBA);
+    crosshair = new Crosshair();
 }
 
 void Renderer::clear() {
@@ -27,11 +30,15 @@ void Renderer::draw(
     const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks
 ) {
     clear();
+
     update_shader(player);
 
     add_chunk();
     remove_chunks();
     draw_chunks();
+
+    uiShader->use();
+    crosshair->draw();
 }
 
 void Renderer::add_chunk() {
@@ -85,4 +92,8 @@ void Renderer::update_shader(const Player &player) const {
 
     glm::vec3 lightDirection = glm::normalize(glm::vec3(1.0f, -0.5f, 0.5f));
     instancedShader->setVec3("lightDirection", lightDirection);
+
+    glm::mat4 orthoProjection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f, -1.0f, 1.0f);
+    uiShader->use();
+    uiShader->setMat4("projection", orthoProjection);
 }

@@ -24,6 +24,8 @@ add_executable(
         src/lib/Constants.h
         src/lib/Renderer/ChunkBuilder.cpp
         src/lib/Renderer/ChunkBuilder.h
+        src/lib/Renderer/Crosshair.cpp
+        src/lib/Renderer/Crosshair.h
 )
 
 target_link_libraries(minecraft glfw)
