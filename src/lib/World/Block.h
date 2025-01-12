@@ -7,6 +7,9 @@ enum BlockType {
     AIR,
     DIRT,
     DIAMOND,
+    ACACIA_PLANKS,
+    ACACIA_WOOD,
+    BRICKS
 };
 
 class Block {
@@ -22,6 +25,13 @@ public:
 
     Block(BlockType type, glm::vec3 position): type(type), position(position) {
     };
+
+    std::pair<int, int> getTextureCoords() {
+        if (type == ACACIA_WOOD) {
+            return std::pair<int, int>(3, 8);
+        }
+        return std::pair<int, int>(2, 8);
+    }
 };
 
 

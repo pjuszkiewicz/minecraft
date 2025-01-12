@@ -39,17 +39,17 @@ public:
         const Chunk &chunk, int x, int y, int z
     );
 
-    void addTopFace(glm::vec3 position);
+    void addTopFace(Block block);
 
-    void addBottomFace(glm::vec3 position);
+    void addBottomFace(Block block);
 
-    void addLeftFace(glm::vec3 position, bool isTopColliding);
+    void addLeftFace(Block block, bool isTopColliding);
 
-    void addRightFace(glm::vec3 position, bool isTopColliding);
+    void addRightFace(Block block, bool isTopColliding);
 
-    void addFrontFace(glm::vec3 position, bool isTopColliding);
+    void addFrontFace(Block block, bool isTopColliding);
 
-    void addBackFace(glm::vec3 position, bool isTopColliding);
+    void addBackFace(Block block, bool isTopColliding);
 };
 
 

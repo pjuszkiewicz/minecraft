@@ -155,6 +155,7 @@ void Game::createBlock() {
 
     glm::vec3 posToPlace(0, 0, 0);
     bool check1 = false;
+    bool hittedBlock = false;
 
     for (float i = 0; i < MAX_BREAK_DISTANCE; i += 0.01f) {
         glm::vec3 offset = camDir * i;
@@ -164,11 +165,12 @@ void Game::createBlock() {
             posToPlace = pos + offset;
             check1 = true;
         } else {
+            hittedBlock = true;
             break;
         }
     }
 
-    if (check1) {
+    if (check1 && hittedBlock) {
         world.placeBlockAt(posToPlace);
 
         rerenderChunks(chunkX, chunkZ);
@@ -236,6 +238,11 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         player.HandlePlayerMove(LEFT, deltaTime);
     if (glfwGetKey(glfwWindow, GLFW_KEY_D) == GLFW_PRESS)
         player.HandlePlayerMove(RIGHT, deltaTime);
+
+    if (glfwGetKey(glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
+        player.HandlePlayerMove(UP, deltaTime);
+    if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        player.HandlePlayerMove(DOWN, deltaTime);
 
     if (glfwGetKey(glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
         player.HandlePlayerMove(JUMP, deltaTime);

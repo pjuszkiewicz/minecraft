@@ -17,6 +17,8 @@ enum PlayerMovement {
     BACKWARD,
     LEFT,
     RIGHT,
+    DOWN,
+    UP,
     JUMP,
     SPRINT,
     WALK

@@ -11,11 +11,17 @@ uniform vec3 lightDirection;
 
 void main()
 {
+    float ambientStrength = 0.1;
+    vec3 ambient = ambientStrength * vec3(1.0);
+
     vec3 normal = normalize(FragNormal);
 
-    FragColor = texture(ourTexture, TexCoord);
+//     FragColor = texture(ourTexture, TexCoord);
 
     float intensity = max(dot(normal, normalize(lightDirection)), 0.75);
     vec4 texColor = texture(ourTexture, TexCoord);
-//     FragColor = vec4(texColor.rgb * intensity, texColor.a);
+
+
+    vec3 result = texColor.rgb * ambient;
+    FragColor = vec4(result, texColor.a);
 }

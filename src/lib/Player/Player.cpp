@@ -62,6 +62,12 @@ void Player::HandlePlayerMove(PlayerMovement direction, float deltaTime) {
     if (direction == RIGHT)
         Position += Right * velocity;
 
+
+    if (direction == UP)
+        Position += Up * velocity;
+    if (direction == DOWN)
+        Position -= Up * velocity;
+
     if (direction == JUMP) {
         if (IsGrounded) {
             VelocityY = 0.15;
@@ -71,23 +77,23 @@ void Player::HandlePlayerMove(PlayerMovement direction, float deltaTime) {
 }
 
 void Player::UpdateVectors() {
-    // glm::vec3 front;
-    // front.x = cos(glm::radians(Yaw));
-    // front.y = 0;
-    // front.z = sin(glm::radians(Yaw));
-    // Front = glm::normalize(front);
-    //
-    // Right = glm::normalize(glm::cross(Front, WORLD_UP));
-    // Up = glm::normalize(glm::cross(Right, Front));
-
     glm::vec3 front;
-    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    front.y = sin(glm::radians(Pitch));
-    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    front.x = cos(glm::radians(Yaw));
+    front.y = 0;
+    front.z = sin(glm::radians(Yaw));
     Front = glm::normalize(front);
 
-    Right = glm::normalize(glm::cross(Front, WorldUp));
+    Right = glm::normalize(glm::cross(Front, WORLD_UP));
     Up = glm::normalize(glm::cross(Right, Front));
+
+    // glm::vec3 front;
+    // front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    // front.y = sin(glm::radians(Pitch));
+    // front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    // Front = glm::normalize(front);
+    //
+    // Right = glm::normalize(glm::cross(Front, WorldUp));
+    // Up = glm::normalize(glm::cross(Right, Front));
 }
 
 void Player::update(float deltaTime) {

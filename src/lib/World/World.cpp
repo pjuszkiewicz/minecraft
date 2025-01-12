@@ -50,7 +50,7 @@ void World::placeBlockAt(glm::vec3 pos) {
         int y = static_cast<int>(floor(pos.y));
         int z = static_cast<int>(floor(pos.z)) - (chunkZ * CHUNK_WIDTH);
 
-        chunk.blocks[x][y][z].type = BlockType::DIAMOND;
+        chunk.blocks[x][y][z].type = BlockType::ACACIA_WOOD;
         int px = static_cast<int>(floor(pos.x));
         int py = static_cast<int>(floor(pos.y));
         int pz = static_cast<int>(floor(pos.z));
@@ -91,7 +91,7 @@ void World::generateChunks() {
                     float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 0, scale) + 0.5;
                     if (noise < 0.0f) noise = 0.0;
 
-                    int height = (int) (noise * 32);
+                    int height = (int) (noise * 5);
 
 
                     for (int by = 0; by < height + 1; by++) {

@@ -32,10 +32,10 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
     glm::vec3 pos = chunk.blocks[x][y][z].position;
 
     bool isTopColliding = y != CHUNK_HEIGHT - 1 && chunk.blocks[x][y + 1][z].type != BlockType::AIR;
-    if (!isTopColliding) addTopFace(pos);
+    if (!isTopColliding) addTopFace(chunk.blocks[x][y][z]);
 
     bool isBottomColliding = y != 0 && chunk.blocks[x][y - 1][z].type != BlockType::AIR;
-    if (!isBottomColliding) addBottomFace(pos);
+    if (!isBottomColliding) addBottomFace(chunk.blocks[x][y][z]);
 
 
     bool isLeftColliding = x != 0 && chunk.blocks[x - 1][y][z].type != BlockType::AIR;
@@ -46,7 +46,7 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
             }
         }
     }
-    if (!isLeftColliding) addLeftFace(pos, isTopColliding);
+    if (!isLeftColliding) addLeftFace(chunk.blocks[x][y][z], isTopColliding);
 
     bool isRightColliding = x != CHUNK_WIDTH - 1 && chunk.blocks[x + 1][y][z].type != BlockType::AIR;
     if (x == CHUNK_WIDTH - 1) {
@@ -56,7 +56,7 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
             }
         }
     }
-    if (!isRightColliding) addRightFace(pos, isTopColliding);
+    if (!isRightColliding) addRightFace(chunk.blocks[x][y][z], isTopColliding);
 
     bool isFrontColliding = z != 0 && chunk.blocks[x][y][z - 1].type != BlockType::AIR;
     if (z == 0) {
@@ -66,7 +66,7 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
             }
         }
     }
-    if (!isFrontColliding) addFrontFace(pos, isTopColliding);
+    if (!isFrontColliding) addFrontFace(chunk.blocks[x][y][z], isTopColliding);
 
     bool isBackColliding = z != CHUNK_WIDTH - 1 && chunk.blocks[x][y][z + 1].type != BlockType::AIR;
     if (z == CHUNK_WIDTH - 1) {
@@ -76,75 +76,128 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
             }
         }
     }
-    if (!isBackColliding) addBackFace(pos, isTopColliding);
+    if (!isBackColliding) addBackFace(chunk.blocks[x][y][z], isTopColliding);
 
     // float ao = calculateAO(isFrontColliding, isLeftColliding, false);
     // ambientOcclusions->push_back(ao);
 }
 
-void ChunkBuilder::addLeftFace(glm::vec3 position, bool isTopColliding) {
-    auto block = glm::mat4(1.0f);
-    block = glm::translate(block, position);
-    block = glm::translate(block, glm::vec3(0.0f, 0.0f, 1.0f));
-    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    this->positions->push_back(block);
+void ChunkBuilder::addLeftFace(Block block, bool isTopColliding) {
+    auto matrix = glm::mat4(1.0f);
+    matrix = glm::translate(matrix, block.position);
+    matrix = glm::translate(matrix, glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix = glm::rotate(matrix, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix = glm::rotate(matrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    this->positions->push_back(matrix);
+
     int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
+
+    auto textureCoords = block.getTextureCoords();
+    glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
+
+    // if (block.type == ACACIA_WOOD) {
+    //     uv = Texture::getUVForBlock(1, 3, 8);
+    // }
+
     this->textures->push_back(uv);
 }
 
-void ChunkBuilder::addRightFace(glm::vec3 position, bool isTopColliding) {
-    auto block = glm::mat4(1.0f);
-    block = glm::translate(block, position);
-    block = glm::translate(block, glm::vec3(1.0f, 0.0f, 0.0f));
-    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    this->positions->push_back(block);
-    int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
+void ChunkBuilder::addRightFace(Block block, bool isTopColliding) {
+    auto matrix = glm::mat4(1.0f);
+    matrix = glm::translate(matrix, block.position);
+    matrix = glm::translate(matrix, glm::vec3(1.0f, 0.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    this->positions->push_back(matrix);
+
+    // int texture = isTopColliding ? 0 : 1;
+    // glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
+    //
+    // if (block.type == ACACIA_WOOD) {
+    //     uv = Texture::getUVForBlock(1, 3, 8);
+    // }
+
+    auto textureCoords = block.getTextureCoords();
+    glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
+
     this->textures->push_back(uv);
 }
 
-void ChunkBuilder::addFrontFace(glm::vec3 position, bool isTopColliding) {
-    auto block = glm::mat4(1.0f);
-    block = glm::translate(block, position);
-    this->positions->push_back(block);
-    int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
+void ChunkBuilder::addFrontFace(Block block, bool isTopColliding) {
+    auto matrix = glm::mat4(1.0f);
+    matrix = glm::translate(matrix, block.position);
+    this->positions->push_back(matrix);
+    // int texture = isTopColliding ? 0 : 1;
+    // glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
+    //
+    // if (block.type == ACACIA_WOOD) {
+    //     uv = Texture::getUVForBlock(1, 3, 8);
+    // }
+
+
+    auto textureCoords = block.getTextureCoords();
+    glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
+
+
     this->textures->push_back(uv);
 }
 
-void ChunkBuilder::addBackFace(glm::vec3 position, bool isTopColliding) {
-    auto block = glm::mat4(1.0f);
-    block = glm::translate(block, position);
-    block = glm::translate(block, glm::vec3(1.0f, 0.0f, 1.0f));
-    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    block = glm::rotate(block, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    this->positions->push_back(block);
-    int texture = isTopColliding ? 0 : 1;
-    glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
+void ChunkBuilder::addBackFace(Block block, bool isTopColliding) {
+    auto matrix = glm::mat4(1.0f);
+    matrix = glm::translate(matrix, block.position);
+    matrix = glm::translate(matrix, glm::vec3(1.0f, 0.0f, 1.0f));
+    matrix = glm::rotate(matrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    this->positions->push_back(matrix);
+    // int texture = isTopColliding ? 0 : 1;
+    // glm::vec2 uv = Texture::getUVForBlock(1, texture, 8);
+    // if (block.type == ACACIA_WOOD) {
+    //     uv = Texture::getUVForBlock(1, 3, 8);
+    // }
+
+
+    auto textureCoords = block.getTextureCoords();
+    glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
+
+
     this->textures->push_back(uv);
 }
 
-void ChunkBuilder::addBottomFace(glm::vec3 position) {
-    auto block = glm::mat4(1.0f);
-    block = glm::translate(block, position);
-    block = glm::translate(block, glm::vec3(0.0f, 0.0f, 1.0f));
-    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
-    this->positions->push_back(block);
-    glm::vec2 uv = Texture::getUVForBlock(1, 0, 8);
+void ChunkBuilder::addBottomFace(Block block) {
+    auto matrix = glm::mat4(1.0f);
+    matrix = glm::translate(matrix, block.position);
+    matrix = glm::translate(matrix, glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix = glm::rotate(matrix, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+    this->positions->push_back(matrix);
+    // glm::vec2 uv = Texture::getUVForBlock(1, 0, 8);
+    // if (block.type == ACACIA_WOOD) {
+    //     uv = Texture::getUVForBlock(1, 3, 8);
+    // }
+
+    auto textureCoords = block.getTextureCoords();
+    glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
+
+
     this->textures->push_back(uv);
 }
 
-void ChunkBuilder::addTopFace(glm::vec3 position) {
-    auto block = glm::mat4(1.0f);
-    block = glm::translate(block, position);
-    block = glm::translate(block, glm::vec3(0.0f, 1.0f, 0.0f));
-    block = glm::rotate(block, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    this->positions->push_back(block);
-    glm::vec2 uv = Texture::getUVForBlock(1, 2, 8);
+void ChunkBuilder::addTopFace(Block block) {
+    auto matrix = glm::mat4(1.0f);
+    matrix = glm::translate(matrix, block.position);
+    matrix = glm::translate(matrix, glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    this->positions->push_back(matrix);
+    // glm::vec2 uv = Texture::getUVForBlock(1, 2, 8);
+    // if (block.type == ACACIA_WOOD) {
+    //     uv = Texture::getUVForBlock(1, 3, 8);
+    // }
+
+
+    auto textureCoords = block.getTextureCoords();
+    glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
+
+
     this->textures->push_back(uv);
 }
