@@ -25,7 +25,7 @@ Crosshair::Crosshair() {
         float centerX = SCREEN_WIDTH / 2;
         float centerY = SCREEN_HEIGHT / 2;
 
-        float size = 10;
+        float size = 5;
 
         float vertices[] = {
             centerX - (size / 2), centerY - (size / 2), 0,

@@ -50,7 +50,7 @@ void World::placeBlockAt(glm::vec3 pos) {
         int y = static_cast<int>(floor(pos.y));
         int z = static_cast<int>(floor(pos.z)) - (chunkZ * CHUNK_WIDTH);
 
-        chunk.blocks[x][y][z].type = BlockType::ACACIA_WOOD;
+        chunk.blocks[x][y][z].type = BlockType::ACACIA_PLANKS;
         int px = static_cast<int>(floor(pos.x));
         int py = static_cast<int>(floor(pos.y));
         int pz = static_cast<int>(floor(pos.z));
@@ -77,6 +77,8 @@ float perlinNoise(float x, float z, int octaves, float persistence, float scale)
 }
 
 void World::generateChunks() {
+    int lastTreeX = 0;
+    int lastTreeZ = 0;
     for (int x = -20; x <= 20; x++) {
         for (int z = -20; z <= 20; z++) {
             Chunk chunk(x, z);
@@ -84,24 +86,50 @@ void World::generateChunks() {
             int chunkX = x * CHUNK_WIDTH;
             int chunkZ = z * CHUNK_WIDTH;
 
+            bool hasTree = false;
+
             for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
                 for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
-                    float scale = 0.1;
+                    float scale = 0.007;
 
-                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 0, scale) + 0.5;
+                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, scale) + 0.5;
+                    float noise1 = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, 0.001) + 0.5;
                     if (noise < 0.0f) noise = 0.0;
+                    if (noise1 < 0.0f) noise1 = 0.0;
 
-                    int height = (int) (noise * 5);
+                    int height = (int) (noise * noise1 * 64);
 
+                    int xOffset = x * CHUNK_WIDTH;
+                    int zOffset = z * CHUNK_WIDTH;
 
                     for (int by = 0; by < height + 1; by++) {
-                        int xOffset = x * CHUNK_WIDTH;
-                        int zOffset = z * CHUNK_WIDTH;
-
                         glm::vec3 pos(bx + xOffset, by, bz + zOffset);
-                        Block block(DIAMOND, pos);
+                        BlockType type = BlockType::DIRT;
+
+                        if (by < height - 1) {
+                            type = BlockType::STONE;
+                        }
+
+                        Block block(type, pos);
 
                         chunk.blocks[bx][by][bz] = block;
+                    }
+
+
+                    // drzwa
+                    bool addTree = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 0, scale) + 0.5 > 0.9;
+                    if (addTree && !hasTree) {
+                        hasTree = true;
+                        if (abs(lastTreeX - x) > 5 && abs(lastTreeZ - z) > 5) {
+                            for (int i = 0; i < 5; i++) {
+                                glm::vec3 pos(bx + xOffset, height + i, bz + zOffset);
+                                Block block(ACACIA_WOOD, pos);
+                                chunk.blocks[bx][height + i][bz] = block;
+                            }
+
+                            lastTreeX = bx + xOffset;
+                            lastTreeZ = bz + zOffset;
+                        }
                     }
                 }
             }

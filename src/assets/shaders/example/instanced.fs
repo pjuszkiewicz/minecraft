@@ -26,7 +26,8 @@ void main()
 
     vec4 texColor = texture(ourTexture, TexCoord);
 
-    vec3 result = texColor.rgb * ambientOcclusion;
+//     vec3 result = texColor.rgb * ambientOcclusion;
+    vec3 result = texColor.rgb;
     FragColor = vec4(result, 1.0);
 //     FragColor = texture(ourTexture, TexCoord);
 

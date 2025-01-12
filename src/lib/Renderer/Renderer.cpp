@@ -7,8 +7,8 @@
 #include <thread>
 
 Renderer::Renderer() {
-    // const std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
-    const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/assets";
+    const std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
+    // const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/assets";
 
     shader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
                         (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());

@@ -86,11 +86,12 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
     }
     if (!isBackColliding) addBackFace(chunk.blocks[x][y][z], isTopColliding);
 
-    float ao = calculateVertexAO(
-        chunk.blocks[x][y][z + 1].type == BlockType::AIR,
-        chunk.blocks[x + 1][y][z].type == BlockType::AIR,
-        chunk.blocks[x + 1][y][z + 1].type == BlockType::AIR
-    );
+    float ao = 1.0;
+    // float ao = calculateVertexAO(
+    //     chunk.blocks[x][y][z + 1].type == BlockType::AIR,
+    //     chunk.blocks[x + 1][y][z].type == BlockType::AIR,
+    //     chunk.blocks[x + 1][y][z + 1].type == BlockType::AIR
+    // );
     ambientOcclusions->push_back(ao);
 }
 
@@ -105,7 +106,7 @@ void ChunkBuilder::addLeftFace(Block block, bool isTopColliding) {
 
     int texture = isTopColliding ? 0 : 1;
 
-    auto textureCoords = block.getTextureCoords();
+    auto textureCoords = block.getTextureCoords(LEFT_FACE, isTopColliding);
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
 
     // if (block.type == ACACIA_WOOD) {
@@ -131,7 +132,7 @@ void ChunkBuilder::addRightFace(Block block, bool isTopColliding) {
     //     uv = Texture::getUVForBlock(1, 3, 8);
     // }
 
-    auto textureCoords = block.getTextureCoords();
+    auto textureCoords = block.getTextureCoords(RIGHT_FACE, isTopColliding);
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
 
     this->textures->push_back(uv);
@@ -149,7 +150,7 @@ void ChunkBuilder::addFrontFace(Block block, bool isTopColliding) {
     // }
 
 
-    auto textureCoords = block.getTextureCoords();
+    auto textureCoords = block.getTextureCoords(FRONT_FACE, isTopColliding);
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
 
 
@@ -170,7 +171,7 @@ void ChunkBuilder::addBackFace(Block block, bool isTopColliding) {
     // }
 
 
-    auto textureCoords = block.getTextureCoords();
+    auto textureCoords = block.getTextureCoords(BACK_FACE, isTopColliding);
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
 
 
@@ -188,7 +189,7 @@ void ChunkBuilder::addBottomFace(Block block) {
     //     uv = Texture::getUVForBlock(1, 3, 8);
     // }
 
-    auto textureCoords = block.getTextureCoords();
+    auto textureCoords = block.getTextureCoords(BOTTOM_FACE);
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
 
 
@@ -207,7 +208,7 @@ void ChunkBuilder::addTopFace(Block block) {
     // }
 
 
-    auto textureCoords = block.getTextureCoords();
+    auto textureCoords = block.getTextureCoords(TOP_FACE);
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
 
 
