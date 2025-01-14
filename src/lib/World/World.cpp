@@ -38,7 +38,12 @@ void World::removeBlockAt(glm::vec3 pos) {
     }
 }
 
+
 void World::placeBlockAt(glm::vec3 pos) {
+    placeBlockAt(STONE, pos);
+}
+
+void World::placeBlockAt(BlockType type, glm::vec3 pos) {
     int chunkX = static_cast<int>(floor(pos.x / CHUNK_WIDTH));
     int chunkZ = static_cast<int>(floor(pos.z / CHUNK_WIDTH));
 
@@ -50,12 +55,11 @@ void World::placeBlockAt(glm::vec3 pos) {
         int y = static_cast<int>(floor(pos.y));
         int z = static_cast<int>(floor(pos.z)) - (chunkZ * CHUNK_WIDTH);
 
-        chunk.blocks[x][y][z].type = BlockType::ACACIA_PLANKS;
+        chunk.blocks[x][y][z].type = type;
         int px = static_cast<int>(floor(pos.x));
         int py = static_cast<int>(floor(pos.y));
         int pz = static_cast<int>(floor(pos.z));
         chunk.blocks[x][y][z].position = glm::vec3(px, py, pz);
-
     }
 }
 
@@ -90,10 +94,10 @@ void World::generateChunks() {
 
             for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
                 for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
-                    float scale = 0.007;
+                    float scale = 0.009;
 
-                    float noise = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, scale) + 0.5;
-                    float noise1 = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, 0.001) + 0.5;
+                    float noise = abs(perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, scale)) + 0.5;
+                    float noise1 = abs(perlinNoise((chunkX + bx), (chunkZ + bz), 1, 5, 0.01));
                     if (noise < 0.0f) noise = 0.0;
                     if (noise1 < 0.0f) noise1 = 0.0;
 
@@ -110,6 +114,10 @@ void World::generateChunks() {
                             type = BlockType::STONE;
                         }
 
+                        if (height > 24) {
+                            type = BlockType::STONE;
+                        }
+
                         Block block(type, pos);
 
                         chunk.blocks[bx][by][bz] = block;
@@ -117,7 +125,7 @@ void World::generateChunks() {
 
 
                     // drzwa
-                    bool addTree = perlinNoise((chunkX + bx), (chunkZ + bz), 3, 0, scale) + 0.5 > 0.9;
+                    bool addTree = rand() > 0.9;
                     if (addTree && !hasTree) {
                         hasTree = true;
                         if (abs(lastTreeX - x) > 5 && abs(lastTreeZ - z) > 5) {
@@ -125,6 +133,17 @@ void World::generateChunks() {
                                 glm::vec3 pos(bx + xOffset, height + i, bz + zOffset);
                                 Block block(ACACIA_WOOD, pos);
                                 chunk.blocks[bx][height + i][bz] = block;
+                            }
+
+                            for (int leafX = bx; leafX <= bx + 4; leafX++) {
+                                for (int leafZ = bz; leafZ <= bz + 2; leafZ++) {
+                                    for (int leafY = height + 3; leafY <= height + 6; leafY++) {
+                                        xOffset = x * CHUNK_WIDTH;
+                                        zOffset = z * CHUNK_WIDTH;
+                                        glm::vec3 pos(leafX + xOffset, leafY, leafZ + zOffset);
+                                        placeBlockAt(AZALEA_LEAVES, pos);
+                                    }
+                                }
                             }
 
                             lastTreeX = bx + xOffset;

@@ -11,7 +11,8 @@ enum BlockType {
     ACACIA_PLANKS,
     ACACIA_WOOD,
     BRICKS,
-    STONE
+    STONE,
+    AZALEA_LEAVES
 };
 
 enum Face {
@@ -43,6 +44,9 @@ public:
         }
         if (type == ACACIA_WOOD) {
             return std::pair<int, int>(4, 8);
+        }
+                if (type == AZALEA_LEAVES) {
+            return std::pair<int, int>(7, 8);
         }
         if (type == STONE) {
             return std::pair<int, int>(6, 8);

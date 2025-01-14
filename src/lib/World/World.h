@@ -16,6 +16,7 @@ public:
 
     void removeBlockAt(glm::vec3 pos);
     void placeBlockAt(glm::vec3 pos);
+    void placeBlockAt(BlockType type, glm::vec3 pos);
 };
 
 #endif //WORLD_H

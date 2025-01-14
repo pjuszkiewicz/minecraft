@@ -15,7 +15,7 @@ Renderer::Renderer() {
     instancedShader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
                                  (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
     uiShader = new Shader((ASSETS_PATH + "/shaders/example/ui_vertex.vs").c_str(),
-                                 (ASSETS_PATH + "/shaders/example/ui_fragment.fs").c_str());
+                          (ASSETS_PATH + "/shaders/example/ui_fragment.fs").c_str());
     texturePack = new Texture((ASSETS_PATH + "/textures/texturepack.png").c_str(), GL_RGBA);
     crosshair = new Crosshair();
 }
@@ -54,7 +54,6 @@ void Renderer::add_chunk() {
     mesh.textures = chunk.textures;
     mesh.ambientOcclusions = chunk.ambientOcclusions;
     mesh.updateBuffers();
-    // mesh.updateChunk(chunk);
     chunkMeshes[{x, z}] = mesh;
     chunksToAdd.pop_back();
 }
