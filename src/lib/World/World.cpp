@@ -2,6 +2,7 @@
 
 #define STB_PERLIN_IMPLEMENTATION
 #include "../../../vendor/stb_perlin.h"
+#include "../../../vendor/FastNoiseLite.h"
 
 bool World::isBlockAt(glm::vec3 pos) {
     int chunkX = static_cast<int>(floor(pos.x / CHUNK_WIDTH));

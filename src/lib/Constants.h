@@ -17,4 +17,6 @@ const int RENDER_DISTANCE = 10 ;
 
 const float MAX_BREAK_DISTANCE = 10.0f;
 
+const float DAY_CYCLE = 360.0f;
+
 #endif //CONSTANTS_H

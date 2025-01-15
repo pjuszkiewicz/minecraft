@@ -2,7 +2,7 @@
 
 #include "../../../vendor/glad/glad.h"
 #include "../Renderer/ChunkMesh.h"
-#include "../Objects/Cube.h"
+#include "../Objects/Plane.h"
 
 ChunkMesh::ChunkMesh() {
     ChunkMesh(0, 0);
@@ -23,7 +23,7 @@ ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     // VBO
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(PlaneVertices), PlaneVertices, GL_STATIC_DRAW);
 
     // VAO
     glGenVertexArrays(1, &VAO);
@@ -37,7 +37,7 @@ ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
 
-    // Texture
+    // Normals
     glEnableVertexAttribArray(8);
     glVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (5 * sizeof(float)));
 

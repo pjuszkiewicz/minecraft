@@ -26,6 +26,7 @@ add_executable(
         src/lib/Renderer/ChunkBuilder.h
         src/lib/Renderer/Crosshair.cpp
         src/lib/Renderer/Crosshair.h
+        src/lib/Objects/Cube.h
 )
 
 target_link_libraries(minecraft glfw)

@@ -10,25 +10,23 @@ out vec3 FragNormal;
 out vec2 TexCoord;
 out vec3 Normal;
 
-uniform mat4 transform;
-
 out float ambientOcclusion;
 out vec3 FragPos;
 uniform vec2 uvScale;
 
 uniform mat4 view;
 uniform mat4 projection;
+uniform mat4 transform;
 
 void main()
 {
     ambientOcclusion = ao;
     vec4 pos = aOffset * vec4(aPos, 1.0);
 
-
     gl_Position = projection * view * pos;
     TexCoord = uvOffset + aTexCoord * uvScale;
-    FragNormal = mat3(transpose(inverse(aOffset))) * aPos;
 
-    Normal = aNormal;
+    Normal = mat3(transpose(inverse(aOffset))) * aNormal;
+    FragNormal = mat3(transpose(inverse(aOffset))) * aPos;
     FragPos = vec3(aOffset * vec4(aPos, 1.0));
 }

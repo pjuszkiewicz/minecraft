@@ -17,11 +17,20 @@
 #include "../Constants.h"
 #include "../../../vendor/glad/glad.h"
 
+#include <glm/glm.hpp> // Używając GLM dla vec3
+#include <cmath>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 class Renderer {
 public:
     Shader *shader;
     Shader *instancedShader;
     Shader *uiShader;
+
+    Mesh mesh;
 
     Texture *texturePack;
 
@@ -38,6 +47,7 @@ public:
     Renderer();
 
     void clear();
+    glm::vec3 getBackgroundColor();
 
     void draw(
         const Player &player,
