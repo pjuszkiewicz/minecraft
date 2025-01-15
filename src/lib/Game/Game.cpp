@@ -177,7 +177,6 @@ void Game::createBlock() {
 }
 
 void Game::rerenderChunks(int chunkX, int chunkZ) {
-    std::cout << "rerenderChunks: " << chunkX << " " << chunkZ << std::endl;
     for (int x = chunkX - 1; x <= chunkX + 1; x++) {
         for (int z = chunkZ - 1; z <= chunkZ + 1; z++) {
             auto key = std::make_pair(x, z);
@@ -256,12 +255,20 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
-    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
-        isLeftMousePressed = false;
+    if (glfwGetKey(glfwWindow, GLFW_KEY_K) == GLFW_PRESS) {
+        std::cout << "LET ME GO" << std::endl;
+        glfwSetInputMode(window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
-    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) {
-        isRightMousePressed = false;
+
+    if (glfwGetKey(glfwWindow, GLFW_KEY_L) == GLFW_PRESS) {
+        std::cout << "LET ME GO" << std::endl;
+        glfwSetInputMode(window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+
+
+    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+        isLeftMousePressed = false;
     }
 
     if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
@@ -271,10 +278,15 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         isLeftMousePressed = true;
     }
 
+    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) {
+        isRightMousePressed = false;
+    }
+
     if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
         if (!isRightMousePressed) {
             createBlock();
         }
         isRightMousePressed = true;
     }
+
 }

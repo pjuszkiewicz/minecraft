@@ -13,10 +13,10 @@ const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/asset
 constexpr int SCREEN_WIDTH = 1600;
 constexpr int SCREEN_HEIGHT = 900;
 
-const int RENDER_DISTANCE = 10 ;
+constexpr int RENDER_DISTANCE = 10;
 
-const float MAX_BREAK_DISTANCE = 10.0f;
+constexpr float MAX_BREAK_DISTANCE = 10.0f;
 
-const float DAY_CYCLE = 360.0f;
+constexpr float DAY_CYCLE = 60.0f;
 
 #endif //CONSTANTS_H

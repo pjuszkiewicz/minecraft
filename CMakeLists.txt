@@ -27,6 +27,8 @@ add_executable(
         src/lib/Renderer/Crosshair.cpp
         src/lib/Renderer/Crosshair.h
         src/lib/Objects/Cube.h
+        src/lib/Game/DateTime.cpp
+        src/lib/Game/DateTime.h
 )
 
 target_link_libraries(minecraft glfw)

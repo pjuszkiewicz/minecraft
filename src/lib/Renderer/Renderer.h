@@ -47,19 +47,19 @@ public:
     Renderer();
 
     void clear();
-    glm::vec3 getBackgroundColor();
 
     void draw(
         const Player &player,
         const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
 
-    void draw_chunks();
 
-    void update_shader(const Player &player) const;
 
     void add_chunk();
     void remove_chunks();
+    void draw_chunks();
 
+    void updateProjection(const Player &player);
+    void updateLighting() const;
 };
 
 #endif //RENDERER_H
