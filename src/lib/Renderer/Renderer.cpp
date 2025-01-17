@@ -2,33 +2,12 @@
 #include <unordered_set>
 #include <thread>
 
+#include "Material.h"
 #include "../Game/DateTime.h"
 
 /// Initializuje shadery i tekstury
 Renderer::Renderer() {
-    const std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
-    // const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/assets";
-
-    sunAndMoonShader = new Shader((ASSETS_PATH + "/shaders/example/vertex.vs").c_str(),
-                           (ASSETS_PATH + "/shaders/example/fragment.fs").c_str());
-
-    instancedShader = new Shader((ASSETS_PATH + "/shaders/example/instanced.vs").c_str(),
-                                 (ASSETS_PATH + "/shaders/example/instanced.fs").c_str());
-
-    uiShader = new Shader((ASSETS_PATH + "/shaders/example/ui_vertex.vs").c_str(),
-                          (ASSETS_PATH + "/shaders/example/ui_fragment.fs").c_str());
-
-
-    texturePack = new Texture((ASSETS_PATH + "/textures/texturepack.png").c_str(), GL_RGBA);
     crosshair = new Crosshair();
-
-    // shadow test
-    depthTestShader = new Shader((ASSETS_PATH + "/shaders/example/depthTest.vs").c_str(),
-                            (ASSETS_PATH + "/shaders/example/depthTest.fs").c_str());
-    depthTestShader->use();
-    depthTestShader->setInt("depthMap", 0);
-    depthShader = new Shader((ASSETS_PATH + "/shaders/example/depth.vs").c_str(),
-                             (ASSETS_PATH + "/shaders/example/depth.fs").c_str());
 }
 
 /// Czyści ekran kolorem z DateTime::getSkyColor()
@@ -48,53 +27,15 @@ void Renderer::Draw(
     AddChunk();
     RemoveChunks();
 
-    // 1. first render to depth map
-    glm::vec3 sunPos = glm::vec3(10, 10, 10);
-    auto lightView = glm::lookAt(sunPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 1000.0f);
-    glm::mat4 lightSpaceMatrix = lightProjection * lightView;
-
-    shadowMap.use(0);
-    depthShader->use();
-    depthShader->setInt("shadowMap", 0);
-    depthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
-
-    glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-    glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.depthMapFBO);
-    Clear();
-    depthShader->use();
-    depthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
-    DrawChunks();
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-    glViewport(0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2);
     Clear();
     DrawMoon(player);
     DrawSun(player);
 
-    texturePack->use(0);
-    instancedShader->use();
+    worldMaterial.Use(0);
     DrawChunks();
 
-    uiShader->use();
+    crosshairMaterial.Use(0);
     crosshair->draw();
-
-    DrawTestMesh();
-}
-
-void Renderer::DrawTestMesh() const {
-    auto model = glm::mat4(1.0f);
-    auto pos = glm::vec3(0, 10, 0);
-    model = translate(model, pos);
-
-    shadowMap.use(0);
-    depthTestShader->use();
-    depthTestShader->setMat4("model", model);
-    depthTestShader->setInt("depthMap", 0);
-    depthTestShader->setFloat("near_plane", 0.1f);
-    depthTestShader->setFloat("far_plane", 1000.0f);;
-    mesh.draw();
 }
 
 void Renderer::DrawSun(const Player &player) {
@@ -105,12 +46,12 @@ void Renderer::DrawSun(const Player &player) {
     model = translate(model, pos);
     model = scale(model, glm::vec3(sunSize, sunSize, sunSize));
 
-    sunAndMoonShader->use();
-    sunAndMoonShader->setMat4("model", model);
-    sunAndMoonShader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    sunAndMoonShader->setVec3("sunCenter", sunPos);
-    sunAndMoonShader->setVec3("color", glm::vec3(1.0, 0.9, 0.4));
-    sunAndMoonShader->setFloat("sunRadius", 5.0f);
+    sunAndMoonMaterial.shader->use();
+    sunAndMoonMaterial.shader->setMat4("model", model);
+    sunAndMoonMaterial.shader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+    sunAndMoonMaterial.shader->setVec3("sunCenter", sunPos);
+    sunAndMoonMaterial.shader->setVec3("color", glm::vec3(1.0, 0.9, 0.4));
+    sunAndMoonMaterial.shader->setFloat("sunRadius", 5.0f);
     mesh.draw();
     glClear(GL_DEPTH_BUFFER_BIT);
 }
@@ -126,12 +67,12 @@ void Renderer::DrawMoon(const Player &player) {
     model = translate(model, pos);
     model = scale(model, glm::vec3(sunSize, sunSize, sunSize));
 
-    sunAndMoonShader->use();
-    sunAndMoonShader->setMat4("model", model);
-    sunAndMoonShader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    sunAndMoonShader->setVec3("sunCenter", sunPos);
-    sunAndMoonShader->setFloat("sunRadius", 5.0f);
-    sunAndMoonShader->setVec3("color", glm::vec3(1.0, 1.0, 1.0));
+    sunAndMoonMaterial.Use(0);
+    sunAndMoonMaterial.shader->setMat4("model", model);
+    sunAndMoonMaterial.shader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+    sunAndMoonMaterial.shader->setVec3("sunCenter", sunPos);
+    sunAndMoonMaterial.shader->setFloat("sunRadius", 5.0f);
+    sunAndMoonMaterial.shader->setVec3("color", glm::vec3(1.0, 1.0, 1.0));
     moon.draw();
     glClear(GL_DEPTH_BUFFER_BIT);
 }
@@ -168,7 +109,7 @@ void Renderer::DrawChunks() {
     }
 }
 
-void Renderer::UpdateProjection(const Player &player) {
+void Renderer::UpdateProjection(const Player &player) const {
     const glm::mat4 projection = glm::perspective(45.0f, (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT, 0.1f, 1000.0f);
     const glm::mat4 view = player.camera.GetViewMatrix();
 
@@ -180,38 +121,39 @@ void Renderer::UpdateProjection(const Player &player) {
     // // glm::mat4 lightSpaceMatrix = lightProjection * lightView;
     // test
 
-    sunAndMoonShader->use();
-    sunAndMoonShader->setMat4("projection", projection);
-    sunAndMoonShader->setMat4("view", view);
+    sunAndMoonMaterial.shader->use();
+    sunAndMoonMaterial.shader->setMat4("projection", projection);
+    sunAndMoonMaterial.shader->setMat4("view", view);
 
-    depthTestShader->use();
-    depthTestShader->setMat4("projection", projection);
-    depthTestShader->setMat4("view", view);
 
-    instancedShader->use();
-    instancedShader->setMat4("projection", projection);
-    instancedShader->setMat4("view", view);
-    instancedShader->setVec3("viewPos", player.camera.Position);
+    worldMaterial.shader->use();
+    worldMaterial.shader->setMat4("projection", projection);
+    worldMaterial.shader->setMat4("view", view);
+    worldMaterial.shader->setVec3("viewPos", player.camera.Position);
+
+    // depthTestShader->use();
+    // depthTestShader->setMat4("projection", projection);
+    // depthTestShader->setMat4("view", view);
 
     const glm::mat4 orthoProjection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f, -1.0f, 1.0f);
-    uiShader->use();
-    uiShader->setMat4("projection", orthoProjection);
+    crosshairMaterial.shader->use();
+    crosshairMaterial.shader->setMat4("projection", orthoProjection);
 }
 
 void Renderer::UpdateLighting() const {
-    instancedShader->use();
-    instancedShader->setInt("material.diffuse", 0);
-    instancedShader->setInt("material.specular", 1);
-    instancedShader->setFloat("material.shininess", 32.0f);
+    worldMaterial.shader->use();
+    worldMaterial.shader->setInt("material.diffuse", 0);
+    worldMaterial.shader->setInt("material.specular", 1);
+    worldMaterial.shader->setFloat("material.shininess", 32.0f);
 
     const float ambient = 0.3;
     const auto lightPos = DateTime::getSunPos();
 
-    instancedShader->setVec3("light.direction", -lightPos);
-    instancedShader->setVec3("light.ambient", ambient, ambient, ambient);
-    instancedShader->setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
-    instancedShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+    worldMaterial.shader->setVec3("light.direction", -lightPos);
+    worldMaterial.shader->setVec3("light.ambient", ambient, ambient, ambient);
+    worldMaterial.shader->setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
+    worldMaterial.shader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
     glm::vec2 uvScale(1.0f / 8, 1.0f / 8);
-    instancedShader->setVec2("uvScale", uvScale);
+    worldMaterial.shader->setVec2("uvScale", uvScale);
 }

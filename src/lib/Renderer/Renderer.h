@@ -23,24 +23,25 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "../Materials/SunAndMoonMaterial.h"
 
 #include "ShadowMap.h"
+#include "../Materials/CrosshairMaterial.h"
+#include "../Materials/ShadowMappingMaterial.h"
+#include "../Materials/WorldMaterial.h"
 
 class Renderer {
 public:
-    Shader *sunAndMoonShader;
-    Shader *instancedShader;
-    Shader *uiShader;
-    Shader *depthShader;
-    Shader *depthTestShader;
+    SunAndMoonMaterial sunAndMoonMaterial;
+    WorldMaterial worldMaterial;
+    CrosshairMaterial crosshairMaterial;
+    ShadowMappingMaterial shadowMappingMaterial;
 
     ShadowMap shadowMap;
 
     Mesh mesh;
     Mesh moon;
     Mesh testMesh;
-
-    Texture *texturePack;
 
     Crosshair *crosshair;
 
@@ -62,7 +63,7 @@ public:
 
     void Draw(const Player &player, const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
 
-    void DrawTestMesh() const;
+    // void DrawTestMesh() const;
 
     void DrawChunks();
 
@@ -70,7 +71,7 @@ public:
 
     void DrawMoon(const Player &player);
 
-    void UpdateProjection(const Player &player);
+    void UpdateProjection(const Player &player) const;
 
     void UpdateLighting() const;
 };

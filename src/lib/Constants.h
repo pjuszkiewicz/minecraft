@@ -7,9 +7,6 @@
 
 #include <string>
 
-const std::string ASSETS_PATH = "/Users/piotr/Development/C++/minecraft/src/assets";
-// const std::string ASSETS_PATH = "/home/piotr/Development/C++/minecraft/src/assets";
-
 constexpr int SCREEN_WIDTH = 1600;
 constexpr int SCREEN_HEIGHT = 900;
 

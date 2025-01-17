@@ -31,6 +31,14 @@ add_executable(
         src/lib/Game/DateTime.h
         src/lib/Renderer/ShadowMap.cpp
         src/lib/Renderer/ShadowMap.h
+        src/lib/Renderer/Material.cpp
+        src/lib/Renderer/Material.h
+        src/lib/Materials/SunAndMoonMaterial.h
+        src/lib/Utils/AssetsManager.cpp
+        src/lib/Utils/AssetsManager.h
+        src/lib/Materials/WorldMaterial.h
+        src/lib/Materials/CrosshairMaterial.h
+        src/lib/Materials/ShadowMappingMaterial.h
 )
 
 target_link_libraries(minecraft glfw)

@@ -43,6 +43,7 @@ Window::Window() {
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     glEnable(GL_CULL_FACE);
+    glEnable(GL_FRAMEBUFFER_SRGB);
 
     // glfwSwapInterval(0); // Disable V-Sync
 
