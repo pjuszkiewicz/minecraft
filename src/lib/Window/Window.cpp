@@ -57,7 +57,7 @@ bool Window::shouldClose() const {
 
 void Window::toggleFullscreen() {
     if (isFullscreen) {
-        glfwSetWindowMonitor(glfwWindow, NULL, 100, 100, 1280, 720, 0);
+        glfwSetWindowMonitor(glfwWindow, NULL, 100, 100, SCR_WIDTH, SCR_HEIGHT, 0);
     } else {
         glfwSetWindowMonitor(glfwWindow, glfwMonitor, 0, 0, glfwVideoMode->width, glfwVideoMode->height,
                              glfwVideoMode->refreshRate);

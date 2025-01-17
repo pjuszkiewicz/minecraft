@@ -98,7 +98,7 @@ void Game::loop() {
         updateDeltaTime();
 
         player.update(deltaTime);
-        renderer.draw(player, world.chunks);
+        renderer.Draw(player, world.chunks);
 
         glfwSwapBuffers(window.glfwWindow);
         glfwPollEvents();
@@ -275,7 +275,7 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         if (!isLeftMousePressed) {
             destroyBlock();
         }
-        isLeftMousePressed = true;
+        isLeftMousePressed = false;
     }
 
     if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) {
@@ -286,7 +286,6 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
         if (!isRightMousePressed) {
             createBlock();
         }
-        isRightMousePressed = true;
+        isRightMousePressed = false;
     }
-
 }

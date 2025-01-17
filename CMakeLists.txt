@@ -29,6 +29,8 @@ add_executable(
         src/lib/Objects/Cube.h
         src/lib/Game/DateTime.cpp
         src/lib/Game/DateTime.h
+        src/lib/Renderer/ShadowMap.cpp
+        src/lib/Renderer/ShadowMap.h
 )
 
 target_link_libraries(minecraft glfw)

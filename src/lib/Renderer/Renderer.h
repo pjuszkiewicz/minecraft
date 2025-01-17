@@ -24,13 +24,21 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "ShadowMap.h"
+
 class Renderer {
 public:
-    Shader *shader;
+    Shader *sunAndMoonShader;
     Shader *instancedShader;
     Shader *uiShader;
+    Shader *depthShader;
+    Shader *depthTestShader;
+
+    ShadowMap shadowMap;
 
     Mesh mesh;
+    Mesh moon;
+    Mesh testMesh;
 
     Texture *texturePack;
 
@@ -42,24 +50,29 @@ public:
 
     bool isReadyToAdd = false;
     std::vector<ChunkBuilder> chunksToAdd;
-    std::vector<std::pair<int, int>> chunksToRemove;
+    std::vector<std::pair<int, int> > chunksToRemove;
 
     Renderer();
 
-    void clear();
+    void Clear();
 
-    void draw(
-        const Player &player,
-        const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
+    void AddChunk();
 
+    void RemoveChunks();
 
+    void Draw(const Player &player, const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
 
-    void add_chunk();
-    void remove_chunks();
-    void draw_chunks();
+    void DrawTestMesh() const;
 
-    void updateProjection(const Player &player);
-    void updateLighting() const;
+    void DrawChunks();
+
+    void DrawSun(const Player &player);
+
+    void DrawMoon(const Player &player);
+
+    void UpdateProjection(const Player &player);
+
+    void UpdateLighting() const;
 };
 
 #endif //RENDERER_H

@@ -82,6 +82,7 @@ float perlinNoise(float x, float z, int octaves, float persistence, float scale)
 }
 
 void World::generateChunks() {
+    FastNoiseLite fastNoise;
     int lastTreeX = 0;
     int lastTreeZ = 0;
     for (int x = -20; x <= 20; x++) {
@@ -95,14 +96,18 @@ void World::generateChunks() {
 
             for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
                 for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
+                    // łaka szum1=0.009 szum2=0.001
                     float scale = 0.009;
 
-                    float noise = abs(perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, scale)) + 0.5;
-                    float noise1 = abs(perlinNoise((chunkX + bx), (chunkZ + bz), 1, 5, 0.01));
-                    if (noise < 0.0f) noise = 0.0;
-                    if (noise1 < 0.0f) noise1 = 0.0;
+                    float blockWorldX = chunkX + bx;
+                    float blockWorldZ = chunkZ + bz;
+                    // float noise = abs(perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, scale)) + 0.5;
+                    float noise = fastNoise.GetNoise(blockWorldX, blockWorldZ) + 1;
+                    // float noise1 = abs(perlinNoise((blockWorldX, blockWorldZ, 1, 5, 0.01));
+                    // if (noise < 0.0f) noise = 0.0;
+                    // if (noise1 < 0.0f) noise1 = 0.0;
 
-                    int height = (int) (noise * noise1 * 64);
+                    int height = (int) (noise * 3);
 
                     int xOffset = x * CHUNK_WIDTH;
                     int zOffset = z * CHUNK_WIDTH;
@@ -126,31 +131,31 @@ void World::generateChunks() {
 
 
                     // drzwa
-                    bool addTree = rand() > 0.9;
-                    if (addTree && !hasTree) {
-                        hasTree = true;
-                        if (abs(lastTreeX - x) > 5 && abs(lastTreeZ - z) > 5) {
-                            for (int i = 0; i < 5; i++) {
-                                glm::vec3 pos(bx + xOffset, height + i, bz + zOffset);
-                                Block block(ACACIA_WOOD, pos);
-                                chunk.blocks[bx][height + i][bz] = block;
-                            }
-
-                            for (int leafX = bx; leafX <= bx + 4; leafX++) {
-                                for (int leafZ = bz; leafZ <= bz + 2; leafZ++) {
-                                    for (int leafY = height + 3; leafY <= height + 6; leafY++) {
-                                        xOffset = x * CHUNK_WIDTH;
-                                        zOffset = z * CHUNK_WIDTH;
-                                        glm::vec3 pos(leafX + xOffset, leafY, leafZ + zOffset);
-                                        placeBlockAt(AZALEA_LEAVES, pos);
-                                    }
-                                }
-                            }
-
-                            lastTreeX = bx + xOffset;
-                            lastTreeZ = bz + zOffset;
-                        }
-                    }
+                    // bool addTree = rand() > 0.9;
+                    // if (addTree && !hasTree) {
+                    //     hasTree = true;
+                    //     if (abs(lastTreeX - x) > 5 && abs(lastTreeZ - z) > 5) {
+                    //         for (int i = 0; i < 5; i++) {
+                    //             glm::vec3 pos(bx + xOffset, height + i, bz + zOffset);
+                    //             Block block(ACACIA_WOOD, pos);
+                    //             chunk.blocks[bx][height + i][bz] = block;
+                    //         }
+                    //
+                    //         for (int leafX = bx; leafX <= bx + 4; leafX++) {
+                    //             for (int leafZ = bz; leafZ <= bz + 2; leafZ++) {
+                    //                 for (int leafY = height + 3; leafY <= height + 6; leafY++) {
+                    //                     xOffset = x * CHUNK_WIDTH;
+                    //                     zOffset = z * CHUNK_WIDTH;
+                    //                     glm::vec3 pos(leafX + xOffset, leafY, leafZ + zOffset);
+                    //                     placeBlockAt(AZALEA_LEAVES, pos);
+                    //                 }
+                    //             }
+                    //         }
+                    //
+                    //         lastTreeX = bx + xOffset;
+                    //         lastTreeZ = bz + zOffset;
+                    //     }
+                    // }
                 }
             }
 

@@ -15,6 +15,7 @@ public:
     static float getTime();
     static glm::vec3 getSkyColor();
     static glm::vec3 getSunPos();
+    static glm::vec3 getSunPos(float time);
 };
 
 

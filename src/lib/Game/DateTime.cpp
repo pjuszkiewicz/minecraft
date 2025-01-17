@@ -95,8 +95,16 @@ glm::vec3 DateTime::getSkyColor() {
 }
 
 glm::vec3 DateTime::getSunPos() {
-    constexpr float angularSpeed = glm::radians(360.0f);
     const float time = getTime() / 24.0f;
+
+    constexpr float angularSpeed = glm::radians(360.0f);
+    constexpr auto center = glm::vec3(0.0f);
+    constexpr auto normal = glm::vec3(0.0f, 0.0f, 1.0f);
+    return glm::normalize(circularOrbit(time, 1, angularSpeed, center, normal));
+}
+
+glm::vec3 DateTime::getSunPos(float time) {
+    constexpr float angularSpeed = glm::radians(360.0f);
     constexpr auto center = glm::vec3(0.0f);
     constexpr auto normal = glm::vec3(0.0f, 0.0f, 1.0f);
     return glm::normalize(circularOrbit(time, 1, angularSpeed, center, normal));
