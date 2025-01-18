@@ -7,7 +7,7 @@
 
 /// Initializuje shadery i tekstury
 Renderer::Renderer() {
-    crosshair = new Crosshair();
+    crosshair = new CrosshairMesh();
 }
 
 /// Czyści ekran kolorem z DateTime::getSkyColor()
@@ -28,8 +28,7 @@ void Renderer::Draw(
     RemoveChunks();
 
     Clear();
-    DrawMoon(player);
-    DrawSun(player);
+    sunAndMoon.Draw();
 
     worldMaterial.Use(0);
     DrawChunks();
@@ -37,46 +36,6 @@ void Renderer::Draw(
     crosshairMaterial.Use(0);
     crosshair->draw();
 }
-
-void Renderer::DrawSun(const Player &player) {
-    auto model = glm::mat4(1.0f);
-    auto sunPos = DateTime::getSunPos() * 100.0f;
-    auto pos = glm::vec3(sunPos.x + player.Position.x, sunPos.y + player.Position.y, sunPos.z + player.Position.z);
-    float sunSize = 20.0f;
-    model = translate(model, pos);
-    model = scale(model, glm::vec3(sunSize, sunSize, sunSize));
-
-    sunAndMoonMaterial.shader->use();
-    sunAndMoonMaterial.shader->setMat4("model", model);
-    sunAndMoonMaterial.shader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    sunAndMoonMaterial.shader->setVec3("sunCenter", sunPos);
-    sunAndMoonMaterial.shader->setVec3("color", glm::vec3(1.0, 0.9, 0.4));
-    sunAndMoonMaterial.shader->setFloat("sunRadius", 5.0f);
-    mesh.draw();
-    glClear(GL_DEPTH_BUFFER_BIT);
-}
-
-void Renderer::DrawMoon(const Player &player) {
-    float offset = DAY_CYCLE / 2;
-    float time = std::fmod(glfwGetTime() + offset, DAY_CYCLE) / DAY_CYCLE;
-
-    auto model = glm::mat4(1.0f);
-    auto sunPos = DateTime::getSunPos(time) * 100.0f;
-    auto pos = glm::vec3(sunPos.x + player.Position.x, sunPos.y + player.Position.y, sunPos.z + player.Position.z);
-    float sunSize = 20.0f;
-    model = translate(model, pos);
-    model = scale(model, glm::vec3(sunSize, sunSize, sunSize));
-
-    sunAndMoonMaterial.Use(0);
-    sunAndMoonMaterial.shader->setMat4("model", model);
-    sunAndMoonMaterial.shader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    sunAndMoonMaterial.shader->setVec3("sunCenter", sunPos);
-    sunAndMoonMaterial.shader->setFloat("sunRadius", 5.0f);
-    sunAndMoonMaterial.shader->setVec3("color", glm::vec3(1.0, 1.0, 1.0));
-    moon.draw();
-    glClear(GL_DEPTH_BUFFER_BIT);
-}
-
 
 void Renderer::AddChunk() {
     if (chunksToAdd.size() == 0) return;
@@ -113,27 +72,14 @@ void Renderer::UpdateProjection(const Player &player) const {
     const glm::mat4 projection = glm::perspective(45.0f, (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT, 0.1f, 1000.0f);
     const glm::mat4 view = player.camera.GetViewMatrix();
 
-    // test
-    // glm::vec3 sunPos = glm::vec3(10, 10, 10);
-    // float near_plane = 1.0f, far_plane = 1000.0f;
-    // auto view = glm::lookAt(sunPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-    // glm::mat4 projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-    // // glm::mat4 lightSpaceMatrix = lightProjection * lightView;
-    // test
-
-    sunAndMoonMaterial.shader->use();
-    sunAndMoonMaterial.shader->setMat4("projection", projection);
-    sunAndMoonMaterial.shader->setMat4("view", view);
-
+    sunAndMoon.material->shader->use();
+    sunAndMoon.material->shader->setMat4("projection", projection);
+    sunAndMoon.material->shader->setMat4("view", view);
 
     worldMaterial.shader->use();
     worldMaterial.shader->setMat4("projection", projection);
     worldMaterial.shader->setMat4("view", view);
     worldMaterial.shader->setVec3("viewPos", player.camera.Position);
-
-    // depthTestShader->use();
-    // depthTestShader->setMat4("projection", projection);
-    // depthTestShader->setMat4("view", view);
 
     const glm::mat4 orthoProjection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f, -1.0f, 1.0f);
     crosshairMaterial.shader->use();

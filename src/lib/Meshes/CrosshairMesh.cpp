@@ -2,15 +2,15 @@
 // Created by Piotr Juszkiewicz on 11/01/2025.
 //
 
-#include "Crosshair.h"
+#include "CrosshairMesh.h"
 #include <iostream>
 
 #include "../Constants.h"
 #include "../../../vendor/glad/glad.h"
-#include "../Renderer/Mesh.h"
+#include "../Meshes/Mesh.h"
 #include "../Objects/Cube.h"
 
-Crosshair::Crosshair() {
+CrosshairMesh::CrosshairMesh() {
     //    this->vertices = vertices;
     // float vertices[] = {
     //     -0.01f, -0.01f, 0.0f,
@@ -55,7 +55,7 @@ Crosshair::Crosshair() {
 
 }
 
-void Crosshair::draw() const {
+void CrosshairMesh::draw() const {
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);

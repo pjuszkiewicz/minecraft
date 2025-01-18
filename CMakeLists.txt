@@ -14,18 +14,18 @@ add_executable(
         src/lib/Renderer/Shader.cpp
         src/lib/Renderer/Renderer.cpp
         src/lib/Player/Player.cpp
-        src/lib/Renderer/Mesh.cpp
-        src/lib/Renderer/ChunkMesh.cpp
+        src/lib/Meshes/Mesh.cpp
+        src/lib/Meshes/ChunkMesh.cpp
         src/lib/Game/Game.cpp
         src/lib/Player/Camera.cpp
         src/lib/World/Chunk.cpp
         src/lib/World/World.cpp
         src/lib/World/World.h
         src/lib/Constants.h
-        src/lib/Renderer/ChunkBuilder.cpp
-        src/lib/Renderer/ChunkBuilder.h
-        src/lib/Renderer/Crosshair.cpp
-        src/lib/Renderer/Crosshair.h
+        src/lib/Meshes/ChunkBuilder.cpp
+        src/lib/Meshes/ChunkBuilder.h
+        src/lib/Meshes/CrosshairMesh.cpp
+        src/lib/Meshes/CrosshairMesh.h
         src/lib/Objects/Cube.h
         src/lib/Game/DateTime.cpp
         src/lib/Game/DateTime.h
@@ -39,6 +39,10 @@ add_executable(
         src/lib/Materials/WorldMaterial.h
         src/lib/Materials/CrosshairMaterial.h
         src/lib/Materials/ShadowMappingMaterial.h
+        src/lib/Game/GameObject.cpp
+        src/lib/Game/GameObject.h
+        src/lib/GameObjects/SunAndMoon.cpp
+        src/lib/GameObjects/SunAndMoon.h
 )
 
 target_link_libraries(minecraft glfw)

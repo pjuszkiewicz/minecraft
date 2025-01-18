@@ -2,7 +2,7 @@
 // Created by piotr on 11.01.25.
 //
 
-#include "./ChunkBuilder.h"
+#include "ChunkBuilder.h"
 
 // ChunkBuilder::ChunkBuilder(int x, int z) : x(x), z(z) {
 //     positions = new std::vector<glm::mat4>();

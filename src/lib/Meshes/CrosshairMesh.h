@@ -4,14 +4,15 @@
 
 #ifndef CROSSHAIR_H
 #define CROSSHAIR_H
+#include "../../../vendor/glad/glad.h"
 
 
-class Crosshair {
+class CrosshairMesh {
 
 public:
     unsigned int VAO, VBO;
 
-    Crosshair();
+    CrosshairMesh();
 
     void draw() const;
 };

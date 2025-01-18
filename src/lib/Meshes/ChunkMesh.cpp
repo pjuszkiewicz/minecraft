@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "../../../vendor/glad/glad.h"
-#include "../Renderer/ChunkMesh.h"
+#include "../Meshes/ChunkMesh.h"
 #include "../Objects/Plane.h"
 
 ChunkMesh::ChunkMesh() {

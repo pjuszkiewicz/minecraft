@@ -10,10 +10,10 @@
 
 #include <vector>
 
-#include "ChunkBuilder.h"
-#include "Crosshair.h"
-#include "../Renderer/ChunkMesh.h"
-#include "../Renderer/Mesh.h"
+#include "../Meshes/ChunkBuilder.h"
+#include "../Meshes/CrosshairMesh.h"
+#include "../Meshes/ChunkMesh.h"
+#include "../Meshes/Mesh.h"
 #include "../Constants.h"
 #include "../../../vendor/glad/glad.h"
 
@@ -26,6 +26,7 @@
 #include "../Materials/SunAndMoonMaterial.h"
 
 #include "ShadowMap.h"
+#include "../GameObjects/SunAndMoon.h"
 #include "../Materials/CrosshairMaterial.h"
 #include "../Materials/ShadowMappingMaterial.h"
 #include "../Materials/WorldMaterial.h"
@@ -43,7 +44,7 @@ public:
     Mesh moon;
     Mesh testMesh;
 
-    Crosshair *crosshair;
+    CrosshairMesh *crosshair;
 
     std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes;
 
@@ -52,6 +53,8 @@ public:
     bool isReadyToAdd = false;
     std::vector<ChunkBuilder> chunksToAdd;
     std::vector<std::pair<int, int> > chunksToRemove;
+
+    SunAndMoon sunAndMoon;
 
     Renderer();
 
@@ -66,10 +69,6 @@ public:
     // void DrawTestMesh() const;
 
     void DrawChunks();
-
-    void DrawSun(const Player &player);
-
-    void DrawMoon(const Player &player);
 
     void UpdateProjection(const Player &player) const;
 

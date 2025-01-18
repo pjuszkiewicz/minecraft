@@ -2,7 +2,7 @@
 #include <future>
 #include <functional>
 
-#include "../Renderer/ChunkBuilder.h"
+#include "../Meshes/ChunkBuilder.h"
 
 void Game::prepareChunksLoop() {
     int chunkX = 0;
@@ -99,6 +99,8 @@ void Game::loop() {
 
         player.update(deltaTime);
         renderer.Draw(player, world.chunks);
+
+        renderer.sunAndMoon.Position = player.camera.Position;
 
         glfwSwapBuffers(window.glfwWindow);
         glfwPollEvents();
@@ -256,13 +258,11 @@ void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
 
 
     if (glfwGetKey(glfwWindow, GLFW_KEY_K) == GLFW_PRESS) {
-        std::cout << "LET ME GO" << std::endl;
         glfwSetInputMode(window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
 
     if (glfwGetKey(glfwWindow, GLFW_KEY_L) == GLFW_PRESS) {
-        std::cout << "LET ME GO" << std::endl;
         glfwSetInputMode(window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
 

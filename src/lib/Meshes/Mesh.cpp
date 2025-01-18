@@ -3,7 +3,7 @@
 //
 #include <iostream>
 #include "../../../vendor/glad/glad.h"
-#include "../Renderer/Mesh.h"
+#include "../Meshes/Mesh.h"
 #include "../Objects/Cube.h"
 
 Mesh::Mesh() {
