@@ -4,10 +4,32 @@
 
 #include "Material.h"
 #include "../Game/DateTime.h"
+#include "../Window/Window.h"
 
 /// Initializuje shadery i tekstury
 Renderer::Renderer() {
     crosshair = new CrosshairMesh();
+    glGenFramebuffers(1, &depthMapFBO);
+
+    const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+
+    glGenTextures(1, &depthMap);
+    glBindTexture(GL_TEXTURE_2D, depthMap);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
+                 SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    depthTestMaterial.shader->use();
+    depthTestMaterial.shader->setInt("depthMap", 1);
 }
 
 /// Czyści ekran kolorem z DateTime::getSkyColor()
@@ -27,15 +49,51 @@ void Renderer::Draw(
     AddChunk();
     RemoveChunks();
 
+    glBindTexture(GL_TEXTURE_2D, depthMap);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
+
+    glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    Clear();
+
+    float near_plane = 1.0f, far_plane = 1000.0f;
+    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    glm::mat4 lightView = glm::lookAt(DateTime::getSunPos() * 10.0f, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+    glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+    // render scene from light's point of view
+
+    shadowMappingMaterial.shader->use();
+    shadowMappingMaterial.shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+
+    worldMaterial.Use(0);
+    DrawChunks();
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    // 2. then render scene as normal with shadow mapping (using depth map)
+    glViewport(0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2);
     Clear();
     sunAndMoon.Draw();
 
     worldMaterial.Use(0);
+    glActiveTexture(GL_TEXTURE0 + 1);
+    glBindTexture(GL_TEXTURE_2D, depthMap);
+    worldMaterial.shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
     DrawChunks();
 
     crosshairMaterial.Use(0);
     crosshair->draw();
+
+    depthTestMaterial.Use(0);
+    depthTestMaterial.shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+    glActiveTexture(GL_TEXTURE0 + 1);
+    glBindTexture(GL_TEXTURE_2D, depthMap);
+
+    mesh.draw();
 }
+
 
 void Renderer::AddChunk() {
     if (chunksToAdd.size() == 0) return;
@@ -48,6 +106,7 @@ void Renderer::AddChunk() {
     auto mesh = ChunkMesh(x, z);
     mesh.positions = chunk.positions;
     mesh.textures = chunk.textures;
+    mesh.normals = chunk.normals;
     mesh.ambientOcclusions = chunk.ambientOcclusions;
     mesh.updateBuffers();
     chunkMeshes[{x, z}] = mesh;
@@ -76,6 +135,16 @@ void Renderer::UpdateProjection(const Player &player) const {
     sunAndMoon.material->shader->setMat4("projection", projection);
     sunAndMoon.material->shader->setMat4("view", view);
 
+    depthTestMaterial.shader->use();
+    depthTestMaterial.shader->setMat4("projection", projection);
+    depthTestMaterial.shader->setMat4("view", view);
+    depthTestMaterial.shader->setInt("shadowMap", 1);
+    glm::mat4 model = glm::mat4(1.0f);
+    model = translate(model, glm::vec3(0.0, 5.0, 0.0));
+
+    depthTestMaterial.shader->setMat4("model", model);
+
+
     worldMaterial.shader->use();
     worldMaterial.shader->setMat4("projection", projection);
     worldMaterial.shader->setMat4("view", view);
@@ -88,9 +157,9 @@ void Renderer::UpdateProjection(const Player &player) const {
 
 void Renderer::UpdateLighting() const {
     worldMaterial.shader->use();
-    worldMaterial.shader->setInt("material.diffuse", 0);
-    worldMaterial.shader->setInt("material.specular", 1);
-    worldMaterial.shader->setFloat("material.shininess", 32.0f);
+    worldMaterial.shader->setInt("material.diffuse",0);
+    worldMaterial.shader->setInt("material.specular", 0);
+    worldMaterial.shader->setFloat("material.shininess", 0.0f);
 
     const float ambient = 0.3;
     const auto lightPos = DateTime::getSunPos();

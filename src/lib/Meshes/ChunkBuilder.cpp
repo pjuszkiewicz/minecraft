@@ -13,6 +13,7 @@ void ChunkBuilder::updateChunk() {
     this->positions = new std::vector<glm::mat4>();
     this->textures = new std::vector<glm::vec2>();
     this->ambientOcclusions = new std::vector<float>();
+    this->normals = new std::vector<glm::vec3>();
 
     for (int x = 0; x < CHUNK_WIDTH; x++) {
         for (int y = 0; y < CHUNK_HEIGHT; y++) {
@@ -114,6 +115,7 @@ void ChunkBuilder::addLeftFace(Block block, bool isTopColliding) {
     // }
 
     this->textures->push_back(uv);
+    this->normals->push_back(glm::vec3(-1.0f, 0.0f, 0.0f));
 }
 
 void ChunkBuilder::addRightFace(Block block, bool isTopColliding) {
@@ -136,6 +138,7 @@ void ChunkBuilder::addRightFace(Block block, bool isTopColliding) {
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
 
     this->textures->push_back(uv);
+    this->normals->push_back(glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 void ChunkBuilder::addFrontFace(Block block, bool isTopColliding) {
@@ -155,6 +158,7 @@ void ChunkBuilder::addFrontFace(Block block, bool isTopColliding) {
 
 
     this->textures->push_back(uv);
+    this->normals->push_back(glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 void ChunkBuilder::addBackFace(Block block, bool isTopColliding) {
@@ -176,6 +180,7 @@ void ChunkBuilder::addBackFace(Block block, bool isTopColliding) {
 
 
     this->textures->push_back(uv);
+    this->normals->push_back(glm::vec3(0.0f, 0.0f, -1.0f));
 }
 
 void ChunkBuilder::addBottomFace(Block block) {
@@ -194,6 +199,7 @@ void ChunkBuilder::addBottomFace(Block block) {
 
 
     this->textures->push_back(uv);
+    this->normals->push_back(glm::vec3(0.0f, -1.0f, 0.0f));
 }
 
 void ChunkBuilder::addTopFace(Block block) {
@@ -213,4 +219,5 @@ void ChunkBuilder::addTopFace(Block block) {
 
 
     this->textures->push_back(uv);
+    this->normals->push_back(glm::vec3(0.0f, 1.0f, 0.0f));
 }

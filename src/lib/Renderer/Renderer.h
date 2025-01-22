@@ -30,6 +30,7 @@
 #include "../Materials/CrosshairMaterial.h"
 #include "../Materials/ShadowMappingMaterial.h"
 #include "../Materials/WorldMaterial.h"
+#include "../Materials/DepthTestMaterial.h"
 
 class Renderer {
 public:
@@ -37,8 +38,12 @@ public:
     WorldMaterial worldMaterial;
     CrosshairMaterial crosshairMaterial;
     ShadowMappingMaterial shadowMappingMaterial;
+    DepthTestMaterial depthTestMaterial;
 
     ShadowMap shadowMap;
+    unsigned int depthMapFBO;
+
+    unsigned int depthMap;
 
     Mesh mesh;
     Mesh moon;

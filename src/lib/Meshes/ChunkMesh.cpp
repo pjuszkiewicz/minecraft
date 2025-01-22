@@ -13,12 +13,14 @@ ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     this->chunkZ = chunkZ;
     this->positions = new std::vector<glm::mat4>();
     this->textures = new std::vector<glm::vec2>();
+    this->normals = new std::vector<glm::vec3>();
     this->ambientOcclusions = new std::vector<float>();
 
     // INSTANCE VBO
     glGenBuffers(1, &instanceVBO);
     glGenBuffers(1, &textureVBO);
     glGenBuffers(1, &ambientOcclusionVBO);
+    glGenBuffers(1, &normalVBO);
 
     // VBO
     glGenBuffers(1, &vbo);
@@ -37,9 +39,12 @@ ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
 
-    // Normals
+    // // Normals
+    glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
     glEnableVertexAttribArray(8);
-    glVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (5 * sizeof(float)));
+    glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
+    glVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) (3 * sizeof(float)));
+    glVertexAttribDivisor(8, 1);
 
     // Instance
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
@@ -89,5 +94,8 @@ void ChunkMesh::updateBuffers() const {
     glBindBuffer(GL_ARRAY_BUFFER, ambientOcclusionVBO);
     glBufferData(GL_ARRAY_BUFFER, ambientOcclusions->size() * sizeof(float), ambientOcclusions->data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
 
+    glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
+    glBufferData(GL_ARRAY_BUFFER, normals->size() * sizeof(float), normals->data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
