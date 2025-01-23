@@ -17,22 +17,19 @@ uniform vec2 uvScale;
 
 uniform mat4 view;
 uniform mat4 projection;
-uniform mat4 transform;
-
 uniform mat4 lightSpaceMatrix;
 
 void main()
 {
     ambientOcclusion = ao;
-    vec4 pos = aOffset * vec4(aPos, 1.0);
 
-    gl_Position = projection * view * pos;
+    vec4 model = aOffset * vec4(aPos, 1.0);
+
+    FragPos = vec3(model);
+    Normal = mat3(transpose(inverse(aOffset))) * aNormal;
+    FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
+
     TexCoord = uvOffset + aTexCoord * uvScale;
 
-    //Normal = mat3(transpose(inverse(aOffset))) * aNormal;
-    Normal = transpose(inverse(mat3(aOffset))) * aNormal;
-    //Normal = aNormal;
-    //Normal = mat3(transpose(inverse(aOffset))) * aPos;
-    FragPos = vec3(aOffset * vec4(aPos, 1.0));
-    FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
+    gl_Position = projection * view * model;
 }

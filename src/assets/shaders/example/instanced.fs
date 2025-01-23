@@ -1,18 +1,5 @@
 #version 330 core
 
-in vec2 TexCoord;
-in vec3 Normal;
-in vec3 FragPos;
-
-in float ambientOcclusion;
-
-out vec4 FragColor;
-
-uniform sampler2D shadowMap;
-uniform sampler2D ourTexture;
-uniform vec3 lightPos;
-uniform vec3 viewPos;
-
 struct Material {
     sampler2D diffuse;
     sampler2D specular;
@@ -28,48 +15,94 @@ struct Light {
     vec3 specular;
 };
 
+
+in vec2 TexCoord;
+in vec4 FragPosLightSpace;
+in vec3 Normal;
+in vec3 FragPos;
+
+in float ambientOcclusion;
+
+out vec4 FragColor;
+
+uniform sampler2D shadowMap;
+uniform sampler2D ourTexture;
+uniform vec3 lightPos;
+uniform vec3 viewPos;
+
+
 uniform Material material;
 uniform Light light;
-in vec4 FragPosLightSpace;
 
-float ShadowCalculation(vec4 fragPosLightSpace)
-{
-    // perform perspective divide
+// float ShadowCalculation(vec4 fragPosLightSpace)
+// {
+//     // perform perspective divide
+//     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+//     // transform to [0,1] range
+//     projCoords = projCoords * 0.5 + 0.5;
+//     // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+//     float closestDepth = texture(shadowMap, projCoords.xy).r;
+//     // get depth of current fragment from light's perspective
+//     float currentDepth = projCoords.z;
+//     // check whether current frag pos is in shadow
+//     float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+//
+//     return shadow;
+// }
+
+
+float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir) {
+    // Przemieniamy z [-1, 1] na [0, 1]:
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-    // transform to [0,1] range
     projCoords = projCoords * 0.5 + 0.5;
-    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+
+    // Pobieramy głębokość z mapy cieni
     float closestDepth = texture(shadowMap, projCoords.xy).r;
-    // get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
-    // check whether current frag pos is in shadow
-    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+
+    // Liczymy bias w zależności od kąta światło-normalna
+    float bias = max(0.005 * (1.0 - dot(normal, -lightDir)), 0.002);
+
+    // Sprawdzamy, czy fragment jest w cieniu
+    float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+
+    // Ignorujemy fragmenty poza zakresem mapy głębokości
+    if (projCoords.z > 1.0) {
+        shadow = 0.0;
+    }
 
     return shadow;
 }
 
 void main()
 {
-vec3 color = texture(ourTexture, TexCoord).rgb;
     vec3 normal = normalize(Normal);
-    vec3 lightColor = vec3(1.0);
-    // ambient
-    vec3 ambient = 0.15 * lightColor;
-    // diffuse
-    vec3 lightDir = normalize(lightPos - FragPos);
-    float diff = max(dot(lightDir, normal), 0.0);
-    vec3 diffuse = diff * lightColor;
-    // specular
-    vec3 viewDir = normalize(viewPos - FragPos);
-    float spec = 0.0;
-    vec3 halfwayDir = normalize(lightDir + viewDir);
-    spec = pow(max(dot(normal, halfwayDir), 0.0), 64.0);
-    vec3 specular = spec * lightColor;
-    // calculate shadow
-    float shadow = ShadowCalculation(FragPosLightSpace);
-    vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * color;
+    vec3 lightDirNorm = normalize(light.direction);
 
-    FragColor = vec4(lighting, 1.0);
+    vec3 color = texture(ourTexture, TexCoord).rgb;
+
+    float shadow = ShadowCalculation(FragPosLightSpace, normal, light.direction);
+
+    FragColor = (1.0 - shadow) * vec4(color, 1.0f);
+//     vec3 normal = normalize(Normal);
+//     vec3 lightColor = vec3(1.0);
+//     // ambient
+//     vec3 ambient = 0.15 * lightColor;
+//     // diffuse
+//     vec3 lightDir = normalize(lightPos - FragPos);
+//     float diff = max(dot(lightDir, normal), 0.0);
+//     vec3 diffuse = diff * lightColor;
+//     // specular
+//     vec3 viewDir = normalize(viewPos - FragPos);
+//     float spec = 0.0;
+//     vec3 halfwayDir = normalize(lightDir + viewDir);
+//     spec = pow(max(dot(normal, halfwayDir), 0.0), 64.0);
+//     vec3 specular = spec * lightColor;
+//     // calculate shadow
+//     float shadow = ShadowCalculation(FragPosLightSpace);
+//     vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * color;
+//
+//     FragColor = vec4(lighting, 1.0);
 //     vec3 ambient = light.ambient * texture(material.diffuse, TexCoord).rgb;
 //
 //     // diffuse

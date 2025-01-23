@@ -11,7 +11,7 @@ Renderer::Renderer() {
     crosshair = new CrosshairMesh();
     glGenFramebuffers(1, &depthMapFBO);
 
-    const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+    const unsigned int SHADOW_WIDTH = 4096, SHADOW_HEIGHT = 4096;
 
     glGenTextures(1, &depthMap);
     glBindTexture(GL_TEXTURE_2D, depthMap);
@@ -55,13 +55,23 @@ void Renderer::Draw(
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
 
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE) {
+        std::cerr << "Framebuffer is not complete!" << std::endl;
+    }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
     glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
     Clear();
 
     float near_plane = 1.0f, far_plane = 1000.0f;
     glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-    glm::mat4 lightView = glm::lookAt(DateTime::getSunPos() * 10.0f, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+    glm::mat4 lightView = glm::lookAt(
+        -DateTime::getSunPos() * 10.0f,
+        glm::vec3(0.0f),
+        glm::vec3(0.0, 1.0, 0.0)
+        );
     glm::mat4 lightSpaceMatrix = lightProjection * lightView;
     // render scene from light's point of view
 
@@ -81,15 +91,21 @@ void Renderer::Draw(
     glActiveTexture(GL_TEXTURE0 + 1);
     glBindTexture(GL_TEXTURE_2D, depthMap);
     worldMaterial.shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+    worldMaterial.shader->setVec3("light.direction", -DateTime::getSunPos());
+    worldMaterial.shader->setVec3("viewPos", player.camera.Position);
+    worldMaterial.shader->setInt("shadowMap", 1);
     DrawChunks();
 
     crosshairMaterial.Use(0);
     crosshair->draw();
 
     depthTestMaterial.Use(0);
-    depthTestMaterial.shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
     glActiveTexture(GL_TEXTURE0 + 1);
     glBindTexture(GL_TEXTURE_2D, depthMap);
+    depthTestMaterial.shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+    depthTestMaterial.shader->setVec3("light.direction", -DateTime::getSunPos());
+    depthTestMaterial.shader->setVec3("viewPos", player.camera.Position);
+    depthTestMaterial.shader->setInt("shadowMap", 1);
 
     mesh.draw();
 }
@@ -138,8 +154,7 @@ void Renderer::UpdateProjection(const Player &player) const {
     depthTestMaterial.shader->use();
     depthTestMaterial.shader->setMat4("projection", projection);
     depthTestMaterial.shader->setMat4("view", view);
-    depthTestMaterial.shader->setInt("shadowMap", 1);
-    glm::mat4 model = glm::mat4(1.0f);
+    auto model = glm::mat4(1.0f);
     model = translate(model, glm::vec3(0.0, 5.0, 0.0));
 
     depthTestMaterial.shader->setMat4("model", model);
