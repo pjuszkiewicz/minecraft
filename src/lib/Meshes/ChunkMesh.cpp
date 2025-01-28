@@ -39,12 +39,7 @@ ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
 
-    // // Normals
-    glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
-    glEnableVertexAttribArray(8);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
-    glVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) (3 * sizeof(float)));
-    glVertexAttribDivisor(8, 1);
+
 
     // Instance
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
@@ -66,6 +61,13 @@ ChunkMesh::ChunkMesh(int chunkX, int chunkZ) {
     glEnableVertexAttribArray(7);
     glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, sizeof(float), (void *) 0);
     glVertexAttribDivisor(7, 1);
+
+        // // Normals
+    glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
+    glEnableVertexAttribArray(8);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
+    glVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) (3 * sizeof(float)));
+    glVertexAttribDivisor(8, 1);
 }
 
 

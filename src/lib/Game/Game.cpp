@@ -98,7 +98,7 @@ void Game::loop() {
         updateDeltaTime();
 
         player.update(deltaTime);
-        renderer.Draw(player, world.chunks);
+        renderer.Draw(player);
 
         renderer.sunAndMoon.Position = player.camera.Position;
 

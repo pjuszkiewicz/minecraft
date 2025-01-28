@@ -40,20 +40,11 @@ public:
     ShadowMappingMaterial shadowMappingMaterial;
     DepthTestMaterial depthTestMaterial;
 
-    ShadowMap shadowMap;
-    unsigned int depthMapFBO;
-
-    unsigned int depthMap;
-
-    Mesh mesh;
     Mesh moon;
-    Mesh testMesh;
 
     CrosshairMesh *crosshair;
 
     std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes;
-
-    int count = 0;
 
     bool isReadyToAdd = false;
     std::vector<ChunkBuilder> chunksToAdd;
@@ -69,15 +60,11 @@ public:
 
     void RemoveChunks();
 
-    void Draw(const Player &player, const std::unordered_map<std::pair<int, int>, Chunk, PairHash> &chunks);
-
-    // void DrawTestMesh() const;
+    void Draw(const Player &player);
 
     void DrawChunks();
 
     void UpdateProjection(const Player &player) const;
-
-    void UpdateLighting() const;
 };
 
 #endif //RENDERER_H

@@ -26,7 +26,8 @@ void main()
     vec4 model = aOffset * vec4(aPos, 1.0);
 
     FragPos = vec3(model);
-    Normal = mat3(transpose(inverse(aOffset))) * aNormal;
+    //Normal = mat3(transpose(inverse(mat3(aOffset)))) * aNormal;
+    Normal = aNormal;
     FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 
     TexCoord = uvOffset + aTexCoord * uvScale;

@@ -3,14 +3,8 @@
 
 #include "../../lib/Renderer/Renderer.h"
 
-#include <unordered_map>
-#include <thread>
-#include <chrono>
-
 #include "../World/World.h"
-#include "../../lib/Map/PairHash.h"
 #include "../../lib/Window/Window.h"
-#include "../Constants.h"
 
 class Game {
 public:
