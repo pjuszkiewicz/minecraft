@@ -1,0 +1,31 @@
+\doxysection{World.\+h}
+\hypertarget{_world_8h_source}{}\label{_world_8h_source}\index{src/lib/World/World.h@{src/lib/World/World.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WORLD\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ WORLD\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../World/Chunk.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Map/PairHash.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_world}{World}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ std::unordered\_map<std::pair<int,\ int>,\ \mbox{\hyperlink{class_chunk}{Chunk}},\ \mbox{\hyperlink{struct_pair_hash}{PairHash}}>\ \mbox{\hyperlink{class_world_a13a773a7b3d6182cce52d617da1c648a}{chunks}};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_world_a81954ef77c7535024fff913b02174753}{isBlockAt}}(glm::vec3\ pos);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_a8160c11745e1140985953d45fa0f2ef9}{generateChunks}}();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_afeaa784f218f242262fab048335dd845}{removeBlockAt}}(glm::vec3\ pos);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_a5a7f5e9f0b76f873138f6012ce561e9e}{placeBlockAt}}(glm::vec3\ pos);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_a5a7f5e9f0b76f873138f6012ce561e9e}{placeBlockAt}}(BlockType\ type,\ glm::vec3\ pos);}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//WORLD\_H}}
+
+\end{DoxyCode}

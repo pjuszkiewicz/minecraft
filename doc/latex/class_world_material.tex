@@ -1,0 +1,74 @@
+\doxysection{World\+Material Class Reference}
+\hypertarget{class_world_material}{}\label{class_world_material}\index{WorldMaterial@{WorldMaterial}}
+
+
+Materiał świata.  
+
+
+
+
+{\ttfamily \#include $<$World\+Material.\+h$>$}
+
+Inheritance diagram for World\+Material\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_world_material}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_world_material_a0dccbc9560cd602ff81fa930354446c4}\label{class_world_material_a0dccbc9560cd602ff81fa930354446c4} 
+{\bfseries World\+Material} ()
+\begin{DoxyCompactList}\small\item\em Wczytuje shader i teksture. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_world_material_afa517a0967323378d86f4f6bdb6a40ad}{Update\+Projection}} (glm\+::mat4 \&projection, glm\+::mat4 \&view, const glm\+::vec3 \&pos) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_material}{Material}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Material} ()=default
+\begin{DoxyCompactList}\small\item\em Destruktor wirtualny klasy \doxylink{class_material}{Material}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_material_a137e987401b63eb7c6c27c3e38bc74b5}{Material}} ()
+\begin{DoxyCompactList}\small\item\em Konstruktor domyślny. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_material_a3566d632b982647dfc58d77980de06c3}{Material}} (\mbox{\hyperlink{class_shader}{Shader}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}, \mbox{\hyperlink{class_texture}{Texture}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_material_ad151148dc3460f25435e951786171350}{texture}})
+\begin{DoxyCompactList}\small\item\em Konstruktor inicjujący material. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_material_aca85a92405e4d8b53793a899e0ba3fe5}{Use}} (int texture\+Unit)
+\begin{DoxyCompactList}\small\item\em Binduje material i teksturę w Open\+GL. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_material}{Material}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_shader}{Shader}} \texorpdfstring{$\ast$}{*} {\bfseries shader}
+\begin{DoxyCompactList}\small\item\em Wskaźnik na shader używany przez material. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture}{Texture}} \texorpdfstring{$\ast$}{*} {\bfseries texture}
+\begin{DoxyCompactList}\small\item\em Wskaźnik na teksturę używaną przez material. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Materiał świata. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_world_material_afa517a0967323378d86f4f6bdb6a40ad}\index{WorldMaterial@{WorldMaterial}!UpdateProjection@{UpdateProjection}}
+\index{UpdateProjection@{UpdateProjection}!WorldMaterial@{WorldMaterial}}
+\doxysubsubsection{\texorpdfstring{UpdateProjection()}{UpdateProjection()}}
+{\footnotesize\ttfamily \label{class_world_material_afa517a0967323378d86f4f6bdb6a40ad} 
+void World\+Material\+::\+Update\+Projection (\begin{DoxyParamCaption}\item[{glm\+::mat4 \&}]{projection}{, }\item[{glm\+::mat4 \&}]{view}{, }\item[{const glm\+::vec3 \&}]{pos}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Aktualizuje projekcje 
+\begin{DoxyParams}{Parameters}
+{\em projection} & macierz projekcji \\
+\hline
+{\em view} & macierz widoku \\
+\hline
+{\em pos} & wektor pozycji gracza \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_material_a7a1acf55031d8be0f3264db692f21a7c}{Material}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Materials/World\+Material.\+h\end{DoxyCompactItemize}

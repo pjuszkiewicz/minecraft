@@ -1,0 +1,28 @@
+\doxysection{Texture.\+h}
+\hypertarget{_texture_8h_source}{}\label{_texture_8h_source}\index{src/lib/Renderer/Texture.h@{src/lib/Renderer/Texture.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TEXTURE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TEXTURE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../../../vendor/glad/glad.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../../vendor/stb\_image.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <glm/gtc/matrix\_transform.hpp>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <glm/gtc/type\_ptr.hpp>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture_a8ebb8e5ce77f5eb27d0e7d892448c44a}{Texture}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_texture_a2f10b3a99a9f33294b5d94fd31a04ba6}{ID}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_texture_a8ebb8e5ce77f5eb27d0e7d892448c44a}{Texture}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ format);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_texture_a108ba4f3f48f2b20e9933bb80eb037eb}{use}}(\textcolor{keywordtype}{int}\ textureUnit)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ glm::vec2\ \mbox{\hyperlink{class_texture_a9f0a76ece7725782ccde140ba91f674b}{getUVForBlock}}(\textcolor{keywordtype}{int}\ blockID,\ \textcolor{keywordtype}{int}\ ui,\ \textcolor{keywordtype}{int}\ vi);}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

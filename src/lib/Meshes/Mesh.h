@@ -10,12 +10,16 @@
 
 class Mesh{
 private:
-    unsigned int VBO;
-    float* vertices;
+    unsigned int VBO; /// Bufor wierzchołków
+    float* vertices; /// Wierzchołki
 
 public:
-    unsigned int VAO;
+    unsigned int VAO; /// Bufor
+
+    /// Generuje bufory
     Mesh();
+
+    /// Rysuje mesha
     void draw() const;
 };
 

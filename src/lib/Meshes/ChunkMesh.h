@@ -13,21 +13,26 @@
 
 class ChunkMesh {
 public:
-    unsigned int vbo, instanceVBO, textureVBO, ambientOcclusionVBO;
-    std::vector<glm::mat4> *positions;
-    std::vector<glm::vec2> *textures;
-    std::vector<float> *ambientOcclusions;
+    unsigned int vbo, instanceVBO, textureVBO; /// Bufory pozycji, instancji i tekstury
+    std::vector<glm::mat4> *positions; /// Pozycje ścian
+    std::vector<glm::vec2> *textures; /// Tekstury ścian
 
-    unsigned int VAO;
-    int chunkX;
-    int chunkZ;
+    unsigned int VAO; /// Bufor łączący VBO
+    int chunkX; /// Kordynat X chunku
+    int chunkZ; /// Kordynat Z chunku
 
+    /// Tworzy bufory i wektory
     ChunkMesh();
 
+    /// Tworzy bufory i wektory
+    /// @param chunkX kordynat X chunku
+    /// @param chunkZ kordynat Z chunku
     ChunkMesh(int chunkX, int chunkZ);
 
+    /// Rysuje ściany
     void draw() const;
 
+    /// Aktualizuje bufory pozycji, tekstury
     void updateBuffers() const;
 };
 

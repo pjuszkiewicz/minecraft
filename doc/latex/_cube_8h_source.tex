@@ -1,0 +1,59 @@
+\doxysection{Cube.\+h}
+\hypertarget{_cube_8h_source}{}\label{_cube_8h_source}\index{src/lib/Objects/Cube.h@{src/lib/Objects/Cube.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Piotr\ Juszkiewicz\ on\ 14/01/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ CUBE\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ CUBE\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ CubeVertices[]\ =\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//back}}
+\DoxyCodeLine{00011\ \ \ \ \ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{00012\ \ \ \ \ 1.0,\ 1.0,\ 0.0f,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00013\ \ \ \ \ 1.0,\ 0.0f,\ 0.0f,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00014\ \ \ \ \ 1.0,\ 1.0,\ 0.0f,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00015\ \ \ \ \ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{00016\ \ \ \ \ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ 0.0f,\ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{00019\ \ \ \ \ 1.0,\ 0.0f,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00020\ \ \ \ \ 1.0,\ 1.0,\ 1.0,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00021\ \ \ \ \ 1.0,\ 1.0,\ 1.0,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00022\ \ \ \ \ 0.0f,\ 1.0,\ 1.0,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00023\ \ \ \ \ 0.0f,\ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ 0.0f,\ 1.0,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00026\ \ \ \ \ 0.0f,\ 1.0,\ 0.0f,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00027\ \ \ \ \ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00028\ \ \ \ \ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00029\ \ \ \ \ 0.0f,\ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{00030\ \ \ \ \ 0.0f,\ 1.0,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ 1.0,\ 1.0,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00033\ \ \ \ \ 1.0,\ 0.0f,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00034\ \ \ \ \ 1.0,\ 1.0,\ 0.0f,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00035\ \ \ \ \ 1.0,\ 0.0f,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00036\ \ \ \ \ 1.0,\ 1.0,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00037\ \ \ \ \ 1.0,\ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00040\ \ \ \ \ 1.0,\ 0.0f,\ 0.0f,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00041\ \ \ \ \ 1.0,\ 0.0f,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00042\ \ \ \ \ 1.0,\ 0.0f,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00043\ \ \ \ \ 0.0f,\ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{00044\ \ \ \ \ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00047\ \ \ \ \ 1.0,\ 1.0,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00048\ \ \ \ \ 1.0,\ 1.0,\ 0.0f,\ 1.0f,\ 1.0f,}
+\DoxyCodeLine{00049\ \ \ \ \ 1.0,\ 1.0,\ 1.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{00050\ \ \ \ \ 0.0f,\ 1.0,\ 0.0f,\ 0.0f,\ 1.0f,}
+\DoxyCodeLine{00051\ \ \ \ \ 0.0f,\ 1.0,\ 1.0,\ 0.0f,\ 0.0f}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CUBE\_H}}
+
+\end{DoxyCode}

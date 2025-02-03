@@ -4,6 +4,8 @@
 
 #ifndef CUBE_H
 #define CUBE_H
+
+/// Kordynaty wierzchołków wraz z pozycjami uv
 const float CubeVertices[] = {
     //back
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f,

@@ -1,0 +1,22 @@
+\doxysection{Pair\+Hash.\+h}
+\hypertarget{_pair_hash_8h_source}{}\label{_pair_hash_8h_source}\index{src/lib/Map/PairHash.h@{src/lib/Map/PairHash.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Piotr\ Juszkiewicz\ on\ 05/01/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ PAIR\_HASH\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ PAIR\_HASH\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pair_hash}{PairHash}}\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ std::size\_t\ operator()(\textcolor{keyword}{const}\ std::pair<int,\ int>\&\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<int>()(p.first)\ \string^\ std::hash<int>()(p.second)\ <<\ 1;}
+\DoxyCodeLine{00014\ \ \ \ \ \}}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//PAIR\_HASH\_H}}
+
+\end{DoxyCode}

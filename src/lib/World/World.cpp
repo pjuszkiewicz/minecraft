@@ -101,13 +101,10 @@ void World::generateChunks() {
 
                     float blockWorldX = chunkX + bx;
                     float blockWorldZ = chunkZ + bz;
-                    // float noise = abs(perlinNoise((chunkX + bx), (chunkZ + bz), 3, 5, scale)) + 0.5;
                     float noise = fastNoise.GetNoise(blockWorldX, blockWorldZ) + 1;
-                    // float noise1 = abs(perlinNoise((blockWorldX, blockWorldZ, 1, 5, 0.01));
-                    // if (noise < 0.0f) noise = 0.0;
-                    // if (noise1 < 0.0f) noise1 = 0.0;
+                    float noise1 = fastNoise.GetNoise(blockWorldX * 0.1, blockWorldZ * 0.1) + 1;
 
-                    int height = (int) (noise * 64);
+                    int height = (int) (noise * noise1 * 32);
 
                     int xOffset = x * CHUNK_WIDTH;
                     int zOffset = z * CHUNK_WIDTH;

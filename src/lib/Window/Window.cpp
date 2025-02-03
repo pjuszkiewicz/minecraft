@@ -4,6 +4,7 @@
 
 #include "../../lib/Window/Window.h"
 
+/// Wczytuje funkcje OpenGL używając GLAD
 int loadGlad() {
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
@@ -13,6 +14,7 @@ int loadGlad() {
     return 0;
 }
 
+/// Aktualizuje viewport po zmianie rozmiaru okna
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
 }
@@ -24,7 +26,7 @@ Window::Window() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
     glfwWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Minecraft", NULL, NULL);
@@ -44,9 +46,6 @@ Window::Window() {
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_FRAMEBUFFER_SRGB);
-
-    // glfwSwapInterval(0); // Disable V-Sync
-
 
     glfwMonitor = glfwGetPrimaryMonitor();
     glfwVideoMode = glfwGetVideoMode(glfwMonitor);

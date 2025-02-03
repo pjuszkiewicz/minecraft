@@ -1,0 +1,92 @@
+\doxysection{Texture Class Reference}
+\hypertarget{class_texture}{}\label{class_texture}\index{Texture@{Texture}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_texture_a8ebb8e5ce77f5eb27d0e7d892448c44a}{Texture}} (const char \texorpdfstring{$\ast$}{*}path, int format)
+\begin{DoxyCompactList}\small\item\em Wczytuje teksturę z pliku. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_texture_a108ba4f3f48f2b20e9933bb80eb037eb}{use}} (int texture\+Unit) const
+\begin{DoxyCompactList}\small\item\em Binduje teksturę w Open\+GL. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static glm\+::vec2 \mbox{\hyperlink{class_texture_a9f0a76ece7725782ccde140ba91f674b}{get\+UVFor\+Block}} (int block\+ID, int ui, int vi)
+\begin{DoxyCompactList}\small\item\em Zwraca wektor współrzędnych UV dla bloku. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_texture_a2f10b3a99a9f33294b5d94fd31a04ba6}\label{class_texture_a2f10b3a99a9f33294b5d94fd31a04ba6} 
+unsigned int {\bfseries ID}
+\begin{DoxyCompactList}\small\item\em Identyfikator tekstury w Open\+GL. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_texture_a8ebb8e5ce77f5eb27d0e7d892448c44a}\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}}
+{\footnotesize\ttfamily \label{class_texture_a8ebb8e5ce77f5eb27d0e7d892448c44a} 
+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{int}]{format}{}\end{DoxyParamCaption})}
+
+
+
+Wczytuje teksturę z pliku. 
+
+Konstruktor wczytuje teksturę znajdującą się pod podaną ścieżką i ustawia jej format.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Ścieżka do pliku z teksturą. \\
+\hline
+{\em format} & Format tekstury (np. GL\+\_\+\+RGB, GL\+\_\+\+RGBA). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_texture_a9f0a76ece7725782ccde140ba91f674b}\index{Texture@{Texture}!getUVForBlock@{getUVForBlock}}
+\index{getUVForBlock@{getUVForBlock}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{getUVForBlock()}{getUVForBlock()}}
+{\footnotesize\ttfamily \label{class_texture_a9f0a76ece7725782ccde140ba91f674b} 
+glm\+::vec2 Texture\+::get\+UVFor\+Block (\begin{DoxyParamCaption}\item[{int}]{block\+ID}{, }\item[{int}]{ui}{, }\item[{int}]{vi}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Zwraca wektor współrzędnych UV dla bloku. 
+
+Funkcja statyczna, która oblicza i zwraca współrzędne UV na podstawie identyfikatora bloku oraz pozycji (ui, vi) w atlasie tekstur.
+
+
+\begin{DoxyParams}{Parameters}
+{\em block\+ID} & Identyfikator bloku. \\
+\hline
+{\em ui} & Pozycja w poziomie (u) w atlasie tekstur. \\
+\hline
+{\em vi} & Pozycja w pionie (v) w atlasie tekstur. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+glm\+::vec2 Wektor współrzędnych UV. 
+\end{DoxyReturn}
+\Hypertarget{class_texture_a108ba4f3f48f2b20e9933bb80eb037eb}\index{Texture@{Texture}!use@{use}}
+\index{use@{use}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{use()}{use()}}
+{\footnotesize\ttfamily \label{class_texture_a108ba4f3f48f2b20e9933bb80eb037eb} 
+void Texture\+::use (\begin{DoxyParamCaption}\item[{int}]{texture\+Unit}{}\end{DoxyParamCaption}) const}
+
+
+
+Binduje teksturę w Open\+GL. 
+
+Ustawia teksturę jako aktywną na określonej jednostce tekstur.
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture\+Unit} & Numer jednostki tekstur, na której tekstura ma być aktywna. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Renderer/Texture.\+h\item 
+src/lib/\+Renderer/Texture.\+cpp\end{DoxyCompactItemize}

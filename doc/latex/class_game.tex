@@ -1,0 +1,107 @@
+\doxysection{Game Class Reference}
+\hypertarget{class_game}{}\label{class_game}\index{Game@{Game}}
+
+
+Główna klasa gry.  
+
+
+
+
+{\ttfamily \#include $<$Game.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_ad59df6562a58a614fda24622d3715b65}{Game}} ()
+\begin{DoxyCompactList}\small\item\em Zapobiega ciągłemu stawianiu klocków. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a9aacba435cce33a8761afb99da115784}\label{class_game_a9aacba435cce33a8761afb99da115784} 
+void {\bfseries prepare\+Chunks\+Loop} ()
+\begin{DoxyCompactList}\small\item\em Wątek dla pętli ładowania chunków, jeżeli chunk jest w polu widzenia tworzy się objekt klasy \doxylink{class_chunk_builder}{Chunk\+Builder}, który generuje dane dla mesh chunka. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a7ad92b77b596d7882a7ae76eb18b5e6c}\label{class_game_a7ad92b77b596d7882a7ae76eb18b5e6c} 
+void {\bfseries loop} ()
+\begin{DoxyCompactList}\small\item\em Główna pętla gry, aktualizuje pozycje, rysuje grafike oraz sprawdza inputy. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a3a56e114910c4fcf444ea5aa3758aeee}\label{class_game_a3a56e114910c4fcf444ea5aa3758aeee} 
+void {\bfseries update\+Delta\+Time} ()
+\begin{DoxyCompactList}\small\item\em Aktualizuje różnice czasu między poprzednia klatką \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a815a3ec2787b4b1c4077d28165c380e8}\label{class_game_a815a3ec2787b4b1c4077d28165c380e8} 
+void {\bfseries process\+Input} ()
+\begin{DoxyCompactList}\small\item\em Sprawdza wcisnięte klawisze i podujemuje odpowiednią akcje. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a4c5d4ba7ef1027048dfdd4bbf123b0d6}\label{class_game_a4c5d4ba7ef1027048dfdd4bbf123b0d6} 
+void {\bfseries destroy\+Block} ()
+\begin{DoxyCompactList}\small\item\em Niszczy blok na podstawie punktu na który patrzy kamera. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a2c9329cd2971ade6e2704efa996219cf}\label{class_game_a2c9329cd2971ade6e2704efa996219cf} 
+void {\bfseries create\+Block} ()
+\begin{DoxyCompactList}\small\item\em Stawia blok na podstawie punktu na który patrzy kamera. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_a70f8a536a554c2442c902e1efa42c0ef}{rerender\+Chunks}} (int chunkX, int chunkZ)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_aa11aaac10ac06a604431b31c4aa86979}\label{class_game_aa11aaac10ac06a604431b31c4aa86979} 
+\mbox{\hyperlink{class_window}{Window}} {\bfseries window}
+\item 
+\Hypertarget{class_game_a61aad988206ae4d5ab0dfaca03781c9d}\label{class_game_a61aad988206ae4d5ab0dfaca03781c9d} 
+\mbox{\hyperlink{class_renderer}{Renderer}} {\bfseries renderer}
+\begin{DoxyCompactList}\small\item\em Wrapper dla okna GLFW. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a6e48721b0532833b99fd5615a3628792}\label{class_game_a6e48721b0532833b99fd5615a3628792} 
+\mbox{\hyperlink{class_player}{Player}} {\bfseries player}
+\begin{DoxyCompactList}\small\item\em Rysuje rzeczy na ekranie. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_ad0070f4acde4e5fc774df02245809b90}\label{class_game_ad0070f4acde4e5fc774df02245809b90} 
+\mbox{\hyperlink{class_world}{World}} {\bfseries world}
+\begin{DoxyCompactList}\small\item\em Obsługuje gracza. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_ad918e31c1644966465f822d912585f16}\label{class_game_ad918e31c1644966465f822d912585f16} 
+float {\bfseries delta\+Time} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em Przechowuje i generuje świat. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a4001497330fe92f315d40cb1de2961ee}\label{class_game_a4001497330fe92f315d40cb1de2961ee} 
+float {\bfseries last\+Frame} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em Czas pomiędzy ostatnio klatką \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a8a77994595a9816c783f4c34597567a0}\label{class_game_a8a77994595a9816c783f4c34597567a0} 
+float {\bfseries last\+Fps\+Time} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em Czas ostatniej klatki glfw\+Get\+Time() \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a28534ff51b7b2adc76bdd8894a750d0d}\label{class_game_a28534ff51b7b2adc76bdd8894a750d0d} 
+int {\bfseries fps} = 0
+\begin{DoxyCompactList}\small\item\em Czas ostatniej klatki glfw\+Get\+Time() do obliczania fps. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a66aefc3915baaf30e934d906a850aab8}\label{class_game_a66aefc3915baaf30e934d906a850aab8} 
+bool {\bfseries is\+Left\+Mouse\+Pressed} = false
+\begin{DoxyCompactList}\small\item\em Klatki na sekunde. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a6a97d3266c32c9517fa1c984e3407a88}\label{class_game_a6a97d3266c32c9517fa1c984e3407a88} 
+bool {\bfseries is\+Right\+Mouse\+Pressed} = false
+\begin{DoxyCompactList}\small\item\em Zapobiega ciągłemu niszczeniu klocków. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Główna klasa gry. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_game_ad59df6562a58a614fda24622d3715b65}\index{Game@{Game}!Game@{Game}}
+\index{Game@{Game}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{Game()}{Game()}}
+{\footnotesize\ttfamily \label{class_game_ad59df6562a58a614fda24622d3715b65} 
+Game\+::\+Game (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Zapobiega ciągłemu stawianiu klocków. 
+
+Uruchamia wątek ładowania świata 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_game_a70f8a536a554c2442c902e1efa42c0ef}\index{Game@{Game}!rerenderChunks@{rerenderChunks}}
+\index{rerenderChunks@{rerenderChunks}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{rerenderChunks()}{rerenderChunks()}}
+{\footnotesize\ttfamily \label{class_game_a70f8a536a554c2442c902e1efa42c0ef} 
+void Game\+::rerender\+Chunks (\begin{DoxyParamCaption}\item[{int}]{chunkX}{, }\item[{int}]{chunkZ}{}\end{DoxyParamCaption})}
+
+Aktualizuje poszczególne chunki po zniszczeniu lub postawieniu bloku 
+\begin{DoxyParams}{Parameters}
+{\em chunkX} & kordynat x chunku \\
+\hline
+{\em chunkZ} & kordynat z chunku \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Game/Game.\+h\item 
+src/lib/\+Game/Game.\+cpp\end{DoxyCompactItemize}

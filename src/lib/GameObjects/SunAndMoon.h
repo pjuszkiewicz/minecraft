@@ -8,10 +8,19 @@
 #include "../Materials/SunAndMoonMaterial.h"
 
 
+/// GameObject słońca i księżyca
 class SunAndMoon : public GameObject {
 public:
+    /// Initializuje pozycje mesh i materiał
     SunAndMoon();
+
+    ~SunAndMoon() override {
+    }
+
+    /// Rysuje objekt
     void Draw() override;
+
+    void Update() override {};
 };
 
 

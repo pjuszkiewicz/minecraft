@@ -14,13 +14,6 @@ void ChunkBuilder::updateChunk() {
     }
 }
 
-float calculateVertexAO(bool side1, bool side2, bool corner) {
-    if (side1 && side2) {
-        return 0.0f; // Oba boczne bloki zasłaniają – pełne zacienienie
-    }
-    return 1.0f - (side1 + side2 + corner) * 0.33f;
-}
-
 void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
     if (chunk.blocks[x][y][z].type == BlockType::AIR) {
         return;
@@ -81,7 +74,6 @@ void ChunkBuilder::updateBlock(const Chunk &chunk, int x, int y, int z) {
     //     chunk.blocks[x + 1][y][z].type == BlockType::AIR,
     //     chunk.blocks[x + 1][y][z + 1].type == BlockType::AIR
     // );
-    ambientOcclusions->push_back(ao);
 }
 
 void ChunkBuilder::addLeftFace(Block block, bool isTopColliding) const {
@@ -149,7 +141,6 @@ void ChunkBuilder::addBottomFace(Block block) {
 
     auto textureCoords = block.getTextureCoords(BOTTOM_FACE);
     glm::vec2 uv = Texture::getUVForBlock(1, textureCoords.first, textureCoords.second);
-
 
     this->textures->push_back(uv);
 }

@@ -29,8 +29,6 @@ add_executable(
         src/lib/Objects/Cube.h
         src/lib/Game/DateTime.cpp
         src/lib/Game/DateTime.h
-        src/lib/Renderer/ShadowMap.cpp
-        src/lib/Renderer/ShadowMap.h
         src/lib/Renderer/Material.cpp
         src/lib/Renderer/Material.h
         src/lib/Materials/SunAndMoonMaterial.h
@@ -38,7 +36,6 @@ add_executable(
         src/lib/Utils/AssetsManager.h
         src/lib/Materials/WorldMaterial.h
         src/lib/Materials/CrosshairMaterial.h
-        src/lib/Materials/ShadowMappingMaterial.h
         src/lib/Game/GameObject.cpp
         src/lib/Game/GameObject.h
         src/lib/GameObjects/SunAndMoon.cpp

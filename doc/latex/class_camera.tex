@@ -1,0 +1,96 @@
+\doxysection{Camera Class Reference}
+\hypertarget{class_camera}{}\label{class_camera}\index{Camera@{Camera}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_camera_a440d357330d01ce60bc47c9d65cc236c}{Camera}} (glm\+::vec3 position=glm\+::vec3(0.\+0f, 0.\+0f, 0.\+0f), glm\+::vec3 up=glm\+::vec3(0.\+0f, 1.\+0f, 0.\+0f), float yaw=-\/90.\+0f, float pitch=0.\+0f)
+\begin{DoxyCompactList}\small\item\em Konfiguracja kamery. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_ac5be0b9a950effe0e5f5993c182c12da}\label{class_camera_ac5be0b9a950effe0e5f5993c182c12da} 
+glm\+::mat4 {\bfseries Get\+View\+Matrix} () const
+\begin{DoxyCompactList}\small\item\em Zwraca macierz widoku kamery(na co patrzy) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_camera_a70850f7d7124ba12b781654b8eb9c87c}{Handle\+View\+Change}} (float yaw, float pitch)
+\item 
+\Hypertarget{class_camera_ad6643d02630896cfb54227f3e61f61c7}\label{class_camera_ad6643d02630896cfb54227f3e61f61c7} 
+void {\bfseries Update\+Camera\+Vectors} ()
+\begin{DoxyCompactList}\small\item\em Aktualizuje wektory pomocnicze. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_ad1391561088fd326bb6366d0a7788172}\label{class_camera_ad1391561088fd326bb6366d0a7788172} 
+glm\+::vec3 {\bfseries get\+Camera\+Direction} () const
+\begin{DoxyCompactList}\small\item\em Zwraca kierunek kamery. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_camera_a9733b59f5340f6f1bca24d52a6679039}\label{class_camera_a9733b59f5340f6f1bca24d52a6679039} 
+glm\+::vec3 {\bfseries Position}
+\begin{DoxyCompactList}\small\item\em Pozycja kamery w przestrzeni świata. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_ac95b3737115ffe9a6ff9128344d5b963}\label{class_camera_ac95b3737115ffe9a6ff9128344d5b963} 
+glm\+::vec3 {\bfseries Front}
+\begin{DoxyCompactList}\small\item\em Kierunek, w którym kamera patrzy. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_ad74c4a490bc8865e67e27a2036d0a72d}\label{class_camera_ad74c4a490bc8865e67e27a2036d0a72d} 
+glm\+::vec3 {\bfseries Up}
+\begin{DoxyCompactList}\small\item\em Wektor określający, gdzie jest "{}góra"{} kamery. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a6624f9f4228f6299a3d4ccb81e28da0a}\label{class_camera_a6624f9f4228f6299a3d4ccb81e28da0a} 
+glm\+::vec3 {\bfseries Right}
+\begin{DoxyCompactList}\small\item\em Wektor prostopadły do kierunku patrzenia, wskazujący prawo. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a340d30b833954b87fd016ce0e724c723}\label{class_camera_a340d30b833954b87fd016ce0e724c723} 
+glm\+::vec3 {\bfseries World\+Up}
+\begin{DoxyCompactList}\small\item\em Wektor określający, która strona świata jest uważana za "{}górę"{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a1a1354a2bd2df7f18ef82924e671d241}\label{class_camera_a1a1354a2bd2df7f18ef82924e671d241} 
+float {\bfseries Yaw}
+\begin{DoxyCompactList}\small\item\em Kąt obrotu kamery w poziomie (yaw). \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_af9c8f223bb06bb74fc77c586545e7e67}\label{class_camera_af9c8f223bb06bb74fc77c586545e7e67} 
+float {\bfseries Pitch}
+\begin{DoxyCompactList}\small\item\em Kąt obrotu kamery w pionie (pitch). \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a63221392d762df6a74f45bc9d43a2f61}\label{class_camera_a63221392d762df6a74f45bc9d43a2f61} 
+float {\bfseries Movement\+Speed}
+\begin{DoxyCompactList}\small\item\em Prędkość poruszania się kamery. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a73e88844b31d5111eeb76327dfbb2d68}\label{class_camera_a73e88844b31d5111eeb76327dfbb2d68} 
+float {\bfseries Mouse\+Sensitivity}
+\begin{DoxyCompactList}\small\item\em Czułość myszy wpływająca na szybkość obrotu kamery. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_camera_a440d357330d01ce60bc47c9d65cc236c}\index{Camera@{Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{Camera()}{Camera()}}
+{\footnotesize\ttfamily \label{class_camera_a440d357330d01ce60bc47c9d65cc236c} 
+Camera\+::\+Camera (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{position}{ = {\ttfamily glm\+:\+:vec3(0.0f,~0.0f,~0.0f)}, }\item[{glm\+::vec3}]{up}{ = {\ttfamily glm\+:\+:vec3(0.0f,~1.0f,~0.0f)}, }\item[{float}]{yaw}{ = {\ttfamily -\/90.0f}, }\item[{float}]{pitch}{ = {\ttfamily 0.0f}}\end{DoxyParamCaption})}
+
+
+
+Konfiguracja kamery. 
+
+Inicjalizuje kamerę na podstawie podanej pozycji, wektora określającego "{}górę"{} oraz kątów obrotu (yaw i pitch).
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & Pozycja kamery w przestrzeni świata. Domyślnie (0.\+0f, 0.\+0f, 0.\+0f). \\
+\hline
+{\em up} & Wektor określający kierunek "{}góry"{} kamery. Domyślnie (0.\+0f, 1.\+0f, 0.\+0f). \\
+\hline
+{\em yaw} & Kąt obrotu kamery w poziomie. Domyślnie -\/90.\+0f. \\
+\hline
+{\em pitch} & Kąt obrotu kamery w pionie. Domyślnie 0.\+0f. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_camera_a70850f7d7124ba12b781654b8eb9c87c}\index{Camera@{Camera}!HandleViewChange@{HandleViewChange}}
+\index{HandleViewChange@{HandleViewChange}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{HandleViewChange()}{HandleViewChange()}}
+{\footnotesize\ttfamily \label{class_camera_a70850f7d7124ba12b781654b8eb9c87c} 
+void Camera\+::\+Handle\+View\+Change (\begin{DoxyParamCaption}\item[{float}]{yaw}{, }\item[{float}]{pitch}{}\end{DoxyParamCaption})}
+
+Obraca kamere 
+\begin{DoxyParams}{Parameters}
+{\em pitch} & Kąt obrotu w pionie (pitch). \\
+\hline
+{\em yaw} & Kąt obrotu w poziomie (yaw). \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Player/Camera.\+h\item 
+src/lib/\+Player/Camera.\+cpp\end{DoxyCompactItemize}

@@ -8,12 +8,22 @@
 #include "../Game/GameObject.h"
 #include "../Meshes/CrosshairMesh.h"
 
-
+/// GameObject celownika
 class CrosshairObject : public GameObject {
 public:
-    CrosshairMesh *crosshair;
+    CrosshairMesh *crosshair; /// Mesh celownika
+
+    /// Initializuje pozycje mesh i materiał
     CrosshairObject();
+
+    ~CrosshairObject() override {
+        delete crosshair;
+    }
+
+    /// Rysuje objekt
     void Draw() override;
+
+    void Update() override {};
 };
 
 

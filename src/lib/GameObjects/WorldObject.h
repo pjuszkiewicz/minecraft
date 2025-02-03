@@ -14,22 +14,31 @@
 class ChunkBuilder;
 class ChunkMesh;
 
+/// GameObject świata gry
 class WorldObject : public GameObject {
 public:
-    std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes;
-    bool isReadyToAdd = false;
-    std::vector<ChunkBuilder> chunksToAdd;
-    std::vector<std::pair<int, int> > chunksToRemove;
+    std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes; /// Mapa aktualnie renderowanych meshy
+    bool isReadyToAdd = false; /// Czy można aktualnie dodać mesha do renderu
+    std::vector<ChunkBuilder> chunksToAdd; /// Meshe do dodania
+    std::vector<std::pair<int, int> > chunksToRemove; /// Meshes do usunięcia
 
+    /// Initializuje pozycje mesh i materiał
     WorldObject();
 
-    void AddChunk();
+    ~WorldObject() override {
+    }
 
-    void RemoveChunks();
-
+    /// Rysuje objekt
     void Draw() override;
 
-    void Update();
+    /// Dodaje i usuwa chunk w jeden klatce
+    void Update() override;
+
+    /// Dodaje chunk do renderowania
+    void AddChunk();
+
+    /// Usuwa chunk z renderowania
+    void RemoveChunks();
 };
 
 

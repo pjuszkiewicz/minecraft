@@ -20,7 +20,11 @@ void WorldObject::Draw() {
         ChunkMesh chunkMesh = chunkMeshPair.second;
         chunkMesh.draw();
     }
+}
 
+void WorldObject::Update() {
+    AddChunk();
+    RemoveChunks();
 }
 
 void WorldObject::AddChunk() {
@@ -34,7 +38,6 @@ void WorldObject::AddChunk() {
     auto mesh = ChunkMesh(x, z);
     mesh.positions = chunk.positions;
     mesh.textures = chunk.textures;
-    mesh.ambientOcclusions = chunk.ambientOcclusions;
     mesh.updateBuffers();
     chunkMeshes[{x, z}] = mesh;
     chunksToAdd.pop_back();
@@ -45,9 +48,4 @@ void WorldObject::RemoveChunks() {
     auto p = chunksToRemove[chunksToRemove.size() - 1];
     chunkMeshes.erase(p);
     chunksToRemove.pop_back();
-}
-
-void WorldObject::Update() {
-    AddChunk();
-    RemoveChunks();
 }

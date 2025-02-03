@@ -1,0 +1,110 @@
+\doxysection{World Class Reference}
+\hypertarget{class_world}{}\label{class_world}\index{World@{World}}
+
+
+Klasa reprezentująca świat gry, przechowująca chunki i operacje na blokach.  
+
+
+
+
+{\ttfamily \#include $<$World.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_world_a81954ef77c7535024fff913b02174753}{is\+Block\+At}} (glm\+::vec3 pos)
+\begin{DoxyCompactList}\small\item\em Sprawdza, czy na podanej pozycji znajduje się blok. \end{DoxyCompactList}\item 
+\Hypertarget{class_world_a8160c11745e1140985953d45fa0f2ef9}\label{class_world_a8160c11745e1140985953d45fa0f2ef9} 
+void {\bfseries generate\+Chunks} ()
+\begin{DoxyCompactList}\small\item\em Generuje początkowe chunki świata. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_world_afeaa784f218f242262fab048335dd845}{remove\+Block\+At}} (glm\+::vec3 pos)
+\begin{DoxyCompactList}\small\item\em Usuwa blok znajdujący się na podanej pozycji. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_world_a5a7f5e9f0b76f873138f6012ce561e9e}{place\+Block\+At}} (glm\+::vec3 pos)
+\begin{DoxyCompactList}\small\item\em Kładzie domyślny blok na podanej pozycji. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_world_a4bf6c971d87fed1a5f335822d6b298ec}{place\+Block\+At}} (Block\+Type type, glm\+::vec3 pos)
+\begin{DoxyCompactList}\small\item\em Kładzie blok określonego typu na podanej pozycji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_world_a13a773a7b3d6182cce52d617da1c648a}\label{class_world_a13a773a7b3d6182cce52d617da1c648a} 
+std\+::unordered\+\_\+map$<$ std\+::pair$<$ int, int $>$, \mbox{\hyperlink{class_chunk}{Chunk}}, \mbox{\hyperlink{struct_pair_hash}{Pair\+Hash}} $>$ {\bfseries chunks}
+\begin{DoxyCompactList}\small\item\em Mapa przechowująca chunki w świecie, indeksowana parą współrzędnych (X, Z). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa reprezentująca świat gry, przechowująca chunki i operacje na blokach. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_world_a81954ef77c7535024fff913b02174753}\index{World@{World}!isBlockAt@{isBlockAt}}
+\index{isBlockAt@{isBlockAt}!World@{World}}
+\doxysubsubsection{\texorpdfstring{isBlockAt()}{isBlockAt()}}
+{\footnotesize\ttfamily \label{class_world_a81954ef77c7535024fff913b02174753} 
+bool World\+::is\+Block\+At (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Sprawdza, czy na podanej pozycji znajduje się blok. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Wektor pozycji w świecie. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Jeśli na danej pozycji znajduje się blok. 
+
+false Jeśli na danej pozycji nie ma bloku. 
+\end{DoxyReturn}
+\Hypertarget{class_world_a4bf6c971d87fed1a5f335822d6b298ec}\index{World@{World}!placeBlockAt@{placeBlockAt}}
+\index{placeBlockAt@{placeBlockAt}!World@{World}}
+\doxysubsubsection{\texorpdfstring{placeBlockAt()}{placeBlockAt()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_world_a4bf6c971d87fed1a5f335822d6b298ec} 
+void World\+::place\+Block\+At (\begin{DoxyParamCaption}\item[{Block\+Type}]{type}{, }\item[{glm\+::vec3}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Kładzie blok określonego typu na podanej pozycji. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & Typ bloku, który ma zostać postawiony. \\
+\hline
+{\em pos} & Wektor pozycji, na której ma zostać postawiony blok. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_world_a5a7f5e9f0b76f873138f6012ce561e9e}\index{World@{World}!placeBlockAt@{placeBlockAt}}
+\index{placeBlockAt@{placeBlockAt}!World@{World}}
+\doxysubsubsection{\texorpdfstring{placeBlockAt()}{placeBlockAt()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_world_a5a7f5e9f0b76f873138f6012ce561e9e} 
+void World\+::place\+Block\+At (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Kładzie domyślny blok na podanej pozycji. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Wektor pozycji, na której ma zostać postawiony blok. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_world_afeaa784f218f242262fab048335dd845}\index{World@{World}!removeBlockAt@{removeBlockAt}}
+\index{removeBlockAt@{removeBlockAt}!World@{World}}
+\doxysubsubsection{\texorpdfstring{removeBlockAt()}{removeBlockAt()}}
+{\footnotesize\ttfamily \label{class_world_afeaa784f218f242262fab048335dd845} 
+void World\+::remove\+Block\+At (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Usuwa blok znajdujący się na podanej pozycji. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Wektor pozycji bloku do usunięcia. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+World/World.\+h\item 
+src/lib/\+World/World.\+cpp\end{DoxyCompactItemize}

@@ -6,26 +6,26 @@
 
 void Game::prepareChunksLoop() {
     int chunkX = 0;
-    int lastChunkX = 0;
     int newChunkX = 0;
 
     int chunkZ = 0;
-    int lastChunkZ = 0;
     int newChunkZ = 0;
 
     while (true) {
-        newChunkX = (player.Position.x - (static_cast<int>(player.Position.x) % CHUNK_WIDTH)) / CHUNK_WIDTH;
-        newChunkZ = (player.Position.z - (static_cast<int>(player.Position.z) % CHUNK_WIDTH)) / CHUNK_WIDTH;
+        // Porównanie czy gracz zmienił chunka
+        int x = static_cast<int>(player.Position.x) + (CHUNK_WIDTH / 2);
+        int z = static_cast<int>(player.Position.z) + (CHUNK_WIDTH / 2);
+        newChunkX = floor(x / CHUNK_WIDTH);
+        newChunkZ = floor(z / CHUNK_WIDTH);
 
         if (newChunkX != chunkX || newChunkZ != chunkZ) {
-            lastChunkX = chunkX;
             chunkX = newChunkX;
-            lastChunkZ = chunkZ;
             chunkZ = newChunkZ;
         }
 
         if (renderer.worldObject.chunksToAdd.size() == 0) {
             renderer.worldObject.isReadyToAdd = false;
+
             for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
                 for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
                     int x = chunkX + i;
@@ -105,7 +105,7 @@ void Game::loop() {
         glfwSwapBuffers(window.glfwWindow);
         glfwPollEvents();
 
-        processInput(window.glfwWindow, deltaTime);
+        processInput();
     }
 
     glfwTerminate();
@@ -213,7 +213,6 @@ void Game::rerenderChunks(int chunkX, int chunkZ) {
                     auto &mesh = found->second;
                     mesh.positions = builder.positions;
                     mesh.textures = builder.textures;
-                    mesh.ambientOcclusions = builder.ambientOcclusions;
                     mesh.updateBuffers();
                 }
             }
@@ -222,70 +221,75 @@ void Game::rerenderChunks(int chunkX, int chunkZ) {
 }
 
 
-void Game::processInput(GLFWwindow *glfwWindow, float deltaTime) {
-    if (glfwGetKey(glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(glfwWindow, true);
-    //
-    if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+void Game::processInput() {
+    // Klawiatura
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window.glfwWindow, true);
+
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
         player.HandlePlayerMove(SPRINT, deltaTime);
-    if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
+
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
         player.HandlePlayerMove(WALK, deltaTime);
 
-    if (glfwGetKey(glfwWindow, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_W) == GLFW_PRESS)
         player.HandlePlayerMove(FORWARD, deltaTime);
-    if (glfwGetKey(glfwWindow, GLFW_KEY_S) == GLFW_PRESS)
+
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_S) == GLFW_PRESS)
         player.HandlePlayerMove(BACKWARD, deltaTime);
-    if (glfwGetKey(glfwWindow, GLFW_KEY_A) == GLFW_PRESS)
+
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_A) == GLFW_PRESS)
         player.HandlePlayerMove(LEFT, deltaTime);
-    if (glfwGetKey(glfwWindow, GLFW_KEY_D) == GLFW_PRESS)
+
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_D) == GLFW_PRESS)
         player.HandlePlayerMove(RIGHT, deltaTime);
 
-    if (glfwGetKey(glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
         player.HandlePlayerMove(UP, deltaTime);
-    if (glfwGetKey(glfwWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         player.HandlePlayerMove(DOWN, deltaTime);
 
-    if (glfwGetKey(glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
         player.HandlePlayerMove(JUMP, deltaTime);
 
-    if (glfwGetKey(glfwWindow, GLFW_KEY_F11) == GLFW_PRESS)
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_F11) == GLFW_PRESS)
         window.toggleFullscreen();
 
-    if (glfwGetKey(glfwWindow, GLFW_KEY_O) == GLFW_PRESS)
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_O) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    if (glfwGetKey(glfwWindow, GLFW_KEY_P) == GLFW_PRESS)
+
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_P) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-
-    if (glfwGetKey(glfwWindow, GLFW_KEY_K) == GLFW_PRESS) {
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_K) == GLFW_PRESS) {
         glfwSetInputMode(window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
-
-    if (glfwGetKey(glfwWindow, GLFW_KEY_L) == GLFW_PRESS) {
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_L) == GLFW_PRESS) {
         glfwSetInputMode(window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
 
-
-    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
-        isLeftMousePressed = false;
-    }
-
-    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+    // Mysz
+    if (glfwGetMouseButton(window.glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
         if (!isLeftMousePressed) {
             destroyBlock();
         }
+        isLeftMousePressed = true;
+    }
+
+    if (glfwGetMouseButton(window.glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
         isLeftMousePressed = false;
     }
 
-    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) {
-        isRightMousePressed = false;
-    }
-
-    if (glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
+    if (glfwGetMouseButton(window.glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
         if (!isRightMousePressed) {
             createBlock();
         }
+        isRightMousePressed = true;
+    }
+
+    if (glfwGetMouseButton(window.glfwWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) {
         isRightMousePressed = false;
     }
 }

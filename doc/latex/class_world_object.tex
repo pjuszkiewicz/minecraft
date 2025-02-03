@@ -1,0 +1,113 @@
+\doxysection{World\+Object Class Reference}
+\hypertarget{class_world_object}{}\label{class_world_object}\index{WorldObject@{WorldObject}}
+
+
+\doxylink{class_game_object}{Game\+Object} świata gry.  
+
+
+
+
+{\ttfamily \#include $<$World\+Object.\+h$>$}
+
+Inheritance diagram for World\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_world_object}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_world_object_a632d2e78acdcbc0aef09951134340d4e}{World\+Object}} ()
+\begin{DoxyCompactList}\small\item\em Meshes do usunięcia. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_world_object_a43b1c7d7090ea66cd4d5119456d4b686}{Draw}} () override
+\begin{DoxyCompactList}\small\item\em Rysuje objekt. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_world_object_a0f26ab8997aa528a4274f042f5f49719}{Update}} () override
+\begin{DoxyCompactList}\small\item\em Dodaje i usuwa chunk w jeden klatce. \end{DoxyCompactList}\item 
+\Hypertarget{class_world_object_a7673ca43b6cbf13d097288e46e698f23}\label{class_world_object_a7673ca43b6cbf13d097288e46e698f23} 
+void {\bfseries Add\+Chunk} ()
+\begin{DoxyCompactList}\small\item\em Dodaje chunk do renderowania. \end{DoxyCompactList}\item 
+\Hypertarget{class_world_object_a0f22292f0128f713cce5522d5c1bf0d3}\label{class_world_object_a0f22292f0128f713cce5522d5c1bf0d3} 
+void {\bfseries Remove\+Chunks} ()
+\begin{DoxyCompactList}\small\item\em Usuwa chunk z renderowania. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_world_object_a3516b2ff911991761abd0fd41658836d}\label{class_world_object_a3516b2ff911991761abd0fd41658836d} 
+std\+::unordered\+\_\+map$<$ std\+::pair$<$ int, int $>$, \mbox{\hyperlink{class_chunk_mesh}{Chunk\+Mesh}}, \mbox{\hyperlink{struct_pair_hash}{Pair\+Hash}} $>$ {\bfseries chunk\+Meshes}
+\item 
+\Hypertarget{class_world_object_a12e59879d9dfc8590b61cd1d2247fa03}\label{class_world_object_a12e59879d9dfc8590b61cd1d2247fa03} 
+bool {\bfseries is\+Ready\+To\+Add} = false
+\begin{DoxyCompactList}\small\item\em Mapa aktualnie renderowanych meshy. \end{DoxyCompactList}\item 
+\Hypertarget{class_world_object_a8bb44f2ee3c168ac52d0027822ed9ac9}\label{class_world_object_a8bb44f2ee3c168ac52d0027822ed9ac9} 
+std\+::vector$<$ \mbox{\hyperlink{class_chunk_builder}{Chunk\+Builder}} $>$ {\bfseries chunks\+To\+Add}
+\begin{DoxyCompactList}\small\item\em Czy można aktualnie dodać mesha do renderu. \end{DoxyCompactList}\item 
+\Hypertarget{class_world_object_aff6ded18af179eb211c02abc2eaf91bd}\label{class_world_object_aff6ded18af179eb211c02abc2eaf91bd} 
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ {\bfseries chunks\+To\+Remove}
+\begin{DoxyCompactList}\small\item\em Meshe do dodania. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_game_object}{Game\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+glm\+::vec3 {\bfseries Position}
+\item 
+glm\+::vec3 {\bfseries Rotation}
+\item 
+glm\+::vec3 {\bfseries Scale}
+\item 
+\mbox{\hyperlink{class_material}{Material}} \texorpdfstring{$\ast$}{*} {\bfseries material}
+\item 
+\mbox{\hyperlink{class_mesh}{Mesh}} {\bfseries mesh}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_game_object}{Game\+Object} świata gry. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_world_object_a632d2e78acdcbc0aef09951134340d4e}\index{WorldObject@{WorldObject}!WorldObject@{WorldObject}}
+\index{WorldObject@{WorldObject}!WorldObject@{WorldObject}}
+\doxysubsubsection{\texorpdfstring{WorldObject()}{WorldObject()}}
+{\footnotesize\ttfamily \label{class_world_object_a632d2e78acdcbc0aef09951134340d4e} 
+World\+Object\+::\+World\+Object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Meshes do usunięcia. 
+
+Initializuje pozycje mesh i materiał 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_world_object_a43b1c7d7090ea66cd4d5119456d4b686}\index{WorldObject@{WorldObject}!Draw@{Draw}}
+\index{Draw@{Draw}!WorldObject@{WorldObject}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_world_object_a43b1c7d7090ea66cd4d5119456d4b686} 
+void World\+Object\+::\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Rysuje objekt. 
+
+
+
+Implements \mbox{\hyperlink{class_game_object_a29a665f46fda87982825bc5c0ca6a888}{Game\+Object}}.
+
+\Hypertarget{class_world_object_a0f26ab8997aa528a4274f042f5f49719}\index{WorldObject@{WorldObject}!Update@{Update}}
+\index{Update@{Update}!WorldObject@{WorldObject}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_world_object_a0f26ab8997aa528a4274f042f5f49719} 
+void World\+Object\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Dodaje i usuwa chunk w jeden klatce. 
+
+
+
+Implements \mbox{\hyperlink{class_game_object_a7f5c1336131d246a1e4ec9047996cab8}{Game\+Object}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Game\+Objects/World\+Object.\+h\item 
+src/lib/\+Game\+Objects/World\+Object.\+cpp\end{DoxyCompactItemize}

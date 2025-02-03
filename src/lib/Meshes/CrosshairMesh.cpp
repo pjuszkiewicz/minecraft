@@ -11,48 +11,29 @@
 #include "../Objects/Cube.h"
 
 CrosshairMesh::CrosshairMesh() {
-    //    this->vertices = vertices;
-    // float vertices[] = {
-    //     -0.01f, -0.01f, 0.0f,
-    //      0.01f, -0.01f, 0.0f,
-    //      -0.01f,  0.01f, 0.0f,
-    //
-    //     -0.01f, 0.01f, 0.0f,
-    //      0.01f, -0.01f, 0.0f,
-    //      0.01f,  0.01f, 0.0f,
-    // };
+    float centerX = SCREEN_WIDTH / 2;
+    float centerY = SCREEN_HEIGHT / 2;
 
-        float centerX = SCREEN_WIDTH / 2;
-        float centerY = SCREEN_HEIGHT / 2;
+    float size = 2;
 
-        float size = 2;
+    float vertices[] = {
+        centerX - (size / 2), centerY - (size / 2), 0,
+        centerX + (size / 2), centerY + (size / 2), 0,
+        centerX - (size / 2), centerY + (size / 2), 0,
 
-        float vertices[] = {
-            centerX - (size / 2), centerY - (size / 2), 0,
-            centerX + (size / 2), centerY + (size / 2), 0,
-            centerX - (size / 2), centerY + (size / 2), 0,
-
-            centerX - (size / 2), centerY - (size / 2), 0,
-            centerX + (size / 2), centerY - (size / 2), 0,
-            centerX + (size / 2), centerY + (size / 2), 0,
-
-
-        // -0.01f, 0.01f, 0.0f,
-        //  0.01f, -0.01f, 0.0f,
-        //  0.01f,  0.01f, 0.0f,
+        centerX - (size / 2), centerY - (size / 2), 0,
+        centerX + (size / 2), centerY - (size / 2), 0,
+        centerX + (size / 2), centerY + (size / 2), 0,
     };
 
     glGenBuffers(1, &VBO);
     glGenVertexArrays(1, &VAO);
 
     glBindVertexArray(VAO);
-    // 2. copy our vertices array in a buffer for OpenGL to use
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    // 3. then set our vertex attributes pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
-
 }
 
 void CrosshairMesh::draw() const {

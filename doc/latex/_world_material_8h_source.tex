@@ -1,0 +1,43 @@
+\doxysection{World\+Material.\+h}
+\hypertarget{_world_material_8h_source}{}\label{_world_material_8h_source}\index{src/lib/Materials/WorldMaterial.h@{src/lib/Materials/WorldMaterial.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ piotr\ on\ 17.01.25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ WORLDMATERIAL\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ WORLDMATERIAL\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Renderer/Material.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Utils/AssetsManager.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Game/DateTime.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_world_material_a0dccbc9560cd602ff81fa930354446c4}{WorldMaterial}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_material_a137e987401b63eb7c6c27c3e38bc74b5}{Material}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_world_material_a0dccbc9560cd602ff81fa930354446c4}{WorldMaterial}}()\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ std::string\ path\ =\ \mbox{\hyperlink{class_assets_manager_ad1c2f1827b35292bfba77271a77c24ac}{AssetsManager::GetAssetsPath}}();}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::string\ vertexPath\ =\ path\ +\ \textcolor{stringliteral}{"{}/shaders/example/instanced.vs"{}};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ std::string\ fragmentPath\ =\ path\ +\ \textcolor{stringliteral}{"{}/shaders/example/instanced.fs"{}};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ =\ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_shader}{Shader}}(vertexPath.c\_str(),\ fragmentPath.c\_str());}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ std::string\ texturePath\ =\ \mbox{\hyperlink{class_assets_manager_ad1c2f1827b35292bfba77271a77c24ac}{AssetsManager::GetAssetsPath}}()\ +\ \textcolor{stringliteral}{"{}/textures/texturepack.png"{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_ad151148dc3460f25435e951786171350}{texture}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_texture}{Texture}}(texturePath.c\_str(),\ GL\_RGBA);}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_material_afa517a0967323378d86f4f6bdb6a40ad}{UpdateProjection}}(glm::mat4\ \&projection,\ glm::mat4\ \&view,\ \textcolor{keyword}{const}\ glm::vec3\ \&pos)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>use();}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>setMat4(\textcolor{stringliteral}{"{}projection"{}},\ projection);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>setMat4(\textcolor{stringliteral}{"{}view"{}},\ view);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>setVec3(\textcolor{stringliteral}{"{}viewPos"{}},\ pos);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ glm::vec2\ uvScale(1.0f\ /\ 8,\ 1.0f\ /\ 8);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>setVec2(\textcolor{stringliteral}{"{}uvScale"{}},\ uvScale);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec3\ lightPos\ =\ \mbox{\hyperlink{class_date_time_a116ff43e8f1c822083e8c7d49266ada0}{DateTime::getSunPos}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>setVec3(\textcolor{stringliteral}{"{}lightPos"{}},\ lightPos);}
+\DoxyCodeLine{00040\ \ \ \ \ \};}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//WORLDMATERIAL\_H}}
+
+\end{DoxyCode}

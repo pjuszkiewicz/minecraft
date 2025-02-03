@@ -9,6 +9,7 @@
 #include "./../Constants.h"
 #include <iostream>
 
+/// Obrót punktu wokoł osi o kąt
 glm::vec3 rotateAroundAxis(const glm::vec3 &point, float angle, const glm::vec3 &axis) {
     glm::vec3 normalizedAxis = glm::normalize(axis);
 
@@ -46,13 +47,10 @@ float DateTime::getTime() {
     return std::fmod(glfwGetTime(), DAY_CYCLE) / DAY_CYCLE * 24;
 }
 
-/// Oblicza kolor tła na podstawie godziny z glfwGetTime()
-/// @return Zwraca wektor z zmiennymi vec3(r, g, b)
+
 glm::vec3 DateTime::getSkyColor() {
     float timeOfDay = DateTime::getTime();
     float r, g, b;
-    // 0-12 dzień
-    // 12-24 noc
 
     if (timeOfDay < 3.0f) {
         // Poranek
@@ -62,7 +60,7 @@ glm::vec3 DateTime::getSkyColor() {
         b = std::lerp(0.48, 1.0f, t);
     } else if (timeOfDay < 10.0f) {
         // Dzień
-        r = 0.5f; // Jasnoniebieskie niebo
+        r = 0.5f;
         g = 0.7f;
         b = 1.0f;
     } else if (timeOfDay < 13.0f) {

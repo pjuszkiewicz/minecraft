@@ -1,0 +1,91 @@
+\doxysection{Renderer Class Reference}
+\hypertarget{class_renderer}{}\label{class_renderer}\index{Renderer@{Renderer}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_renderer_a7ebf46f54dab9905f79b80f7fddb76a6}{Renderer}} ()
+\begin{DoxyCompactList}\small\item\em Konstruktor klasy \doxylink{class_renderer}{Renderer}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_renderer_aeedbc2ffdccf51fa1384100446488746}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Czyści ekran. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_renderer_ad6231322ddd32028824f5adb14867190}{Draw}} (const \mbox{\hyperlink{class_player}{Player}} \&player)
+\begin{DoxyCompactList}\small\item\em Aktualizuje projekcję i rysuje obiekty. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_renderer_a587861e7fa2070f47673604fd2a2ba95}{Update\+Projection}} (const \mbox{\hyperlink{class_player}{Player}} \&player) const
+\begin{DoxyCompactList}\small\item\em Aktualizuje projekcję. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_renderer_aeb4616e287048eee1c554684cbaa982e}\label{class_renderer_aeb4616e287048eee1c554684cbaa982e} 
+\mbox{\hyperlink{class_sun_and_moon}{Sun\+And\+Moon}} {\bfseries sun\+And\+Moon}
+\begin{DoxyCompactList}\small\item\em Obiekt reprezentujący słońce i księżyc. \end{DoxyCompactList}\item 
+\Hypertarget{class_renderer_a060f90273d732f633ebec70aa9df79b3}\label{class_renderer_a060f90273d732f633ebec70aa9df79b3} 
+\mbox{\hyperlink{class_world_object}{World\+Object}} {\bfseries world\+Object}
+\begin{DoxyCompactList}\small\item\em Obiekt reprezentujący elementy świata. \end{DoxyCompactList}\item 
+\Hypertarget{class_renderer_a575fed0a8b3f46fbbec2302731e010be}\label{class_renderer_a575fed0a8b3f46fbbec2302731e010be} 
+\mbox{\hyperlink{class_crosshair_object}{Crosshair\+Object}} {\bfseries crosshair\+Object}
+\begin{DoxyCompactList}\small\item\em Obiekt reprezentujący celownik. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_renderer_a7ebf46f54dab9905f79b80f7fddb76a6}\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{Renderer()}{Renderer()}}
+{\footnotesize\ttfamily \label{class_renderer_a7ebf46f54dab9905f79b80f7fddb76a6} 
+Renderer\+::\+Renderer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Konstruktor klasy \doxylink{class_renderer}{Renderer}. 
+
+Inicjalizuje obiekt renderera. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_renderer_aeedbc2ffdccf51fa1384100446488746}\index{Renderer@{Renderer}!Clear@{Clear}}
+\index{Clear@{Clear}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily \label{class_renderer_aeedbc2ffdccf51fa1384100446488746} 
+void Renderer\+::\+Clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Czyści ekran. 
+
+Funkcja czyści ekran kolorem zwróconym przez \doxylink{class_date_time_a3d28e254f71554b1d08a750107a8a46a}{Date\+Time\+::get\+Sky\+Color()}. \Hypertarget{class_renderer_ad6231322ddd32028824f5adb14867190}\index{Renderer@{Renderer}!Draw@{Draw}}
+\index{Draw@{Draw}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_renderer_ad6231322ddd32028824f5adb14867190} 
+void Renderer\+::\+Draw (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_player}{Player}} \&}]{player}{}\end{DoxyParamCaption})}
+
+
+
+Aktualizuje projekcję i rysuje obiekty. 
+
+Na podstawie pozycji gracza aktualizuje macierze projekcji, a następnie rysuje obiekty sceny.
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & Obiekt gracza, którego pozycja i kamera wpływają na ustawienia projekcji i rysowanych obiektów. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_renderer_a587861e7fa2070f47673604fd2a2ba95}\index{Renderer@{Renderer}!UpdateProjection@{UpdateProjection}}
+\index{UpdateProjection@{UpdateProjection}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{UpdateProjection()}{UpdateProjection()}}
+{\footnotesize\ttfamily \label{class_renderer_a587861e7fa2070f47673604fd2a2ba95} 
+void Renderer\+::\+Update\+Projection (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_player}{Player}} \&}]{player}{}\end{DoxyParamCaption}) const}
+
+
+
+Aktualizuje projekcję. 
+
+Uaktualnia macierze projekcji na podstawie pozycji i rotacji kamery gracza.
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & Obiekt gracza, którego dane (pozycja oraz rotacja kamery) są wykorzystywane przy aktualizacji projekcji. \\
+\hline
+\end{DoxyParams}
+Projekcja celownika
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Renderer/Renderer.\+h\item 
+src/lib/\+Renderer/Renderer.\+cpp\end{DoxyCompactItemize}

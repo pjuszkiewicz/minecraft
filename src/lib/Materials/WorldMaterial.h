@@ -8,8 +8,10 @@
 #include "../Utils/AssetsManager.h"
 #include "../Game/DateTime.h"
 
+/// Materiał świata
 class WorldMaterial : public Material {
 public:
+    /// Wczytuje shader i teksture
     WorldMaterial() {
         std::string path = AssetsManager::GetAssetsPath();
         std::string vertexPath = path + "/shaders/example/instanced.vs";
@@ -20,6 +22,10 @@ public:
         texture = new Texture(texturePath.c_str(), GL_RGBA);
     }
 
+    /// Aktualizuje projekcje
+    /// @param projection macierz projekcji
+    /// @param view macierz widoku
+    /// @param pos wektor pozycji gracza
     void UpdateProjection(glm::mat4 &projection, glm::mat4 &view, const glm::vec3 &pos) override {
         shader->use();
         shader->setMat4("projection", projection);

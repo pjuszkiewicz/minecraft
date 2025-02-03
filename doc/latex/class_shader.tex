@@ -1,0 +1,310 @@
+\doxysection{Shader Class Reference}
+\hypertarget{class_shader}{}\label{class_shader}\index{Shader@{Shader}}
+
+
+Klasa reprezentująca program shaderów.  
+
+
+
+
+{\ttfamily \#include $<$Shader.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_shader_a3e135bbf914b087a939114d79c10d283}{Shader}} (const char \texorpdfstring{$\ast$}{*}vertex\+Path, const char \texorpdfstring{$\ast$}{*}fragment\+Path)
+\begin{DoxyCompactList}\small\item\em Konstruktor klasy \doxylink{class_shader}{Shader}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_a3c7896754f0e1fca8bde860cfef63832}{use}} () const
+\begin{DoxyCompactList}\small\item\em Aktywuje program shaderów. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_ab1a56d6c299bd7eaa18c2e142ef7bd9f}{set\+Bool}} (const std\+::string \&name, bool value) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu bool w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_ad362e2b654cd95a3574cd505411e41fd}{set\+Int}} (const std\+::string \&name, int value) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu int w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_afe7367621f74c2d26431d8ac15252bf3}{set\+Float}} (const std\+::string \&name, float value) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu float w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_afd4d41322a1cdd1d5155bf124d19debf}{set\+Vec2}} (const std\+::string \&name, const glm\+::vec2 \&value) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu vec2 w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_afb91bc9e954bf590857c96ab1331b0ec}{set\+Vec2}} (const std\+::string \&name, float x, float y) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu vec2 w shaderze przy użyciu osobnych komponentów. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_aeb021061c5d451329d92257b07dbfec3}{set\+Vec3}} (const std\+::string \&name, const glm\+::vec3 \&value) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu vec3 w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_a90092c25b7dc23964c465b93887300f9}{set\+Vec3}} (const std\+::string \&name, float x, float y, float z) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu vec3 w shaderze przy użyciu osobnych komponentów. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_a79cbe674f6bf1a576a48045dcb924de5}{set\+Vec4}} (const std\+::string \&name, const glm\+::vec4 \&value) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu vec4 w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_ad7906b3a47e6f2d62ec79f4c871aadb1}{set\+Vec4}} (const std\+::string \&name, float x, float y, float z, float w) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu vec4 w shaderze przy użyciu osobnych komponentów. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_a91a6ee79b959cacd618c9e29a5bbd732}{set\+Mat2}} (const std\+::string \&name, const glm\+::mat2 \&mat) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu mat2 w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_a3e24fcad187493dfebaa12939072e91d}{set\+Mat3}} (const std\+::string \&name, const glm\+::mat3 \&mat) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu mat3 w shaderze. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_shader_a8e711c96f3e1722cbfb88fde9478977c}{set\+Mat4}} (const std\+::string \&name, const glm\+::mat4 \&mat) const
+\begin{DoxyCompactList}\small\item\em Ustawia uniform typu mat4 w shaderze. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}\label{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d} 
+unsigned int {\bfseries ID}
+\begin{DoxyCompactList}\small\item\em Identyfikator programu shaderów w Open\+GL. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa reprezentująca program shaderów. 
+
+Klasa odpowiada za ładowanie, kompilację oraz ustawianie uniformów w shaderach. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_shader_a3e135bbf914b087a939114d79c10d283}\index{Shader@{Shader}!Shader@{Shader}}
+\index{Shader@{Shader}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{Shader()}{Shader()}}
+{\footnotesize\ttfamily \label{class_shader_a3e135bbf914b087a939114d79c10d283} 
+Shader\+::\+Shader (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{vertex\+Path}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fragment\+Path}{}\end{DoxyParamCaption})}
+
+
+
+Konstruktor klasy \doxylink{class_shader}{Shader}. 
+
+Ładuje i kompiluje shadery z podanych ścieżek do plików źródłowych.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex\+Path} & Ścieżka do pliku z kodem źródłowym vertex shadera. \\
+\hline
+{\em fragment\+Path} & Ścieżka do pliku z kodem źródłowym fragment shadera. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_shader_ab1a56d6c299bd7eaa18c2e142ef7bd9f}\index{Shader@{Shader}!setBool@{setBool}}
+\index{setBool@{setBool}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setBool()}{setBool()}}
+{\footnotesize\ttfamily \label{class_shader_ab1a56d6c299bd7eaa18c2e142ef7bd9f} 
+void Shader\+::set\+Bool (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{bool}]{value}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu bool w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em value} & Wartość logiczna do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_afe7367621f74c2d26431d8ac15252bf3}\index{Shader@{Shader}!setFloat@{setFloat}}
+\index{setFloat@{setFloat}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setFloat()}{setFloat()}}
+{\footnotesize\ttfamily \label{class_shader_afe7367621f74c2d26431d8ac15252bf3} 
+void Shader\+::set\+Float (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{float}]{value}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu float w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em value} & Wartość zmiennoprzecinkowa do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_ad362e2b654cd95a3574cd505411e41fd}\index{Shader@{Shader}!setInt@{setInt}}
+\index{setInt@{setInt}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setInt()}{setInt()}}
+{\footnotesize\ttfamily \label{class_shader_ad362e2b654cd95a3574cd505411e41fd} 
+void Shader\+::set\+Int (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{int}]{value}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu int w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em value} & Wartość całkowita do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_a91a6ee79b959cacd618c9e29a5bbd732}\index{Shader@{Shader}!setMat2@{setMat2}}
+\index{setMat2@{setMat2}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setMat2()}{setMat2()}}
+{\footnotesize\ttfamily \label{class_shader_a91a6ee79b959cacd618c9e29a5bbd732} 
+void Shader\+::set\+Mat2 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{const glm\+::mat2 \&}]{mat}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu mat2 w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em mat} & Macierz 2x2 (glm\+::mat2) do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_a3e24fcad187493dfebaa12939072e91d}\index{Shader@{Shader}!setMat3@{setMat3}}
+\index{setMat3@{setMat3}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setMat3()}{setMat3()}}
+{\footnotesize\ttfamily \label{class_shader_a3e24fcad187493dfebaa12939072e91d} 
+void Shader\+::set\+Mat3 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{const glm\+::mat3 \&}]{mat}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu mat3 w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em mat} & Macierz 3x3 (glm\+::mat3) do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_a8e711c96f3e1722cbfb88fde9478977c}\index{Shader@{Shader}!setMat4@{setMat4}}
+\index{setMat4@{setMat4}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setMat4()}{setMat4()}}
+{\footnotesize\ttfamily \label{class_shader_a8e711c96f3e1722cbfb88fde9478977c} 
+void Shader\+::set\+Mat4 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{const glm\+::mat4 \&}]{mat}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu mat4 w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em mat} & Macierz 4x4 (glm\+::mat4) do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_afd4d41322a1cdd1d5155bf124d19debf}\index{Shader@{Shader}!setVec2@{setVec2}}
+\index{setVec2@{setVec2}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setVec2()}{setVec2()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_shader_afd4d41322a1cdd1d5155bf124d19debf} 
+void Shader\+::set\+Vec2 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{const glm\+::vec2 \&}]{value}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu vec2 w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em value} & Wektor 2-\/elementowy glm\+::vec2 do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_afb91bc9e954bf590857c96ab1331b0ec}\index{Shader@{Shader}!setVec2@{setVec2}}
+\index{setVec2@{setVec2}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setVec2()}{setVec2()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_shader_afb91bc9e954bf590857c96ab1331b0ec} 
+void Shader\+::set\+Vec2 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu vec2 w shaderze przy użyciu osobnych komponentów. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em x} & Wartość składowej X. \\
+\hline
+{\em y} & Wartość składowej Y. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_aeb021061c5d451329d92257b07dbfec3}\index{Shader@{Shader}!setVec3@{setVec3}}
+\index{setVec3@{setVec3}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setVec3()}{setVec3()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_shader_aeb021061c5d451329d92257b07dbfec3} 
+void Shader\+::set\+Vec3 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{const glm\+::vec3 \&}]{value}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu vec3 w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em value} & Wektor 3-\/elementowy glm\+::vec3 do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_a90092c25b7dc23964c465b93887300f9}\index{Shader@{Shader}!setVec3@{setVec3}}
+\index{setVec3@{setVec3}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setVec3()}{setVec3()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_shader_a90092c25b7dc23964c465b93887300f9} 
+void Shader\+::set\+Vec3 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{z}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu vec3 w shaderze przy użyciu osobnych komponentów. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em x} & Wartość składowej X. \\
+\hline
+{\em y} & Wartość składowej Y. \\
+\hline
+{\em z} & Wartość składowej Z. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_a79cbe674f6bf1a576a48045dcb924de5}\index{Shader@{Shader}!setVec4@{setVec4}}
+\index{setVec4@{setVec4}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setVec4()}{setVec4()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_shader_a79cbe674f6bf1a576a48045dcb924de5} 
+void Shader\+::set\+Vec4 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{const glm\+::vec4 \&}]{value}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu vec4 w shaderze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em value} & Wektor 4-\/elementowy glm\+::vec4 do ustawienia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_ad7906b3a47e6f2d62ec79f4c871aadb1}\index{Shader@{Shader}!setVec4@{setVec4}}
+\index{setVec4@{setVec4}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{setVec4()}{setVec4()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_shader_ad7906b3a47e6f2d62ec79f4c871aadb1} 
+void Shader\+::set\+Vec4 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{z}{, }\item[{float}]{w}{}\end{DoxyParamCaption}) const}
+
+
+
+Ustawia uniform typu vec4 w shaderze przy użyciu osobnych komponentów. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Nazwa uniformu w shaderze. \\
+\hline
+{\em x} & Wartość składowej X. \\
+\hline
+{\em y} & Wartość składowej Y. \\
+\hline
+{\em z} & Wartość składowej Z. \\
+\hline
+{\em w} & Wartość składowej W. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_shader_a3c7896754f0e1fca8bde860cfef63832}\index{Shader@{Shader}!use@{use}}
+\index{use@{use}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{use()}{use()}}
+{\footnotesize\ttfamily \label{class_shader_a3c7896754f0e1fca8bde860cfef63832} 
+void Shader\+::use (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Aktywuje program shaderów. 
+
+Ustawia program shaderów jako aktywny, aby mógł być używany przy renderowaniu. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Renderer/Shader.\+h\item 
+src/lib/\+Renderer/Shader.\+cpp\end{DoxyCompactItemize}

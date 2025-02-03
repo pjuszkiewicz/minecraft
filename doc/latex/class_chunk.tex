@@ -1,0 +1,107 @@
+\doxysection{Chunk Class Reference}
+\hypertarget{class_chunk}{}\label{class_chunk}\index{Chunk@{Chunk}}
+
+
+Klasa reprezentująca pojedynczy chunk w świecie gry.  
+
+
+
+
+{\ttfamily \#include $<$Chunk.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_chunk_acc32e1562cad6664c98ee07edecdbdf9}\label{class_chunk_acc32e1562cad6664c98ee07edecdbdf9} 
+{\bfseries Chunk} ()
+\begin{DoxyCompactList}\small\item\em Konstruktor domyślny inicjalizujący chunk na pozycji (0,0). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_chunk_a96425e894d54461b1c21efebd3f1aac8}{Chunk}} (float \mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}}, float z)
+\begin{DoxyCompactList}\small\item\em Konstruktor inicjalizujący chunk na określonych współrzędnych. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_block}{Block}} \mbox{\hyperlink{class_chunk_a710cdf39d751fb31c692756247d79f56}{get\+Block}} (int \mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}}, int y, int z) const
+\begin{DoxyCompactList}\small\item\em Zwraca blok na podanych współrzędnych w chunku. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_block}{Block}} \mbox{\hyperlink{class_chunk_a65547d031f69ecc94ce39cdd4d06a899}{get\+Block}} (glm\+::vec3 pos) const
+\begin{DoxyCompactList}\small\item\em Zwraca blok na podstawie wektora pozycji w chunku. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}\label{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd} 
+float {\bfseries x}
+\begin{DoxyCompactList}\small\item\em Pozycja chunku w świecie (współrzędne X i Z). \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_a9c53c1a762d021b8e246814b6824e8ee}\label{class_chunk_a9c53c1a762d021b8e246814b6824e8ee} 
+float {\bfseries z}
+\item 
+\Hypertarget{class_chunk_a6ad25021e97cfc95a4f691fd2b0faca1}\label{class_chunk_a6ad25021e97cfc95a4f691fd2b0faca1} 
+\mbox{\hyperlink{class_block}{Block}} {\bfseries blocks} \mbox{[}CHUNK\+\_\+\+WIDTH\mbox{]}\mbox{[}CHUNK\+\_\+\+HEIGHT\mbox{]}\mbox{[}CHUNK\+\_\+\+WIDTH\mbox{]}
+\begin{DoxyCompactList}\small\item\em Tablica przechowująca bloki w chunku. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa reprezentująca pojedynczy chunk w świecie gry. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_chunk_a96425e894d54461b1c21efebd3f1aac8}\index{Chunk@{Chunk}!Chunk@{Chunk}}
+\index{Chunk@{Chunk}!Chunk@{Chunk}}
+\doxysubsubsection{\texorpdfstring{Chunk()}{Chunk()}}
+{\footnotesize\ttfamily \label{class_chunk_a96425e894d54461b1c21efebd3f1aac8} 
+Chunk\+::\+Chunk (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{z}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor inicjalizujący chunk na określonych współrzędnych. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Współrzędna X chunku. \\
+\hline
+{\em z} & Współrzędna Z chunku. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_chunk_a65547d031f69ecc94ce39cdd4d06a899}\index{Chunk@{Chunk}!getBlock@{getBlock}}
+\index{getBlock@{getBlock}!Chunk@{Chunk}}
+\doxysubsubsection{\texorpdfstring{getBlock()}{getBlock()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_chunk_a65547d031f69ecc94ce39cdd4d06a899} 
+\mbox{\hyperlink{class_block}{Block}} Chunk\+::get\+Block (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{pos}{}\end{DoxyParamCaption}) const}
+
+
+
+Zwraca blok na podstawie wektora pozycji w chunku. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Wektor pozycji bloku w chunku. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{class_block}{Block} Blok znajdujący się na podanej pozycji. 
+\end{DoxyReturn}
+\Hypertarget{class_chunk_a710cdf39d751fb31c692756247d79f56}\index{Chunk@{Chunk}!getBlock@{getBlock}}
+\index{getBlock@{getBlock}!Chunk@{Chunk}}
+\doxysubsubsection{\texorpdfstring{getBlock()}{getBlock()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_chunk_a710cdf39d751fb31c692756247d79f56} 
+\mbox{\hyperlink{class_block}{Block}} Chunk\+::get\+Block (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{int}]{z}{}\end{DoxyParamCaption}) const}
+
+
+
+Zwraca blok na podanych współrzędnych w chunku. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Współrzędna X bloku w chunku. \\
+\hline
+{\em y} & Współrzędna Y bloku w chunku. \\
+\hline
+{\em z} & Współrzędna Z bloku w chunku. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{class_block}{Block} Blok znajdujący się na podanej pozycji. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+World/Chunk.\+h\item 
+src/lib/\+World/Chunk.\+cpp\end{DoxyCompactItemize}

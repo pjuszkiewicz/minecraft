@@ -1,0 +1,78 @@
+\doxysection{Block.\+h}
+\hypertarget{_block_8h_source}{}\label{_block_8h_source}\index{src/lib/World/Block.h@{src/lib/World/Block.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ BLOCK\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BLOCK\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{enum}\ BlockType\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ AIR,}
+\DoxyCodeLine{00009\ \ \ \ \ DIRT,}
+\DoxyCodeLine{00010\ \ \ \ \ DIAMOND,}
+\DoxyCodeLine{00011\ \ \ \ \ ACACIA\_PLANKS,}
+\DoxyCodeLine{00012\ \ \ \ \ ACACIA\_WOOD,}
+\DoxyCodeLine{00013\ \ \ \ \ BRICKS,}
+\DoxyCodeLine{00014\ \ \ \ \ STONE,}
+\DoxyCodeLine{00015\ \ \ \ \ AZALEA\_LEAVES}
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{enum}\ Face\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ FRONT\_FACE,}
+\DoxyCodeLine{00020\ \ \ \ \ BACK\_FACE,}
+\DoxyCodeLine{00021\ \ \ \ \ LEFT\_FACE,}
+\DoxyCodeLine{00022\ \ \ \ \ RIGHT\_FACE,}
+\DoxyCodeLine{00023\ \ \ \ \ TOP\_FACE,}
+\DoxyCodeLine{00024\ \ \ \ \ BOTTOM\_FACE}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_block_a37658a946bf5067ad01d68d9ff086adc}{Block}}\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ glm::vec3\ \mbox{\hyperlink{class_block_ac8849b871d5c0abfdc9800fb3a05dbc8}{position}};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00034\ \ \ \ \ BlockType\ \mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_block_a37658a946bf5067ad01d68d9ff086adc}{Block}}()\ :\ \mbox{\hyperlink{class_block_ac8849b871d5c0abfdc9800fb3a05dbc8}{position}}(glm::vec3(0.0f,\ 0.0f,\ 0.0f)),\ \mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}(AIR)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_block_a9d0a255bca0b72a286d8dadc66349b58}{Block}}(BlockType\ \mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}})\ :\ \mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}(\mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}),\ \mbox{\hyperlink{class_block_ac8849b871d5c0abfdc9800fb3a05dbc8}{position}}(glm::vec3(0.0f,\ 0.0f,\ 0.0f))\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_block_a1b72f30f0c60be78b622075256e879f5}{Block}}(\textcolor{keyword}{const}\ BlockType\ \mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}},\ glm::vec3\ \mbox{\hyperlink{class_block_ac8849b871d5c0abfdc9800fb3a05dbc8}{position}})\ :\ \mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}(\mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}),\ \mbox{\hyperlink{class_block_ac8849b871d5c0abfdc9800fb3a05dbc8}{position}}(\mbox{\hyperlink{class_block_ac8849b871d5c0abfdc9800fb3a05dbc8}{position}})\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00058\ \ \ \ \ std::pair<int,\ int>\ \mbox{\hyperlink{class_block_ae2a49180efd4cbe9aa3f0338ba9a2f69}{getTextureCoords}}(Face\ face\ =\ FRONT\_FACE,\ \textcolor{keywordtype}{bool}\ isTopColliding\ =\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}\ ==\ ACACIA\_PLANKS)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(3,\ 8);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}\ ==\ ACACIA\_WOOD)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(4,\ 8);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}\ ==\ AZALEA\_LEAVES)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(7,\ 8);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}\ ==\ STONE)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(6,\ 8);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_block_a5a9ca25a0a1e718944de014be72554cc}{type}}\ ==\ DIRT)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (face\ ==\ BOTTOM\_FACE)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(0,\ 8);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (face\ !=\ TOP\_FACE)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isTopColliding)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(0,\ 8);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(1,\ 8);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::pair<int,\ int>(2,\ 8);}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

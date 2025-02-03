@@ -1,0 +1,45 @@
+\doxysection{World\+Object.\+h}
+\hypertarget{_world_object_8h_source}{}\label{_world_object_8h_source}\index{src/lib/GameObjects/WorldObject.h@{src/lib/GameObjects/WorldObject.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Piotr\ Juszkiewicz\ on\ 28/01/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ WORLDOBJECT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ WORLDOBJECT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Game/GameObject.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../../lib/Map/PairHash.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Meshes/ChunkMesh.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../Meshes/ChunkBuilder.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_chunk_builder}{ChunkBuilder}};}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_chunk_mesh}{ChunkMesh}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_world_object_a632d2e78acdcbc0aef09951134340d4e}{WorldObject}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_game_object}{GameObject}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ std::unordered\_map<std::pair<int,\ int>,\ \mbox{\hyperlink{class_chunk_mesh}{ChunkMesh}},\ \mbox{\hyperlink{struct_pair_hash}{PairHash}}>\ chunkMeshes;\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_world_object_a12e59879d9dfc8590b61cd1d2247fa03}{isReadyToAdd}}\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<ChunkBuilder>\ \mbox{\hyperlink{class_world_object_a8bb44f2ee3c168ac52d0027822ed9ac9}{chunksToAdd}};\ }
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<std::pair<int,\ int>\ >\ \mbox{\hyperlink{class_world_object_aff6ded18af179eb211c02abc2eaf91bd}{chunksToRemove}};\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_world_object_a632d2e78acdcbc0aef09951134340d4e}{WorldObject}}();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_world_object_a632d2e78acdcbc0aef09951134340d4e}{\string~WorldObject}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_object_a43b1c7d7090ea66cd4d5119456d4b686}{Draw}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_object_a0f26ab8997aa528a4274f042f5f49719}{Update}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_object_a7673ca43b6cbf13d097288e46e698f23}{AddChunk}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_world_object_a0f22292f0128f713cce5522d5c1bf0d3}{RemoveChunks}}();}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//WORLDOBJECT\_H}}
+
+\end{DoxyCode}

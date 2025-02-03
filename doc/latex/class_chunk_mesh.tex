@@ -1,0 +1,74 @@
+\doxysection{Chunk\+Mesh Class Reference}
+\hypertarget{class_chunk_mesh}{}\label{class_chunk_mesh}\index{ChunkMesh@{ChunkMesh}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_chunk_mesh_a04b657ac9528e6b2495063caef86d615}{Chunk\+Mesh}} ()
+\begin{DoxyCompactList}\small\item\em Kordynat Z chunku. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_chunk_mesh_af506cf208bcb1003b97353a8733a5b20}{Chunk\+Mesh}} (int \mbox{\hyperlink{class_chunk_mesh_a67528fc73432e34f100c2ea5e0339f5e}{chunkX}}, int \mbox{\hyperlink{class_chunk_mesh_a36991f0435a334476157f366ae614b9b}{chunkZ}})
+\item 
+\Hypertarget{class_chunk_mesh_adcf392cd37521de888b0ed0bb7b093b5}\label{class_chunk_mesh_adcf392cd37521de888b0ed0bb7b093b5} 
+void {\bfseries draw} () const
+\begin{DoxyCompactList}\small\item\em Rysuje ściany. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_mesh_a0d46e4b69086fc89d50f6c535eb06915}\label{class_chunk_mesh_a0d46e4b69086fc89d50f6c535eb06915} 
+void {\bfseries update\+Buffers} () const
+\begin{DoxyCompactList}\small\item\em Aktualizuje bufory pozycji, tekstury. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_chunk_mesh_a70ecf603e4db6ebdf79a10caf8ac316d}\label{class_chunk_mesh_a70ecf603e4db6ebdf79a10caf8ac316d} 
+unsigned int {\bfseries vbo}
+\item 
+\Hypertarget{class_chunk_mesh_a9ee9b42002dd79b8b07647ab783984fe}\label{class_chunk_mesh_a9ee9b42002dd79b8b07647ab783984fe} 
+unsigned int {\bfseries instance\+VBO}
+\item 
+\Hypertarget{class_chunk_mesh_af157eb6b01a6575c04f79cc42a827c18}\label{class_chunk_mesh_af157eb6b01a6575c04f79cc42a827c18} 
+unsigned int {\bfseries texture\+VBO}
+\item 
+\Hypertarget{class_chunk_mesh_a248914cf9aaccd722a413d4bb808750d}\label{class_chunk_mesh_a248914cf9aaccd722a413d4bb808750d} 
+std\+::vector$<$ glm\+::mat4 $>$ \texorpdfstring{$\ast$}{*} {\bfseries positions}
+\begin{DoxyCompactList}\small\item\em Bufory pozycji, instancji i tekstury. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_mesh_ac31f15b765f0da13100b31fc23641872}\label{class_chunk_mesh_ac31f15b765f0da13100b31fc23641872} 
+std\+::vector$<$ glm\+::vec2 $>$ \texorpdfstring{$\ast$}{*} {\bfseries textures}
+\begin{DoxyCompactList}\small\item\em Pozycje ścian. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_mesh_a049dfb617479722494cd2e4ec9cb8aa6}\label{class_chunk_mesh_a049dfb617479722494cd2e4ec9cb8aa6} 
+unsigned int {\bfseries VAO}
+\begin{DoxyCompactList}\small\item\em Tekstury ścian. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_mesh_a67528fc73432e34f100c2ea5e0339f5e}\label{class_chunk_mesh_a67528fc73432e34f100c2ea5e0339f5e} 
+int {\bfseries chunkX}
+\begin{DoxyCompactList}\small\item\em Bufor łączący VBO. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_mesh_a36991f0435a334476157f366ae614b9b}\label{class_chunk_mesh_a36991f0435a334476157f366ae614b9b} 
+int {\bfseries chunkZ}
+\begin{DoxyCompactList}\small\item\em Kordynat X chunku. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_chunk_mesh_a04b657ac9528e6b2495063caef86d615}\index{ChunkMesh@{ChunkMesh}!ChunkMesh@{ChunkMesh}}
+\index{ChunkMesh@{ChunkMesh}!ChunkMesh@{ChunkMesh}}
+\doxysubsubsection{\texorpdfstring{ChunkMesh()}{ChunkMesh()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_chunk_mesh_a04b657ac9528e6b2495063caef86d615} 
+Chunk\+Mesh\+::\+Chunk\+Mesh (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Kordynat Z chunku. 
+
+Tworzy bufory i wektory \Hypertarget{class_chunk_mesh_af506cf208bcb1003b97353a8733a5b20}\index{ChunkMesh@{ChunkMesh}!ChunkMesh@{ChunkMesh}}
+\index{ChunkMesh@{ChunkMesh}!ChunkMesh@{ChunkMesh}}
+\doxysubsubsection{\texorpdfstring{ChunkMesh()}{ChunkMesh()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_chunk_mesh_af506cf208bcb1003b97353a8733a5b20} 
+Chunk\+Mesh\+::\+Chunk\+Mesh (\begin{DoxyParamCaption}\item[{int}]{chunkX}{, }\item[{int}]{chunkZ}{}\end{DoxyParamCaption})}
+
+Tworzy bufory i wektory 
+\begin{DoxyParams}{Parameters}
+{\em chunkX} & kordynat X chunku \\
+\hline
+{\em chunkZ} & kordynat Z chunku \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Meshes/Chunk\+Mesh.\+h\item 
+src/lib/\+Meshes/Chunk\+Mesh.\+cpp\end{DoxyCompactItemize}

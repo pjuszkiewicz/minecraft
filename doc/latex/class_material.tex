@@ -1,0 +1,114 @@
+\doxysection{Material Class Reference}
+\hypertarget{class_material}{}\label{class_material}\index{Material@{Material}}
+Inheritance diagram for Material\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_material}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_material_a255ba20d0325e6b78ff68ac739df40de}\label{class_material_a255ba20d0325e6b78ff68ac739df40de} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Material} ()=default
+\begin{DoxyCompactList}\small\item\em Destruktor wirtualny klasy \doxylink{class_material}{Material}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_material_a137e987401b63eb7c6c27c3e38bc74b5}{Material}} ()
+\begin{DoxyCompactList}\small\item\em Konstruktor domyślny. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_material_a3566d632b982647dfc58d77980de06c3}{Material}} (\mbox{\hyperlink{class_shader}{Shader}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}, \mbox{\hyperlink{class_texture}{Texture}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_material_ad151148dc3460f25435e951786171350}{texture}})
+\begin{DoxyCompactList}\small\item\em Konstruktor inicjujący material. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_material_aca85a92405e4d8b53793a899e0ba3fe5}{Use}} (int texture\+Unit)
+\begin{DoxyCompactList}\small\item\em Binduje material i teksturę w Open\+GL. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_material_a7a1acf55031d8be0f3264db692f21a7c}{Update\+Projection}} (glm\+::mat4 \&projection, glm\+::mat4 \&view, const glm\+::vec3 \&pos)=0
+\begin{DoxyCompactList}\small\item\em Aktualizuje projekcję. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}\label{class_material_abaac6082ee6cf042b2d4da4f6e6fe403} 
+\mbox{\hyperlink{class_shader}{Shader}} \texorpdfstring{$\ast$}{*} {\bfseries shader}
+\begin{DoxyCompactList}\small\item\em Wskaźnik na shader używany przez material. \end{DoxyCompactList}\item 
+\Hypertarget{class_material_ad151148dc3460f25435e951786171350}\label{class_material_ad151148dc3460f25435e951786171350} 
+\mbox{\hyperlink{class_texture}{Texture}} \texorpdfstring{$\ast$}{*} {\bfseries texture}
+\begin{DoxyCompactList}\small\item\em Wskaźnik na teksturę używaną przez material. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_material_a137e987401b63eb7c6c27c3e38bc74b5}\index{Material@{Material}!Material@{Material}}
+\index{Material@{Material}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{Material()}{Material()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_material_a137e987401b63eb7c6c27c3e38bc74b5} 
+Material\+::\+Material (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Konstruktor domyślny. 
+
+Ustawia wskaźniki shader oraz texture na nullptr. \Hypertarget{class_material_a3566d632b982647dfc58d77980de06c3}\index{Material@{Material}!Material@{Material}}
+\index{Material@{Material}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{Material()}{Material()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_material_a3566d632b982647dfc58d77980de06c3} 
+Material\+::\+Material (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_shader}{Shader}} \texorpdfstring{$\ast$}{*}}]{shader}{, }\item[{\mbox{\hyperlink{class_texture}{Texture}} \texorpdfstring{$\ast$}{*}}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Konstruktor inicjujący material. 
+
+Przypisuje przekazany shader oraz texture do obiektu.
+
+
+\begin{DoxyParams}{Parameters}
+{\em shader} & Wskaźnik na shader, który ma być przypisany. \\
+\hline
+{\em texture} & Wskaźnik na teksturę, która ma być przypisana. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_material_a7a1acf55031d8be0f3264db692f21a7c}\index{Material@{Material}!UpdateProjection@{UpdateProjection}}
+\index{UpdateProjection@{UpdateProjection}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{UpdateProjection()}{UpdateProjection()}}
+{\footnotesize\ttfamily \label{class_material_a7a1acf55031d8be0f3264db692f21a7c} 
+virtual void Material\+::\+Update\+Projection (\begin{DoxyParamCaption}\item[{glm\+::mat4 \&}]{projection}{, }\item[{glm\+::mat4 \&}]{view}{, }\item[{const glm\+::vec3 \&}]{pos}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Aktualizuje projekcję. 
+
+Funkcja czysto wirtualna, która powinna być implementowana w klasach pochodnych. Uaktualnia macierze projekcji i widoku oraz uwzględnia pozycję.
+
+
+\begin{DoxyParams}{Parameters}
+{\em projection} & Referencja do macierzy projekcji. \\
+\hline
+{\em view} & Referencja do macierzy widoku. \\
+\hline
+{\em pos} & Pozycja, która ma być uwzględniona przy aktualizacji. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_crosshair_material_afbf628764fbc129839bfc9a74e93c44e}{Crosshair\+Material}}, \mbox{\hyperlink{class_sun_and_moon_material_ad13ada3ad26b471fe4bc65d73d763a51}{Sun\+And\+Moon\+Material}}, and \mbox{\hyperlink{class_world_material_afa517a0967323378d86f4f6bdb6a40ad}{World\+Material}}.
+
+\Hypertarget{class_material_aca85a92405e4d8b53793a899e0ba3fe5}\index{Material@{Material}!Use@{Use}}
+\index{Use@{Use}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{Use()}{Use()}}
+{\footnotesize\ttfamily \label{class_material_aca85a92405e4d8b53793a899e0ba3fe5} 
+void Material\+::\+Use (\begin{DoxyParamCaption}\item[{int}]{texture\+Unit}{}\end{DoxyParamCaption})}
+
+
+
+Binduje material i teksturę w Open\+GL. 
+
+Aktywuje shader i wiąże teksturę z określonym jednostką tekstur.
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture\+Unit} & Numer jednostki tekstur, do której ma być przypięta tekstura. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Renderer/Material.\+h\item 
+src/lib/\+Renderer/Material.\+cpp\end{DoxyCompactItemize}

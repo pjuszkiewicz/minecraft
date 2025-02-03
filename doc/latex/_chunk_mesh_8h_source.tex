@@ -1,0 +1,39 @@
+\doxysection{Chunk\+Mesh.\+h}
+\hypertarget{_chunk_mesh_8h_source}{}\label{_chunk_mesh_8h_source}\index{src/lib/Meshes/ChunkMesh.h@{src/lib/Meshes/ChunkMesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ INSTANCED\_MESH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ INSTANCED\_MESH\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <glm/gtc/matrix\_transform.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <glm/gtc/type\_ptr.hpp>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Renderer/Texture.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../../lib/World/Chunk.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_chunk_mesh_a04b657ac9528e6b2495063caef86d615}{ChunkMesh}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vbo,\ instanceVBO,\ textureVBO;\ }
+\DoxyCodeLine{00017\ \ \ \ \ std::vector<glm::mat4>\ *\mbox{\hyperlink{class_chunk_mesh_a248914cf9aaccd722a413d4bb808750d}{positions}};\ }
+\DoxyCodeLine{00018\ \ \ \ \ std::vector<glm::vec2>\ *\mbox{\hyperlink{class_chunk_mesh_ac31f15b765f0da13100b31fc23641872}{textures}};\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_chunk_mesh_a049dfb617479722494cd2e4ec9cb8aa6}{VAO}};\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_chunk_mesh_a67528fc73432e34f100c2ea5e0339f5e}{chunkX}};\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_chunk_mesh_a36991f0435a334476157f366ae614b9b}{chunkZ}};\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_chunk_mesh_a04b657ac9528e6b2495063caef86d615}{ChunkMesh}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_chunk_mesh_a04b657ac9528e6b2495063caef86d615}{ChunkMesh}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_chunk_mesh_a67528fc73432e34f100c2ea5e0339f5e}{chunkX}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_chunk_mesh_a36991f0435a334476157f366ae614b9b}{chunkZ}});}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_chunk_mesh_adcf392cd37521de888b0ed0bb7b093b5}{draw}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_chunk_mesh_a0d46e4b69086fc89d50f6c535eb06915}{updateBuffers}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

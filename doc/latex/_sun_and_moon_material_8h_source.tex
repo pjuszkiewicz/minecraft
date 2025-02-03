@@ -1,0 +1,35 @@
+\doxysection{Sun\+And\+Moon\+Material.\+h}
+\hypertarget{_sun_and_moon_material_8h_source}{}\label{_sun_and_moon_material_8h_source}\index{src/lib/Materials/SunAndMoonMaterial.h@{src/lib/Materials/SunAndMoonMaterial.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ piotr\ on\ 17.01.25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SUNANDMOONMATERIAL\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SUNANDMOONMATERIAL\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Renderer/Material.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Constants.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Utils/AssetsManager.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sun_and_moon_material_a3fb759beb7ba24645139ca4d07bec765}{SunAndMoonMaterial}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_material_a137e987401b63eb7c6c27c3e38bc74b5}{Material}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_sun_and_moon_material_a3fb759beb7ba24645139ca4d07bec765}{SunAndMoonMaterial}}()\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::string\ path\ =\ \mbox{\hyperlink{class_assets_manager_ad1c2f1827b35292bfba77271a77c24ac}{AssetsManager::GetAssetsPath}}();}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ std::string\ vertexPath\ =\ path\ +\ \textcolor{stringliteral}{"{}/shaders/example/vertex.vs"{}};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ std::string\ fragmentPath\ =\ path\ +\ \textcolor{stringliteral}{"{}/shaders/example/fragment.fs"{}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ =\ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_shader}{Shader}}(vertexPath.c\_str(),\ fragmentPath.c\_str());}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sun_and_moon_material_ad13ada3ad26b471fe4bc65d73d763a51}{UpdateProjection}}(glm::mat4\ \&projection,\ glm::mat4\ \&view,\ \textcolor{keyword}{const}\ glm::vec3\ \&pos)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>use();}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>setMat4(\textcolor{stringliteral}{"{}projection"{}},\ projection);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>setMat4(\textcolor{stringliteral}{"{}view"{}},\ view);}
+\DoxyCodeLine{00031\ \ \ \ \ \};}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SUNANDMOONMATERIAL\_H}}
+
+\end{DoxyCode}

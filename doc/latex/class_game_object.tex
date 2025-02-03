@@ -1,0 +1,81 @@
+\doxysection{Game\+Object Class Reference}
+\hypertarget{class_game_object}{}\label{class_game_object}\index{GameObject@{GameObject}}
+
+
+Objekt gry który ma swój mesh oraz material, można go narysować.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Object.\+h$>$}
+
+Inheritance diagram for Game\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_game_object}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_game_object_a29a665f46fda87982825bc5c0ca6a888}{Draw}} ()=0
+\begin{DoxyCompactList}\small\item\em Rysuje objekt. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_game_object_a7f5c1336131d246a1e4ec9047996cab8}{Update}} ()=0
+\begin{DoxyCompactList}\small\item\em Aktualizuje dane dla objektu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_object_a0e6d84d37ec029b427cf7de38601164c}\label{class_game_object_a0e6d84d37ec029b427cf7de38601164c} 
+glm\+::vec3 {\bfseries Position}
+\item 
+\Hypertarget{class_game_object_a1beab2b3179baba361c954670b013684}\label{class_game_object_a1beab2b3179baba361c954670b013684} 
+glm\+::vec3 {\bfseries Rotation}
+\item 
+\Hypertarget{class_game_object_ad23918bce0f84cf867b5b95c2f4542ef}\label{class_game_object_ad23918bce0f84cf867b5b95c2f4542ef} 
+glm\+::vec3 {\bfseries Scale}
+\item 
+\Hypertarget{class_game_object_ae96b21c69e34f42fbe118f526331a701}\label{class_game_object_ae96b21c69e34f42fbe118f526331a701} 
+\mbox{\hyperlink{class_material}{Material}} \texorpdfstring{$\ast$}{*} {\bfseries material}
+\item 
+\Hypertarget{class_game_object_ab71d151ed20c6cf0132bffd347903608}\label{class_game_object_ab71d151ed20c6cf0132bffd347903608} 
+\mbox{\hyperlink{class_mesh}{Mesh}} {\bfseries mesh}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Objekt gry który ma swój mesh oraz material, można go narysować. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_game_object_a29a665f46fda87982825bc5c0ca6a888}\index{GameObject@{GameObject}!Draw@{Draw}}
+\index{Draw@{Draw}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_game_object_a29a665f46fda87982825bc5c0ca6a888} 
+virtual void Game\+Object\+::\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Rysuje objekt. 
+
+
+
+Implemented in \mbox{\hyperlink{class_crosshair_object_ae02281fc8d946f93512a09b97f1f4320}{Crosshair\+Object}}, \mbox{\hyperlink{class_sun_and_moon_a8f0d3d536479296e7b3dfb90c470f276}{Sun\+And\+Moon}}, and \mbox{\hyperlink{class_world_object_a43b1c7d7090ea66cd4d5119456d4b686}{World\+Object}}.
+
+\Hypertarget{class_game_object_a7f5c1336131d246a1e4ec9047996cab8}\index{GameObject@{GameObject}!Update@{Update}}
+\index{Update@{Update}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_game_object_a7f5c1336131d246a1e4ec9047996cab8} 
+virtual void Game\+Object\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Aktualizuje dane dla objektu. 
+
+
+
+Implemented in \mbox{\hyperlink{class_crosshair_object_a97845f8a1f29fda30b6b76fe231e44b0}{Crosshair\+Object}}, \mbox{\hyperlink{class_sun_and_moon_abc9871ae173eb2b2c3155cf111236d71}{Sun\+And\+Moon}}, and \mbox{\hyperlink{class_world_object_a0f26ab8997aa528a4274f042f5f49719}{World\+Object}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Game/Game\+Object.\+h\end{DoxyCompactItemize}

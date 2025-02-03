@@ -1,0 +1,170 @@
+\doxysection{Chunk\+Builder Class Reference}
+\hypertarget{class_chunk_builder}{}\label{class_chunk_builder}\index{ChunkBuilder@{ChunkBuilder}}
+
+
+Buduje meshe chunków.  
+
+
+
+
+{\ttfamily \#include $<$Chunk\+Builder.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_chunk_builder_ac385d73ba91d01896e066465a62b0e15}{Chunk\+Builder}} (const \mbox{\hyperlink{class_chunk}{Chunk}} \&\mbox{\hyperlink{class_chunk_builder_afb72ffc33e1ac1da9c661cb49251ac81}{chunk}}, \mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_chunk_builder_a654b4a21416a9a6895821ea86b29d869}{forward}}, \mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_chunk_builder_a0ff8e69d498d85c9d983fd579b08a729}{back}}, \mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_chunk_builder_a9d919701da667c86fe52432a590bbee3}{left}}, \mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_chunk_builder_a7fa59e9f9a793f9625f151dfcc73378a}{right}})
+\begin{DoxyCompactList}\small\item\em \doxylink{class_chunk}{Chunk} z prawej. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_builder_a03ad8577b122b917c90dc7fddf8901c8}\label{class_chunk_builder_a03ad8577b122b917c90dc7fddf8901c8} 
+void {\bfseries update\+Chunk} ()
+\begin{DoxyCompactList}\small\item\em Aktualizuje każdy blok. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_builder_a99382f0025a87ce74092257435270071}\label{class_chunk_builder_a99382f0025a87ce74092257435270071} 
+void {\bfseries update\+Block} (const \mbox{\hyperlink{class_chunk}{Chunk}} \&\mbox{\hyperlink{class_chunk_builder_afb72ffc33e1ac1da9c661cb49251ac81}{chunk}}, int x, int y, int z)
+\begin{DoxyCompactList}\small\item\em Sprawdza które ściany należy rysować \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_chunk_builder_a3cd1bb270adf7d46fec8a23eec1f86fb}{add\+Top\+Face}} (\mbox{\hyperlink{class_block}{Block}} block)
+\item 
+void \mbox{\hyperlink{class_chunk_builder_a5ed2fe63fa147c0055bdda573af3b84e}{add\+Bottom\+Face}} (\mbox{\hyperlink{class_block}{Block}} block)
+\item 
+void \mbox{\hyperlink{class_chunk_builder_ac73c2d503467809cbf6d6f0959e03476}{add\+Left\+Face}} (\mbox{\hyperlink{class_block}{Block}} block, bool is\+Top\+Colliding) const
+\item 
+void \mbox{\hyperlink{class_chunk_builder_a2317729906976b32ffae8ca036503a9a}{add\+Right\+Face}} (\mbox{\hyperlink{class_block}{Block}} block, bool is\+Top\+Colliding) const
+\item 
+void \mbox{\hyperlink{class_chunk_builder_a578795a44ff4c27f309e19ebd0fe2b16}{add\+Front\+Face}} (\mbox{\hyperlink{class_block}{Block}} block, bool is\+Top\+Colliding) const
+\item 
+void \mbox{\hyperlink{class_chunk_builder_aef5a137881fa2fa3e7e93ce92be6543f}{add\+Back\+Face}} (\mbox{\hyperlink{class_block}{Block}} block, bool is\+Top\+Colliding)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_chunk_builder_a50deaddd912971a2ec24be9cbc9a152f}\label{class_chunk_builder_a50deaddd912971a2ec24be9cbc9a152f} 
+std\+::vector$<$ glm\+::mat4 $>$ \texorpdfstring{$\ast$}{*} {\bfseries positions}
+\item 
+\Hypertarget{class_chunk_builder_a884924cf6ceeb9bb170f719ee9dd48ae}\label{class_chunk_builder_a884924cf6ceeb9bb170f719ee9dd48ae} 
+std\+::vector$<$ glm\+::vec2 $>$ \texorpdfstring{$\ast$}{*} {\bfseries textures}
+\begin{DoxyCompactList}\small\item\em Macierze pozycji instancji ścian. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_builder_afb72ffc33e1ac1da9c661cb49251ac81}\label{class_chunk_builder_afb72ffc33e1ac1da9c661cb49251ac81} 
+\mbox{\hyperlink{class_chunk}{Chunk}} {\bfseries chunk}
+\begin{DoxyCompactList}\small\item\em Kordynaty uv tekstury z atlasu. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_builder_a654b4a21416a9a6895821ea86b29d869}\label{class_chunk_builder_a654b4a21416a9a6895821ea86b29d869} 
+\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*} {\bfseries forward}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_chunk}{Chunk} do zbudowania. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_builder_a0ff8e69d498d85c9d983fd579b08a729}\label{class_chunk_builder_a0ff8e69d498d85c9d983fd579b08a729} 
+\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*} {\bfseries back}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_chunk}{Chunk} z przodu. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_builder_a9d919701da667c86fe52432a590bbee3}\label{class_chunk_builder_a9d919701da667c86fe52432a590bbee3} 
+\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*} {\bfseries left}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_chunk}{Chunk} z tyłu. \end{DoxyCompactList}\item 
+\Hypertarget{class_chunk_builder_a7fa59e9f9a793f9625f151dfcc73378a}\label{class_chunk_builder_a7fa59e9f9a793f9625f151dfcc73378a} 
+\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*} {\bfseries right}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_chunk}{Chunk} z lewej. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Buduje meshe chunków. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_chunk_builder_ac385d73ba91d01896e066465a62b0e15}\index{ChunkBuilder@{ChunkBuilder}!ChunkBuilder@{ChunkBuilder}}
+\index{ChunkBuilder@{ChunkBuilder}!ChunkBuilder@{ChunkBuilder}}
+\doxysubsubsection{\texorpdfstring{ChunkBuilder()}{ChunkBuilder()}}
+{\footnotesize\ttfamily \label{class_chunk_builder_ac385d73ba91d01896e066465a62b0e15} 
+Chunk\+Builder\+::\+Chunk\+Builder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_chunk}{Chunk}} \&}]{chunk}{, }\item[{\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}}]{forward}{, }\item[{\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}}]{back}{, }\item[{\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}}]{left}{, }\item[{\mbox{\hyperlink{class_chunk}{Chunk}} \texorpdfstring{$\ast$}{*}}]{right}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxylink{class_chunk}{Chunk} z prawej. 
+
+Tworzy wektory i rozpoczyna aktualizacje chunka 
+\begin{DoxyParams}{Parameters}
+{\em chunk} & \doxylink{class_chunk}{Chunk} do zbudowania \\
+\hline
+{\em forward} & \doxylink{class_chunk}{Chunk} z przodu \\
+\hline
+{\em back} & \doxylink{class_chunk}{Chunk} z tyłu \\
+\hline
+{\em left} & \doxylink{class_chunk}{Chunk} z lewej \\
+\hline
+{\em right} & \doxylink{class_chunk}{Chunk} z prawej \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_chunk_builder_aef5a137881fa2fa3e7e93ce92be6543f}\index{ChunkBuilder@{ChunkBuilder}!addBackFace@{addBackFace}}
+\index{addBackFace@{addBackFace}!ChunkBuilder@{ChunkBuilder}}
+\doxysubsubsection{\texorpdfstring{addBackFace()}{addBackFace()}}
+{\footnotesize\ttfamily \label{class_chunk_builder_aef5a137881fa2fa3e7e93ce92be6543f} 
+void Chunk\+Builder\+::add\+Back\+Face (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_block}{Block}}}]{block}{, }\item[{bool}]{is\+Top\+Colliding}{}\end{DoxyParamCaption})}
+
+Dodaje tylnią ściane 
+\begin{DoxyParams}{Parameters}
+{\em block} & blok którego sciana ma być dodana \\
+\hline
+{\em is\+Top\+Colliding} & czy blok koliduje z blokiem na górze \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_chunk_builder_a5ed2fe63fa147c0055bdda573af3b84e}\index{ChunkBuilder@{ChunkBuilder}!addBottomFace@{addBottomFace}}
+\index{addBottomFace@{addBottomFace}!ChunkBuilder@{ChunkBuilder}}
+\doxysubsubsection{\texorpdfstring{addBottomFace()}{addBottomFace()}}
+{\footnotesize\ttfamily \label{class_chunk_builder_a5ed2fe63fa147c0055bdda573af3b84e} 
+void Chunk\+Builder\+::add\+Bottom\+Face (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_block}{Block}}}]{block}{}\end{DoxyParamCaption})}
+
+Dodaje dolną ściane 
+\begin{DoxyParams}{Parameters}
+{\em block} & blok którego sciana ma być dodana \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_chunk_builder_a578795a44ff4c27f309e19ebd0fe2b16}\index{ChunkBuilder@{ChunkBuilder}!addFrontFace@{addFrontFace}}
+\index{addFrontFace@{addFrontFace}!ChunkBuilder@{ChunkBuilder}}
+\doxysubsubsection{\texorpdfstring{addFrontFace()}{addFrontFace()}}
+{\footnotesize\ttfamily \label{class_chunk_builder_a578795a44ff4c27f309e19ebd0fe2b16} 
+void Chunk\+Builder\+::add\+Front\+Face (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_block}{Block}}}]{block}{, }\item[{bool}]{is\+Top\+Colliding}{}\end{DoxyParamCaption}) const}
+
+Dodaje przednią ściane 
+\begin{DoxyParams}{Parameters}
+{\em block} & blok którego sciana ma być dodana \\
+\hline
+{\em is\+Top\+Colliding} & czy blok koliduje z blokiem na górze \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_chunk_builder_ac73c2d503467809cbf6d6f0959e03476}\index{ChunkBuilder@{ChunkBuilder}!addLeftFace@{addLeftFace}}
+\index{addLeftFace@{addLeftFace}!ChunkBuilder@{ChunkBuilder}}
+\doxysubsubsection{\texorpdfstring{addLeftFace()}{addLeftFace()}}
+{\footnotesize\ttfamily \label{class_chunk_builder_ac73c2d503467809cbf6d6f0959e03476} 
+void Chunk\+Builder\+::add\+Left\+Face (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_block}{Block}}}]{block}{, }\item[{bool}]{is\+Top\+Colliding}{}\end{DoxyParamCaption}) const}
+
+Dodaje lewą ściane 
+\begin{DoxyParams}{Parameters}
+{\em block} & blok którego sciana ma być dodana \\
+\hline
+{\em is\+Top\+Colliding} & czy blok koliduje z blokiem na górze \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_chunk_builder_a2317729906976b32ffae8ca036503a9a}\index{ChunkBuilder@{ChunkBuilder}!addRightFace@{addRightFace}}
+\index{addRightFace@{addRightFace}!ChunkBuilder@{ChunkBuilder}}
+\doxysubsubsection{\texorpdfstring{addRightFace()}{addRightFace()}}
+{\footnotesize\ttfamily \label{class_chunk_builder_a2317729906976b32ffae8ca036503a9a} 
+void Chunk\+Builder\+::add\+Right\+Face (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_block}{Block}}}]{block}{, }\item[{bool}]{is\+Top\+Colliding}{}\end{DoxyParamCaption}) const}
+
+Dodaje prawą ściane 
+\begin{DoxyParams}{Parameters}
+{\em block} & blok którego sciana ma być dodana \\
+\hline
+{\em is\+Top\+Colliding} & czy blok koliduje z blokiem na górze \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_chunk_builder_a3cd1bb270adf7d46fec8a23eec1f86fb}\index{ChunkBuilder@{ChunkBuilder}!addTopFace@{addTopFace}}
+\index{addTopFace@{addTopFace}!ChunkBuilder@{ChunkBuilder}}
+\doxysubsubsection{\texorpdfstring{addTopFace()}{addTopFace()}}
+{\footnotesize\ttfamily \label{class_chunk_builder_a3cd1bb270adf7d46fec8a23eec1f86fb} 
+void Chunk\+Builder\+::add\+Top\+Face (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_block}{Block}}}]{block}{}\end{DoxyParamCaption})}
+
+Dodaje górną ściane 
+\begin{DoxyParams}{Parameters}
+{\em block} & blok którego sciana ma być dodana \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Meshes/Chunk\+Builder.\+h\item 
+src/lib/\+Meshes/Chunk\+Builder.\+cpp\end{DoxyCompactItemize}

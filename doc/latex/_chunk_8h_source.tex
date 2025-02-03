@@ -1,0 +1,35 @@
+\doxysection{Chunk.\+h}
+\hypertarget{_chunk_8h_source}{}\label{_chunk_8h_source}\index{src/lib/World/Chunk.h@{src/lib/World/Chunk.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CHUNK\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CHUNK\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../World/Block.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ CHUNK\_WIDTH\ =\ 16;}
+\DoxyCodeLine{00008\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ CHUNK\_HEIGHT\ =\ 128;}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_chunk_acc32e1562cad6664c98ee07edecdbdf9}{Chunk}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{float}\ z;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_block}{Block}}\ \mbox{\hyperlink{class_chunk_a6ad25021e97cfc95a4f691fd2b0faca1}{blocks}}[CHUNK\_WIDTH][CHUNK\_HEIGHT][CHUNK\_WIDTH];}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_chunk_acc32e1562cad6664c98ee07edecdbdf9}{Chunk}}()\ :\ \mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}}(0),\ z(0)\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_chunk_a96425e894d54461b1c21efebd3f1aac8}{Chunk}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}},\ \textcolor{keywordtype}{float}\ z)\ :\ \mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}}(\mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}}),\ z(z)\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_block}{Block}}\ \mbox{\hyperlink{class_chunk_a710cdf39d751fb31c692756247d79f56}{getBlock}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_chunk_a760694ecfd95cf7fcf0ea80f591b9cfd}{x}},\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ z)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_block}{Block}}\ \mbox{\hyperlink{class_chunk_a710cdf39d751fb31c692756247d79f56}{getBlock}}(glm::vec3\ pos)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

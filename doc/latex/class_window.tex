@@ -1,0 +1,71 @@
+\doxysection{Window Class Reference}
+\hypertarget{class_window}{}\label{class_window}\index{Window@{Window}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_window_a74e6087da23d3c24e9fac0245e5ec92c}{Window}} ()
+\begin{DoxyCompactList}\small\item\em Tworzy okno aplikacji. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_window_a1caaf150558c0c35a8811f19ccac817d}{should\+Close}} () const
+\begin{DoxyCompactList}\small\item\em Sprawdza, czy okno powinno zostać zamknięte. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_window_a925b068c21c0237b3cc72741cac1f9df}{toggle\+Fullscreen}} ()
+\begin{DoxyCompactList}\small\item\em Przełącza tryb pełnoekranowy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_a9e1161331a9cc22a88f510a4ff6fc961}\label{class_window_a9e1161331a9cc22a88f510a4ff6fc961} 
+GLFWwindow \texorpdfstring{$\ast$}{*} {\bfseries glfw\+Window}
+\begin{DoxyCompactList}\small\item\em Wskaźnik na okno GLFW. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a16e353cc77e1924dff79845f4740fd58}\label{class_window_a16e353cc77e1924dff79845f4740fd58} 
+GLFWmonitor \texorpdfstring{$\ast$}{*} {\bfseries glfw\+Monitor}
+\begin{DoxyCompactList}\small\item\em Wskaźnik na monitor GLFW (używany w trybie pełnoekranowym). \end{DoxyCompactList}\item 
+\Hypertarget{class_window_abf7404322084ca98f68d805479fff9de}\label{class_window_abf7404322084ca98f68d805479fff9de} 
+const GLFWvidmode \texorpdfstring{$\ast$}{*} {\bfseries glfw\+Video\+Mode}
+\begin{DoxyCompactList}\small\item\em Wskaźnik na strukturę przechowującą informacje o trybie wideo GLFW. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_ab06c78ac9e669b4d83bd3c4a18b7f36c}\label{class_window_ab06c78ac9e669b4d83bd3c4a18b7f36c} 
+bool {\bfseries is\+Fullscreen} = false
+\begin{DoxyCompactList}\small\item\em Flaga określająca, czy okno jest w trybie pełnoekranowym. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_window_a74e6087da23d3c24e9fac0245e5ec92c}\index{Window@{Window}!Window@{Window}}
+\index{Window@{Window}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{Window()}{Window()}}
+{\footnotesize\ttfamily \label{class_window_a74e6087da23d3c24e9fac0245e5ec92c} 
+Window\+::\+Window (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tworzy okno aplikacji. 
+
+Inicjalizuje okno GLFW oraz ustawia jego domyślne właściwości. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_window_a1caaf150558c0c35a8811f19ccac817d}\index{Window@{Window}!shouldClose@{shouldClose}}
+\index{shouldClose@{shouldClose}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{shouldClose()}{shouldClose()}}
+{\footnotesize\ttfamily \label{class_window_a1caaf150558c0c35a8811f19ccac817d} 
+bool Window\+::should\+Close (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Sprawdza, czy okno powinno zostać zamknięte. 
+
+\begin{DoxyReturn}{Returns}
+true jeśli okno powinno zostać zamknięte, false w przeciwnym razie. 
+\end{DoxyReturn}
+\Hypertarget{class_window_a925b068c21c0237b3cc72741cac1f9df}\index{Window@{Window}!toggleFullscreen@{toggleFullscreen}}
+\index{toggleFullscreen@{toggleFullscreen}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{toggleFullscreen()}{toggleFullscreen()}}
+{\footnotesize\ttfamily \label{class_window_a925b068c21c0237b3cc72741cac1f9df} 
+void Window\+::toggle\+Fullscreen (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Przełącza tryb pełnoekranowy. 
+
+Jeśli okno jest w trybie okienkowym, przełącza je na pełny ekran. Jeśli jest już w trybie pełnoekranowym, zmienia je na okienkowe. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Window/Window.\+h\item 
+src/lib/\+Window/Window.\+cpp\end{DoxyCompactItemize}

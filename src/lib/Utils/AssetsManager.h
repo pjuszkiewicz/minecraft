@@ -7,8 +7,10 @@
 
 #include <string>
 
+/// Zarządza miejsce przechowywania
 class AssetsManager {
 public:
+    /// Zwraca lokalizacje głownego katalogu z assetami
     static std::string GetAssetsPath();
 };
 

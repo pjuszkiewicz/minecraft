@@ -10,10 +10,12 @@
 class CrosshairMesh {
 
 public:
-    unsigned int VAO, VBO;
+    unsigned int VAO, VBO; /// Bufory
 
+    /// Generuje wierzchołki celownika i bufory
     CrosshairMesh();
 
+    /// Rysuje celownik
     void draw() const;
 };
 

@@ -1,0 +1,172 @@
+\doxysection{Player Class Reference}
+\hypertarget{class_player}{}\label{class_player}\index{Player@{Player}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_player_a67888039fa8bbf902aeca58ba0821078}{Player}} (glm\+::vec3 position=glm\+::vec3(0.\+0f, 128.\+0f, 0.\+0f))
+\begin{DoxyCompactList}\small\item\em Konstruktor gracza. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a654a3fb0129a5a2788f8d2512ec5ed99}{handle\+Mouse\+Callback}} (double x\+Pos\+In, double y\+Pos\+In)
+\begin{DoxyCompactList}\small\item\em Obsługuje zdarzenie ruchu myszy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a124bd4cd70419ee26323e08c17957f03}{Handle\+Mouse\+Move}} (float x\+Offset, float y\+Offset)
+\begin{DoxyCompactList}\small\item\em Obraca kamerę na podstawie przesunięcia myszy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a4514a85f15b09ba3e44166b8293817cc}{Handle\+Player\+Move}} (Player\+Movement direction, float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Porusza gracza. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_aea56ff813f806f055a9091d98aa2d030}{Update\+Vectors}} ()
+\begin{DoxyCompactList}\small\item\em Aktualizuje wektory pomocnicze kamery. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a584e779f6483c59a680766e3b11f060a}{update}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Synchronizuje pozycję kamery z pozycją gracza. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_aa724e4e040240a4cbfa2a3c3c7f29362}\label{class_player_aa724e4e040240a4cbfa2a3c3c7f29362} 
+glm\+::vec3 {\bfseries Position}
+\begin{DoxyCompactList}\small\item\em Pozycja gracza w przestrzeni świata. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_aae92164c458069408f85d7a26ba99302}\label{class_player_aae92164c458069408f85d7a26ba99302} 
+glm\+::vec3 {\bfseries Front}
+\begin{DoxyCompactList}\small\item\em Kierunek, w którym patrzy gracz (kamera). \end{DoxyCompactList}\item 
+\Hypertarget{class_player_adc9680e84031d6c0bab59c2c495ebe42}\label{class_player_adc9680e84031d6c0bab59c2c495ebe42} 
+glm\+::vec3 {\bfseries Right}
+\begin{DoxyCompactList}\small\item\em Wektor prostopadły do kierunku patrzenia, wskazujący prawo. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a1d1b54ed5254d8ca6d7f14ad239488bd}\label{class_player_a1d1b54ed5254d8ca6d7f14ad239488bd} 
+glm\+::vec3 {\bfseries Up}
+\begin{DoxyCompactList}\small\item\em Wektor określający górę (up) gracza. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a0aa2edb5bee0a7a894764f0ea74fe775}\label{class_player_a0aa2edb5bee0a7a894764f0ea74fe775} 
+float {\bfseries Yaw} = -\/90.\+0f
+\begin{DoxyCompactList}\small\item\em Kąt obrotu gracza w poziomie (yaw). Domyślnie -\/90.\+0f. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a4ad46f645aa6a62823c1bc2708b702bc}\label{class_player_a4ad46f645aa6a62823c1bc2708b702bc} 
+float {\bfseries Pitch} = -\/90.\+0f
+\begin{DoxyCompactList}\small\item\em Kąt obrotu gracza w pionie (pitch). Domyślnie -\/90.\+0f. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a04e2307b6f878df734a2c8c3f510087d}\label{class_player_a04e2307b6f878df734a2c8c3f510087d} 
+float {\bfseries VelocityY} = -\/0.\+1f
+\begin{DoxyCompactList}\small\item\em Prędkość pionowego ruchu gracza (np. wynikająca z grawitacji). \end{DoxyCompactList}\item 
+\Hypertarget{class_player_ae673797d673549d07c5e6bef4b6e6039}\label{class_player_ae673797d673549d07c5e6bef4b6e6039} 
+bool {\bfseries Is\+Grounded} = true
+\begin{DoxyCompactList}\small\item\em Flaga określająca, czy gracz znajduje się na ziemi. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a9d9db39d67254b6b4d3b8b057f5f9c41}\label{class_player_a9d9db39d67254b6b4d3b8b057f5f9c41} 
+bool {\bfseries Is\+Sprinting} = false
+\begin{DoxyCompactList}\small\item\em Flaga informująca, czy gracz sprintuje. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a199c0ef1389a964c378b2fcc4f1cd30f}\label{class_player_a199c0ef1389a964c378b2fcc4f1cd30f} 
+\mbox{\hyperlink{class_camera}{Camera}} {\bfseries camera}
+\begin{DoxyCompactList}\small\item\em Obiekt kamery gracza. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a8cc3340d039ee0e7884840f10a3b392b}\label{class_player_a8cc3340d039ee0e7884840f10a3b392b} 
+float {\bfseries lastX} = 1600 / 2.\+0f
+\begin{DoxyCompactList}\small\item\em Ostatnia znana pozycja kursora myszy w osi X. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a3fdadd5da8a2bf9654b2bf57029477c5}\label{class_player_a3fdadd5da8a2bf9654b2bf57029477c5} 
+float {\bfseries lastY} = 900 / 2.\+0f
+\begin{DoxyCompactList}\small\item\em Ostatnia znana pozycja kursora myszy w osi Y. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a77ab7e68219e8c52a7263bd691af017e}\label{class_player_a77ab7e68219e8c52a7263bd691af017e} 
+bool {\bfseries first\+Mouse} = true
+\begin{DoxyCompactList}\small\item\em Flaga informująca, czy ruch myszy został przetworzony po raz pierwszy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_player_a67888039fa8bbf902aeca58ba0821078}\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}}
+{\footnotesize\ttfamily \label{class_player_a67888039fa8bbf902aeca58ba0821078} 
+Player\+::\+Player (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{position}{ = {\ttfamily glm\+:\+:vec3(0.0f,~128.0f,~0.0f)}}\end{DoxyParamCaption})}
+
+
+
+Konstruktor gracza. 
+
+Inicjalizuje gracza na zadanej pozycji, ustawiając domyślne wartości dla kamery oraz parametrów ruchu.
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & Pozycja startowa gracza w przestrzeni świata. Domyślnie (0.\+0f, 128.\+0f, 0.\+0f). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_player_a654a3fb0129a5a2788f8d2512ec5ed99}\index{Player@{Player}!handleMouseCallback@{handleMouseCallback}}
+\index{handleMouseCallback@{handleMouseCallback}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{handleMouseCallback()}{handleMouseCallback()}}
+{\footnotesize\ttfamily \label{class_player_a654a3fb0129a5a2788f8d2512ec5ed99} 
+void Player\+::handle\+Mouse\+Callback (\begin{DoxyParamCaption}\item[{double}]{x\+Pos\+In}{, }\item[{double}]{y\+Pos\+In}{}\end{DoxyParamCaption})}
+
+
+
+Obsługuje zdarzenie ruchu myszy. 
+
+Funkcja przetwarza nowe pozycje kursora myszy i aktualizuje widok kamery.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Pos\+In} & Aktualna pozycja kursora w osi X. \\
+\hline
+{\em y\+Pos\+In} & Aktualna pozycja kursora w osi Y. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a124bd4cd70419ee26323e08c17957f03}\index{Player@{Player}!HandleMouseMove@{HandleMouseMove}}
+\index{HandleMouseMove@{HandleMouseMove}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{HandleMouseMove()}{HandleMouseMove()}}
+{\footnotesize\ttfamily \label{class_player_a124bd4cd70419ee26323e08c17957f03} 
+void Player\+::\+Handle\+Mouse\+Move (\begin{DoxyParamCaption}\item[{float}]{x\+Offset}{, }\item[{float}]{y\+Offset}{}\end{DoxyParamCaption})}
+
+
+
+Obraca kamerę na podstawie przesunięcia myszy. 
+
+Aktualizuje orientację kamery, wykorzystując przesunięcia kursora w obu osiach.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Offset} & Przesunięcie kursora myszy w osi X. \\
+\hline
+{\em y\+Offset} & Przesunięcie kursora myszy w osi Y. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a4514a85f15b09ba3e44166b8293817cc}\index{Player@{Player}!HandlePlayerMove@{HandlePlayerMove}}
+\index{HandlePlayerMove@{HandlePlayerMove}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{HandlePlayerMove()}{HandlePlayerMove()}}
+{\footnotesize\ttfamily \label{class_player_a4514a85f15b09ba3e44166b8293817cc} 
+void Player\+::\+Handle\+Player\+Move (\begin{DoxyParamCaption}\item[{Player\+Movement}]{direction}{, }\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Porusza gracza. 
+
+Przetwarza ruch gracza w określonym kierunku, uwzględniając czas delta\+Time.
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & Kierunek ruchu gracza. \\
+\hline
+{\em delta\+Time} & Czas, jaki upłynął od ostatniej aktualizacji (w sekundach). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a584e779f6483c59a680766e3b11f060a}\index{Player@{Player}!update@{update}}
+\index{update@{update}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_player_a584e779f6483c59a680766e3b11f060a} 
+void Player\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Synchronizuje pozycję kamery z pozycją gracza. 
+
+Aktualizuje położenie kamery, aby podążała za graczem, przy uwzględnieniu czasu delta\+Time.
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & Czas, jaki upłynął od ostatniej aktualizacji (w sekundach). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_aea56ff813f806f055a9091d98aa2d030}\index{Player@{Player}!UpdateVectors@{UpdateVectors}}
+\index{UpdateVectors@{UpdateVectors}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{UpdateVectors()}{UpdateVectors()}}
+{\footnotesize\ttfamily \label{class_player_aea56ff813f806f055a9091d98aa2d030} 
+void Player\+::\+Update\+Vectors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Aktualizuje wektory pomocnicze kamery. 
+
+Funkcja oblicza nowe wartości wektorów Front, Right i Up na podstawie bieżących kątów yaw i pitch. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\+Player/Player.\+h\item 
+src/lib/\+Player/Player.\+cpp\end{DoxyCompactItemize}

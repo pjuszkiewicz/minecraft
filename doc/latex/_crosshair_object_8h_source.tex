@@ -1,0 +1,34 @@
+\doxysection{Crosshair\+Object.\+h}
+\hypertarget{_crosshair_object_8h_source}{}\label{_crosshair_object_8h_source}\index{src/lib/GameObjects/CrosshairObject.h@{src/lib/GameObjects/CrosshairObject.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Piotr\ Juszkiewicz\ on\ 28/01/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ CROSSHAIROBJECT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ CROSSHAIROBJECT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Game/GameObject.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Meshes/CrosshairMesh.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_crosshair_object_a3b32679558d0ad2ac013e7bf9ed92fa3}{CrosshairObject}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_game_object}{GameObject}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_crosshair_mesh}{CrosshairMesh}}\ *crosshair;\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_crosshair_object_a3b32679558d0ad2ac013e7bf9ed92fa3}{CrosshairObject}}();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_crosshair_object_a3b32679558d0ad2ac013e7bf9ed92fa3}{\string~CrosshairObject}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ crosshair;}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_crosshair_object_ae02281fc8d946f93512a09b97f1f4320}{Draw}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_crosshair_object_a97845f8a1f29fda30b6b76fe231e44b0}{Update}}()\textcolor{keyword}{\ override\ }\{\};}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CROSSHAIROBJECT\_H}}
+
+\end{DoxyCode}
