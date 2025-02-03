@@ -41,7 +41,7 @@ void World::removeBlockAt(glm::vec3 pos) {
 
 
 void World::placeBlockAt(glm::vec3 pos) {
-    placeBlockAt(STONE, pos);
+    placeBlockAt(currentBlock, pos);
 }
 
 void World::placeBlockAt(BlockType type, glm::vec3 pos) {

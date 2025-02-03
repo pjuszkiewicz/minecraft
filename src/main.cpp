@@ -17,8 +17,12 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
 }
 
 int main() {
-    glfwSetInputMode(game.window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(game.window.glfwWindow, mouse_callback);
-    game.loop();
+    try {
+        glfwSetInputMode(game.window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetCursorPosCallback(game.window.glfwWindow, mouse_callback);
+        game.loop();
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
     return 0;
 }

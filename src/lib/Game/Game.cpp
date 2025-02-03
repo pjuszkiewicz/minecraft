@@ -270,6 +270,15 @@ void Game::processInput() {
         glfwSetInputMode(window.glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
 
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_1) == GLFW_PRESS) world.currentBlock = STONE;
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_2) == GLFW_PRESS) world.currentBlock = ACACIA_PLANKS;
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_3) == GLFW_PRESS) world.currentBlock = ACACIA_WOOD;
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_4) == GLFW_PRESS) world.currentBlock = BRICKS;
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_5) == GLFW_PRESS) world.currentBlock = AZALEA_LEAVES;
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_6) == GLFW_PRESS) world.currentBlock = AZALEA_LEAVES;
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_7) == GLFW_PRESS) world.currentBlock = DIAMOND;
+    if (glfwGetKey(window.glfwWindow, GLFW_KEY_8) == GLFW_PRESS) world.currentBlock = DIRT;
+
     // Mysz
     if (glfwGetMouseButton(window.glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
         if (!isLeftMousePressed) {

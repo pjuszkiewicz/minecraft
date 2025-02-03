@@ -12,6 +12,8 @@ public:
     /// @brief Mapa przechowująca chunki w świecie, indeksowana parą współrzędnych (X, Z).
     std::unordered_map<std::pair<int, int>, Chunk, PairHash> chunks;
 
+    BlockType currentBlock = STONE;
+
     /**
      * @brief Sprawdza, czy na podanej pozycji znajduje się blok.
      *
