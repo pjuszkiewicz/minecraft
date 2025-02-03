@@ -26,7 +26,9 @@
 #include "../Materials/SunAndMoonMaterial.h"
 
 #include "ShadowMap.h"
+#include "../GameObjects/CrosshairObject.h"
 #include "../GameObjects/SunAndMoon.h"
+#include "../GameObjects/WorldObject.h"
 #include "../Materials/CrosshairMaterial.h"
 #include "../Materials/ShadowMappingMaterial.h"
 #include "../Materials/WorldMaterial.h"
@@ -34,35 +36,15 @@
 
 class Renderer {
 public:
-    SunAndMoonMaterial sunAndMoonMaterial;
-    WorldMaterial worldMaterial;
-    CrosshairMaterial crosshairMaterial;
-    ShadowMappingMaterial shadowMappingMaterial;
-    DepthTestMaterial depthTestMaterial;
-
-    Mesh moon;
-
-    CrosshairMesh *crosshair;
-
-    std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes;
-
-    bool isReadyToAdd = false;
-    std::vector<ChunkBuilder> chunksToAdd;
-    std::vector<std::pair<int, int> > chunksToRemove;
-
     SunAndMoon sunAndMoon;
+    WorldObject worldObject;
+    CrosshairObject crosshairObject;
 
     Renderer();
 
     void Clear();
 
-    void AddChunk();
-
-    void RemoveChunks();
-
     void Draw(const Player &player);
-
-    void DrawChunks();
 
     void UpdateProjection(const Player &player) const;
 };

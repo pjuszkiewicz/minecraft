@@ -11,6 +11,7 @@
 
 Game game;
 
+/// Obsługa ruchu myszy
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
     game.player.handleMouseCallback(xposIn, yposIn);
 }

@@ -13,10 +13,9 @@
 
 class ChunkMesh {
 public:
-    unsigned int vbo, instanceVBO, textureVBO, ambientOcclusionVBO, normalVBO;
+    unsigned int vbo, instanceVBO, textureVBO, ambientOcclusionVBO;
     std::vector<glm::mat4> *positions;
     std::vector<glm::vec2> *textures;
-    std::vector<glm::vec3> *normals;
     std::vector<float> *ambientOcclusions;
 
     unsigned int VAO;

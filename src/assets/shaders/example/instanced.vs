@@ -26,11 +26,8 @@ void main()
     vec4 model = aOffset * vec4(aPos, 1.0);
 
     FragPos = vec3(model);
-    //Normal = mat3(transpose(inverse(mat3(aOffset)))) * aNormal;
-    Normal = aNormal;
+    Normal = normalize(vec3(aOffset * vec4(0.0f, 0.0f, 1.0f, 0.0f)));
     FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
-
     TexCoord = uvOffset + aTexCoord * uvScale;
-
     gl_Position = projection * view * model;
 }

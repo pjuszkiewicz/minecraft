@@ -94,9 +94,8 @@ void World::generateChunks() {
 
             bool hasTree = false;
 
-            // do zmiany 1 na chunk width
-            for (int bx = 0; bx < 1; bx++) {
-                for (int bz = 0; bz < 1; bz++) {
+            for (int bx = 0; bx < CHUNK_WIDTH; bx++) {
+                for (int bz = 0; bz < CHUNK_WIDTH; bz++) {
                     // łaka szum1=0.009 szum2=0.001
                     float scale = 0.009;
 
@@ -109,7 +108,6 @@ void World::generateChunks() {
                     // if (noise1 < 0.0f) noise1 = 0.0;
 
                     int height = (int) (noise * 64);
-                    height = 0; //TODO
 
                     int xOffset = x * CHUNK_WIDTH;
                     int zOffset = z * CHUNK_WIDTH;

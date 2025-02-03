@@ -43,6 +43,10 @@ add_executable(
         src/lib/Game/GameObject.h
         src/lib/GameObjects/SunAndMoon.cpp
         src/lib/GameObjects/SunAndMoon.h
+        src/lib/GameObjects/WorldObject.cpp
+        src/lib/GameObjects/WorldObject.h
+        src/lib/GameObjects/CrosshairObject.cpp
+        src/lib/GameObjects/CrosshairObject.h
 )
 
 target_link_libraries(minecraft glfw)

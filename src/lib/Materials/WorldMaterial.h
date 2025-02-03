@@ -6,6 +6,7 @@
 #define WORLDMATERIAL_H
 #include "../Renderer/Material.h"
 #include "../Utils/AssetsManager.h"
+#include "../Game/DateTime.h"
 
 class WorldMaterial : public Material {
 public:
@@ -18,6 +19,19 @@ public:
         std::string texturePath = AssetsManager::GetAssetsPath() + "/textures/texturepack.png";
         texture = new Texture(texturePath.c_str(), GL_RGBA);
     }
+
+    void UpdateProjection(glm::mat4 &projection, glm::mat4 &view, const glm::vec3 &pos) override {
+        shader->use();
+        shader->setMat4("projection", projection);
+        shader->setMat4("view", view);
+        shader->setVec3("viewPos", pos);
+        glm::vec2 uvScale(1.0f / 8, 1.0f / 8);
+        shader->setVec2("uvScale", uvScale);
+
+
+        const glm::vec3 lightPos = DateTime::getSunPos();
+        shader->setVec3("lightPos", lightPos);
+    };
 };
 
 #endif //WORLDMATERIAL_H

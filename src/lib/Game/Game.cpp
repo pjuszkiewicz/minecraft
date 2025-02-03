@@ -24,8 +24,8 @@ void Game::prepareChunksLoop() {
             chunkZ = newChunkZ;
         }
 
-        if (renderer.chunksToAdd.size() == 0) {
-            renderer.isReadyToAdd = false;
+        if (renderer.worldObject.chunksToAdd.size() == 0) {
+            renderer.worldObject.isReadyToAdd = false;
             for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
                 for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
                     int x = chunkX + i;
@@ -33,8 +33,8 @@ void Game::prepareChunksLoop() {
 
                     auto key = std::make_pair(x, z);
 
-                    auto foundChunkMesh = renderer.chunkMeshes.find(key);
-                    if (foundChunkMesh != renderer.chunkMeshes.end()) {
+                    auto foundChunkMesh = renderer.worldObject.chunkMeshes.find(key);
+                    if (foundChunkMesh != renderer.worldObject.chunkMeshes.end()) {
                         continue;
                     }
 
@@ -64,20 +64,20 @@ void Game::prepareChunksLoop() {
                             rightChunk
                         );
 
-                        renderer.chunksToAdd.push_back(builder);
+                        renderer.worldObject.chunksToAdd.push_back(builder);
                     }
                 }
             }
-            renderer.isReadyToAdd = true;
+            renderer.worldObject.isReadyToAdd = true;
         }
 
 
-        for (auto chunkMeshPair: renderer.chunkMeshes) {
+        for (auto chunkMeshPair: renderer.worldObject.chunkMeshes) {
             ChunkMesh chunkMesh = chunkMeshPair.second;
 
             if (abs(chunkMesh.chunkX - chunkX) > RENDER_DISTANCE || abs(chunkMesh.chunkZ - chunkZ) > RENDER_DISTANCE) {
                 auto pair = std::make_pair(chunkMesh.chunkX, chunkMesh.chunkZ);
-                renderer.chunksToRemove.push_back(pair);
+                renderer.worldObject.chunksToRemove.push_back(pair);
             }
         }
 
@@ -208,8 +208,8 @@ void Game::rerenderChunks(int chunkX, int chunkZ) {
                     rightChunk
                 );
 
-                auto found = renderer.chunkMeshes.find(key);
-                if (found != renderer.chunkMeshes.end()) {
+                auto found = renderer.worldObject.chunkMeshes.find(key);
+                if (found != renderer.worldObject.chunkMeshes.end()) {
                     auto &mesh = found->second;
                     mesh.positions = builder.positions;
                     mesh.textures = builder.textures;

@@ -18,6 +18,8 @@ public:
     Material(Shader *shader, Texture *texture);
 
     void Use(int textureUnit);
+
+    virtual void UpdateProjection(glm::mat4 &projection, glm::mat4 &view, const glm::vec3 &pos) = 0;
 };
 
 

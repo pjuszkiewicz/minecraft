@@ -16,7 +16,6 @@ class ChunkBuilder {
 public:
     std::vector<glm::mat4> *positions;
     std::vector<glm::vec2> *textures;
-    std::vector<glm::vec3> *normals;
     std::vector<float> *ambientOcclusions;
 
     Chunk chunk;
@@ -32,6 +31,10 @@ public:
         Chunk *left,
         Chunk *right
     ) : chunk(chunk), forward(forward), back(back), left(left), right(right) {
+
+        this->positions = new std::vector<glm::mat4>();
+        this->textures = new std::vector<glm::vec2>();
+        this->ambientOcclusions = new std::vector<float>();
         updateChunk();
     };
 
@@ -45,11 +48,11 @@ public:
 
     void addBottomFace(Block block);
 
-    void addLeftFace(Block block, bool isTopColliding);
+    void addLeftFace(Block block, bool isTopColliding) const;
 
-    void addRightFace(Block block, bool isTopColliding);
+    void addRightFace(Block block, bool isTopColliding) const;
 
-    void addFrontFace(Block block, bool isTopColliding);
+    void addFrontFace(Block block, bool isTopColliding) const;
 
     void addBackFace(Block block, bool isTopColliding);
 };
