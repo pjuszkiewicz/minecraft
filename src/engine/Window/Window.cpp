@@ -2,7 +2,7 @@
 // Created by piotr on 07.01.25.
 //
 
-#include "../../lib/Window/Window.h"
+#include "../../engine/Window/Window.h"
 
 /// Wczytuje funkcje OpenGL używając GLAD
 int loadGlad() {

@@ -4,8 +4,8 @@
 
 #ifndef CROSSHAIRMATERIAL_H
 #define CROSSHAIRMATERIAL_H
-#include "../Renderer/Material.h"
-#include "../Utils/AssetsManager.h"
+#include "../../engine/Renderer/Material.h"
+#include "../../engine/Utils/AssetsManager.h"
 
 
 /// Materiał celownika

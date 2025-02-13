@@ -52,7 +52,7 @@ std::string AssetsManager::GetAssetsPath() {
     // std::filesystem::path path = std::filesystem::current_path();
     // std::cout << path << std::endl;
     // std::filesystem::path path = get_executable_path();
-    std::string path = "/Users/piotr/Development/C++/minecraft/src/assets";
-    // std::string path = "/home/piotr/Development/C++/minecraft/src/assets";
+    // std::string path = "/Users/piotr/Development/C++/minecraft/src/assets";
+    std::string path = "/home/piotr/Development/C++/minecraft/src/assets";
     return path;
 }

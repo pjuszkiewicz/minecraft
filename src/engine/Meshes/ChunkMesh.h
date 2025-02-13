@@ -9,7 +9,7 @@
 #include "../Renderer/Texture.h"
 #include <GLFW/glfw3.h>
 
-#include "../../lib/World/Chunk.h"
+#include "../../engine/World/Chunk.h"
 
 class ChunkMesh {
 public:

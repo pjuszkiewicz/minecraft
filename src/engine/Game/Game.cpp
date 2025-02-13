@@ -1,8 +1,14 @@
-#include "../../lib/Game/Game.h"
+#include "../../engine/Game/Game.h"
 #include <future>
 #include <functional>
 
 #include "../Meshes/ChunkBuilder.h"
+
+Game::Game() {
+    world.generateChunks();
+    std::thread t(&Game::prepareChunksLoop, this);
+    t.detach();
+}
 
 void Game::prepareChunksLoop() {
     int chunkX = 0;
@@ -71,7 +77,6 @@ void Game::prepareChunksLoop() {
             renderer.worldObject.isReadyToAdd = true;
         }
 
-
         for (auto chunkMeshPair: renderer.worldObject.chunkMeshes) {
             ChunkMesh chunkMesh = chunkMeshPair.second;
 
@@ -84,12 +89,6 @@ void Game::prepareChunksLoop() {
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
-}
-
-Game::Game() {
-    world.generateChunks();
-    std::thread t(&Game::prepareChunksLoop, this);
-    t.detach();
 }
 
 

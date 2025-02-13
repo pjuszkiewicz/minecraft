@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "lib/Window/Window.h"
-#include "lib/Game/Game.h"
+#include "engine/Window/Window.h"
+#include "engine/Game/Game.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../vendor/stb_image.h"

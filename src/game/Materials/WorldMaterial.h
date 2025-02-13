@@ -4,9 +4,9 @@
 
 #ifndef WORLDMATERIAL_H
 #define WORLDMATERIAL_H
-#include "../Renderer/Material.h"
-#include "../Utils/AssetsManager.h"
-#include "../Game/DateTime.h"
+#include "../../engine/Renderer/Material.h"
+#include "../../engine/Utils/AssetsManager.h"
+#include "../../engine/Game/DateTime.h"
 
 /// Materiał świata
 class WorldMaterial : public Material {

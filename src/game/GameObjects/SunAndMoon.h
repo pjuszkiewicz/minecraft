@@ -4,12 +4,12 @@
 
 #ifndef SUNANDMOON_H
 #define SUNANDMOON_H
-#include "../Game/GameObject.h"
+#include "../../engine/Game/IGameObject.h"
 #include "../Materials/SunAndMoonMaterial.h"
 
 
 /// GameObject słońca i księżyca
-class SunAndMoon : public GameObject {
+class SunAndMoon : public IGameObject {
 public:
     /// Initializuje pozycje mesh i materiał
     SunAndMoon();

@@ -4,9 +4,9 @@
 
 #ifndef SUNANDMOONMATERIAL_H
 #define SUNANDMOONMATERIAL_H
-#include "../Renderer/Material.h"
-#include "../Constants.h"
-#include "../Utils/AssetsManager.h"
+#include "../../engine/Renderer/Material.h"
+#include "../../engine/Constants.h"
+#include "../../engine/Utils/AssetsManager.h"
 
 
 /// Materiał słońca i księżyca

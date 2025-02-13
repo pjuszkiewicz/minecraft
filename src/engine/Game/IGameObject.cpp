@@ -2,4 +2,4 @@
 // Created by Piotr Juszkiewicz on 17/01/2025.
 //
 
-#include "GameObject.h"
+#include "IGameObject.h"

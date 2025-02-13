@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../../lib/Renderer/Renderer.h"
+#include "../../engine/Renderer/Renderer.h"
 
 #include "../World/World.h"
-#include "../../lib/Window/Window.h"
+#include "../../engine/Window/Window.h"
 
 /// Główna klasa gry
 class Game {

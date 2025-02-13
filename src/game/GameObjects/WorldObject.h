@@ -6,16 +6,16 @@
 #define WORLDOBJECT_H
 
 #include <unordered_map>
-#include "../Game/GameObject.h"
-#include "../../lib/Map/PairHash.h"
-#include "../Meshes/ChunkMesh.h"
-#include "../Meshes/ChunkBuilder.h"
+#include "../../engine/Game/IGameObject.h"
+#include "../../engine/Map/PairHash.h"
+#include "../../engine/Meshes/ChunkMesh.h"
+#include "../../engine/Meshes/ChunkBuilder.h"
 
 class ChunkBuilder;
 class ChunkMesh;
 
 /// GameObject świata gry
-class WorldObject : public GameObject {
+class WorldObject : public IGameObject {
 public:
     std::unordered_map<std::pair<int, int>, ChunkMesh, PairHash> chunkMeshes; /// Mapa aktualnie renderowanych meshy
     bool isReadyToAdd = false; /// Czy można aktualnie dodać mesha do renderu

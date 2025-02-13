@@ -125,34 +125,6 @@ void World::generateChunks() {
 
                         chunk.blocks[bx][by][bz] = block;
                     }
-
-
-                    // drzwa
-                    // bool addTree = rand() > 0.9;
-                    // if (addTree && !hasTree) {
-                    //     hasTree = true;
-                    //     if (abs(lastTreeX - x) > 5 && abs(lastTreeZ - z) > 5) {
-                    //         for (int i = 0; i < 5; i++) {
-                    //             glm::vec3 pos(bx + xOffset, height + i, bz + zOffset);
-                    //             Block block(ACACIA_WOOD, pos);
-                    //             chunk.blocks[bx][height + i][bz] = block;
-                    //         }
-                    //
-                    //         for (int leafX = bx; leafX <= bx + 4; leafX++) {
-                    //             for (int leafZ = bz; leafZ <= bz + 2; leafZ++) {
-                    //                 for (int leafY = height + 3; leafY <= height + 6; leafY++) {
-                    //                     xOffset = x * CHUNK_WIDTH;
-                    //                     zOffset = z * CHUNK_WIDTH;
-                    //                     glm::vec3 pos(leafX + xOffset, leafY, leafZ + zOffset);
-                    //                     placeBlockAt(AZALEA_LEAVES, pos);
-                    //                 }
-                    //             }
-                    //         }
-                    //
-                    //         lastTreeX = bx + xOffset;
-                    //         lastTreeZ = bz + zOffset;
-                    //     }
-                    // }
                 }
             }
 

@@ -1,11 +1,11 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "../../lib/Renderer/Texture.h"
-#include "../../lib/Map/PairHash.h"
-#include "../../lib/Renderer/Shader.h"
-#include "../../lib/Player/Player.h"
-#include "../../lib/World/Chunk.h"
+#include "../../engine/Renderer/Texture.h"
+#include "../../engine/Map/PairHash.h"
+#include "../../engine/Renderer/Shader.h"
+#include "../../engine/Player/Player.h"
+#include "../../engine/World/Chunk.h"
 #include <unordered_map>
 
 #include <vector>
@@ -23,13 +23,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "../Materials/SunAndMoonMaterial.h"
+#include "../../game/Materials/SunAndMoonMaterial.h"
 
-#include "../GameObjects/CrosshairObject.h"
-#include "../GameObjects/SunAndMoon.h"
-#include "../GameObjects/WorldObject.h"
-#include "../Materials/CrosshairMaterial.h"
-#include "../Materials/WorldMaterial.h"
+#include "../../game/GameObjects/CrosshairObject.h"
+#include "../../game/GameObjects/SunAndMoon.h"
+#include "../../game/GameObjects/WorldObject.h"
+#include "../../game/Materials/CrosshairMaterial.h"
+#include "../../game/Materials/WorldMaterial.h"
 
 class Renderer {
 public:

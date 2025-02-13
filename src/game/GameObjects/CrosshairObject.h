@@ -5,11 +5,11 @@
 #ifndef CROSSHAIROBJECT_H
 #define CROSSHAIROBJECT_H
 
-#include "../Game/GameObject.h"
-#include "../Meshes/CrosshairMesh.h"
+#include "../../engine/Game/IGameObject.h"
+#include "../../engine/Meshes/CrosshairMesh.h"
 
 /// GameObject celownika
-class CrosshairObject : public GameObject {
+class CrosshairObject : public IGameObject {
 public:
     CrosshairMesh *crosshair; /// Mesh celownika
 

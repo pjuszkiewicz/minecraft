@@ -10,7 +10,7 @@
 #include "../Meshes/Mesh.h"
 
 /// Objekt gry który ma swój mesh oraz material, można go narysować.
-class GameObject {
+class IGameObject {
 public:
     glm::vec3 Position;
     glm::vec3 Rotation;
@@ -19,7 +19,7 @@ public:
     Material *material;
     Mesh mesh;
 
-    virtual ~GameObject() {};
+    virtual ~IGameObject() {};
 
     /// Rysuje objekt
     virtual void Draw() = 0;
