@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "engine/Window/Window.h"
-#include "engine/Game/Game.h"
+#include "engine/window/window.h"
+#include "engine/game/game.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../vendor/stb_image.h"
@@ -13,7 +13,7 @@ Game game;
 
 /// Obsługa ruchu myszy
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
-    game.player.handleMouseCallback(xposIn, yposIn);
+    game.player.camera.handleMouseCallback(xposIn, yposIn);
 }
 
 int main() {
