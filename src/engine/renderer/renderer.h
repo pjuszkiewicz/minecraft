@@ -23,13 +23,16 @@
 #include "geometry/plane_geometry.h"
 #include "../utils/assets_manager.h"
 #include "materials/basic_material.h"
+#include "../game/game_objects/cube_object.h"
+#include <memory>
 
 class Renderer {
-public:
-    Renderer();
+    std::vector<std::unique_ptr<IGameObject>> *_gameObjects;
 
-    Mesh *mesh;
-    BasicMaterial *material;
+public:
+    Renderer(std::vector<std::unique_ptr<IGameObject>> &gameObjects);
+
+    CubeObject cube;
 
     void clear();
 

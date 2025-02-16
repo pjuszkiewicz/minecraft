@@ -25,7 +25,6 @@ glm::mat4 Camera::getViewMatrix() const {
 }
 
 void Camera::handleMouseCallback(double xPosIn, double yPosIn) {
-    std::cout << position->x << " " << position->y << " " << position->z << std::endl;
     float xpos = static_cast<float>(xPosIn);
     float ypos = static_cast<float>(yPosIn);
 

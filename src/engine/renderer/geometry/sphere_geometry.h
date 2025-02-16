@@ -56,7 +56,7 @@ inline std::vector<float> generateSphere(float radius, int sectorCount, int stac
 }
 
 
-inline std::vector<float> SPHERE_GEOMETRY = generateSphere(1.0f, 36, 18);
+inline std::vector<float> SPHERE_GEOMETRY = generateSphere(0.5f, 36, 18);
 
 
 #endif //SPHERE_GEOMETRY_H

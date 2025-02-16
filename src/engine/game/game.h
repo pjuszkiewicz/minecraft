@@ -3,12 +3,16 @@
 
 #include "../../engine/renderer/renderer.h"
 #include "../../engine/window/window.h"
+#include "./game_objects/sphere_object.h"
+#include <memory>
 
 class Game {
 public:
     Window window;
-    Renderer renderer;
     Player player;
+
+    std::vector<std::unique_ptr<IGameObject>> gameObjects;
+    Renderer renderer = Renderer(gameObjects);
 
     int fps = 0;
     float deltaTime = 0.0f;

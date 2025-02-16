@@ -9,15 +9,15 @@ add_executable(
         minecraft
         vendor/glad/glad.c
         src/main.cpp
-        src/engine/window/Window.cpp
-        src/engine/renderer/Texture.cpp
-        src/engine/renderer/Shader.cpp
-        src/engine/renderer/Renderer.cpp
+        src/engine/window/window.cpp
+        src/engine/renderer/texture.cpp
+        src/engine/renderer/shader.cpp
+        src/engine/renderer/renderer.cpp
         src/engine/player/player.cpp
         src/engine/renderer/mesh.cpp
-        src/engine/game/Game.cpp
-        src/engine/player/Camera.cpp
-        src/engine/Constants.h
+        src/engine/game/game.cpp
+        src/engine/player/camera.cpp
+        src/engine/constants.h
         src/engine/renderer/geometry/cube_geometry.h
         src/engine/utils/assets_manager.cpp
         src/engine/utils/assets_manager.h

@@ -2,6 +2,21 @@
 #include <future>
 
 Game::Game() {
+    for (int x = 0; x < 10; x++) {
+        for (int z = 0; z < 10; z++) {
+            auto object = std::make_unique<SphereObject>();
+            object->position = glm::vec3(x * 1.1f, 0, z * 1.1f);
+            gameObjects.push_back(std::move(object));
+        }
+    }
+
+    for (int x = 0; x < 10; x++) {
+        for (int z = 0; z < 10; z++) {
+            auto object = std::make_unique<CubeObject>();
+            object->position = glm::vec3(x * 1.1f, 5, z * 1.1f);
+            gameObjects.push_back(std::move(object));
+        }
+    }
 }
 
 void Game::loop() {
