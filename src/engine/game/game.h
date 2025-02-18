@@ -10,9 +10,9 @@ class Game {
 public:
     Window window;
     Player player;
+    Renderer renderer = Renderer(gameObjects);
 
     std::vector<std::unique_ptr<IGameObject>> gameObjects;
-    Renderer renderer = Renderer(gameObjects);
 
     int fps = 0;
     float deltaTime = 0.0f;

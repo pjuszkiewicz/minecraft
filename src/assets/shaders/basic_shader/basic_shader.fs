@@ -20,6 +20,12 @@ uniform Material material;
 
 void main()
 {
+//     Flat shading
+//     vec3 edge1 = dFdx(fragPos);
+//     vec3 edge2 = dFdy(fragPos);
+//     vec3 norm = normalize(cross(edge1, edge2));
+//     vec3 normal = mat3(transpose(inverse(model))) * norm;
+
     vec3 lightAmbient = vec3(0.4, 0.4, 0.4);
     vec3 lightPosition = vec3(5.0, 5.0, 5.0);
     vec3 lightDiffuse = vec3(1.0, 1.0, 1.0);
@@ -38,11 +44,7 @@ void main()
 
     FragColor = vec4(ambient + diffuse + specular, 1.0);
 
-    // Flat shading
-    //     vec3 edge1 = dFdx(fragPos);
-    //     vec3 edge2 = dFdy(fragPos);
-    //     vec3 norm = normalize(cross(edge1, edge2));
-    //     norm = mat3(transpose(inverse(model))) * norm;
+
 
     // Test normalnych
     //     vec3 color = normalize(normal) * 0.5 + 0.5;

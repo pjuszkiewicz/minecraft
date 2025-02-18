@@ -61,26 +61,26 @@ build CMakeFiles/minecraft.dir/src/main.cpp.o: CXX_COMPILER__minecraft_unscanned
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src
 
-build CMakeFiles/minecraft.dir/src/engine/window/Window.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/window/Window.cpp || cmake_object_order_depends_target_minecraft
-  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/window/Window.cpp.o.d
+build CMakeFiles/minecraft.dir/src/engine/window/window.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/window/window.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/window/window.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/window
 
-build CMakeFiles/minecraft.dir/src/engine/renderer/Texture.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/renderer/Texture.cpp || cmake_object_order_depends_target_minecraft
-  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/renderer/Texture.cpp.o.d
+build CMakeFiles/minecraft.dir/src/engine/renderer/texture.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/renderer/texture.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/renderer/texture.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/renderer
 
-build CMakeFiles/minecraft.dir/src/engine/renderer/Shader.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/renderer/Shader.cpp || cmake_object_order_depends_target_minecraft
-  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/renderer/Shader.cpp.o.d
+build CMakeFiles/minecraft.dir/src/engine/renderer/shader.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/renderer/shader.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/renderer/shader.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/renderer
 
-build CMakeFiles/minecraft.dir/src/engine/renderer/Renderer.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/renderer/Renderer.cpp || cmake_object_order_depends_target_minecraft
-  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/renderer/Renderer.cpp.o.d
+build CMakeFiles/minecraft.dir/src/engine/renderer/renderer.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/renderer/renderer.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/renderer/renderer.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/renderer
@@ -97,14 +97,14 @@ build CMakeFiles/minecraft.dir/src/engine/renderer/mesh.cpp.o: CXX_COMPILER__min
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/renderer
 
-build CMakeFiles/minecraft.dir/src/engine/game/Game.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/game/Game.cpp || cmake_object_order_depends_target_minecraft
-  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/game/Game.cpp.o.d
+build CMakeFiles/minecraft.dir/src/engine/game/game.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/game/game.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/game/game.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/game
 
-build CMakeFiles/minecraft.dir/src/engine/player/Camera.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/player/Camera.cpp || cmake_object_order_depends_target_minecraft
-  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/player/Camera.cpp.o.d
+build CMakeFiles/minecraft.dir/src/engine/player/camera.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/player/camera.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/player/camera.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/player
@@ -121,6 +121,12 @@ build CMakeFiles/minecraft.dir/src/engine/renderer/materials/basic_material.cpp.
   OBJECT_DIR = CMakeFiles/minecraft.dir
   OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/renderer/materials
 
+build CMakeFiles/minecraft.dir/src/engine/game/game_objects/plane_object.cpp.o: CXX_COMPILER__minecraft_unscanned_Release /Users/piotr/Development/C++/minecraft/src/engine/game/game_objects/plane_object.cpp || cmake_object_order_depends_target_minecraft
+  DEP_FILE = CMakeFiles/minecraft.dir/src/engine/game/game_objects/plane_object.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/minecraft.dir
+  OBJECT_FILE_DIR = CMakeFiles/minecraft.dir/src/engine/game/game_objects
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target minecraft
@@ -129,7 +135,7 @@ build CMakeFiles/minecraft.dir/src/engine/renderer/materials/basic_material.cpp.
 #############################################
 # Link the executable minecraft
 
-build minecraft: CXX_EXECUTABLE_LINKER__minecraft_Release CMakeFiles/minecraft.dir/vendor/glad/glad.c.o CMakeFiles/minecraft.dir/src/main.cpp.o CMakeFiles/minecraft.dir/src/engine/window/Window.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/Texture.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/Shader.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/Renderer.cpp.o CMakeFiles/minecraft.dir/src/engine/player/player.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/mesh.cpp.o CMakeFiles/minecraft.dir/src/engine/game/Game.cpp.o CMakeFiles/minecraft.dir/src/engine/player/Camera.cpp.o CMakeFiles/minecraft.dir/src/engine/utils/assets_manager.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/materials/basic_material.cpp.o
+build minecraft: CXX_EXECUTABLE_LINKER__minecraft_Release CMakeFiles/minecraft.dir/vendor/glad/glad.c.o CMakeFiles/minecraft.dir/src/main.cpp.o CMakeFiles/minecraft.dir/src/engine/window/window.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/texture.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/shader.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/renderer.cpp.o CMakeFiles/minecraft.dir/src/engine/player/player.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/mesh.cpp.o CMakeFiles/minecraft.dir/src/engine/game/game.cpp.o CMakeFiles/minecraft.dir/src/engine/player/camera.cpp.o CMakeFiles/minecraft.dir/src/engine/utils/assets_manager.cpp.o CMakeFiles/minecraft.dir/src/engine/renderer/materials/basic_material.cpp.o CMakeFiles/minecraft.dir/src/engine/game/game_objects/plane_object.cpp.o
   FLAGS = -O3 -DNDEBUG -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   LINK_LIBRARIES = -lglfw
   OBJECT_DIR = CMakeFiles/minecraft.dir

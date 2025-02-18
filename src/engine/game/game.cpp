@@ -1,19 +1,13 @@
 #include "../../engine/game/game.h"
 #include <future>
 
-Game::Game() {
-    for (int x = 0; x < 10; x++) {
-        for (int z = 0; z < 10; z++) {
-            auto object = std::make_unique<SphereObject>();
-            object->position = glm::vec3(x * 1.1f, 0, z * 1.1f);
-            gameObjects.push_back(std::move(object));
-        }
-    }
+#include "game_objects/plane_object.h"
 
-    for (int x = 0; x < 10; x++) {
-        for (int z = 0; z < 10; z++) {
-            auto object = std::make_unique<CubeObject>();
-            object->position = glm::vec3(x * 1.1f, 5, z * 1.1f);
+Game::Game() {
+    for (int x = 0; x < 1; x++) {
+        for (int z = 0; z < 1; z++) {
+            auto object = std::make_unique<SphereObject>();
+            object->position = glm::vec3(x * 1.0f, 0, z * 1.0f);
             gameObjects.push_back(std::move(object));
         }
     }

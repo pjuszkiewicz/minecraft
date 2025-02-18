@@ -23,8 +23,9 @@ add_executable(
         src/engine/utils/assets_manager.h
         src/engine/renderer/geometry/sphere_geometry.h
         src/engine/renderer/geometry/pyramid_geometry.h
-        src/engine/renderer/materials/basic_material.cpp
         src/engine/renderer/materials/basic_material.h
+        src/engine/game/game_objects/plane_object.cpp
+        src/engine/game/game_objects/plane_object.h
 )
 
 target_link_libraries(minecraft glfw)
